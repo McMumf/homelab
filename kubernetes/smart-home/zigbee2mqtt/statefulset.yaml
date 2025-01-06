@@ -19,7 +19,7 @@ spec:
       automountServiceAccountToken: false
       containers:
         - name: zigbee2mqtt
-          image: koenkk/zigbee2mqtt:2.0.0
+          image: koenkk/zigbee2mqtt:1.42.0
           imagePullPolicy: IfNotPresent
           securityContext:
             privileged: true
@@ -44,9 +44,9 @@ spec:
           volumeMounts:
             - name: zigbee2mqtt-data
               mountPath: /app/data
-            #- name: zigbee2mqtt-config
-            #  mountPath: /app/data/configuration.yaml
-            #  subPath: configuration.yaml
+            - name: zigbee2mqtt-config
+              mountPath: /app/data/configuration.yaml
+              subPath: configuration.yaml
             - name: z2m-cert
               mountPath: /app/certs
               readOnly: true
