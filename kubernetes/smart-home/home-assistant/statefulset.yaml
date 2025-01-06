@@ -22,7 +22,7 @@ spec:
         fsGroup: 1000
       containers:
         - name: hassio
-          image: "ghcr.io/home-assistant/home-assistant:2024.12.5"
+          image: "ghcr.io/home-assistant/home-assistant:2025.1.0"
           imagePullPolicy: IfNotPresent
           securityContext:
             runAsUser: 1000
