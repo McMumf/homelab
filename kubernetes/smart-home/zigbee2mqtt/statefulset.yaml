@@ -17,6 +17,10 @@ spec:
         app: zigbee2mqtt
     spec:
       automountServiceAccountToken: false
+      lifecycle:
+        preStop:
+          exec:
+            command: [ "/bin/bash", "-c", "sleep 60" ]
       containers:
         - name: zigbee2mqtt
           image: koenkk/zigbee2mqtt:1.42.0
