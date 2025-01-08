@@ -44,9 +44,9 @@ spec:
           volumeMounts:
             - name: zigbee2mqtt-data
               mountPath: /app/data
-            - name: zigbee2mqtt-config
-              mountPath: /app/data/configuration.yaml
-              subPath: configuration.yaml
+            #- name: zigbee2mqtt-config
+              #  mountPath: /app/data/configuration.yaml
+              #  subPath: configuration.yaml
             - name: z2m-cert
               mountPath: /app/certs
               readOnly: true
