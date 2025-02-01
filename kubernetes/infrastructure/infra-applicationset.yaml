@@ -21,6 +21,8 @@ spec:
             namespace: inteldeviceplugins-system
           # - appName: node-feature-discovery
           #   namespace: node-feature-discovery
+          - appName: mysql-operator
+            namespace: mysql-operator
           - appName: prometheus-stack
             namespace: monitoring
   template:

@@ -13,8 +13,8 @@ spec:
             namespace: apps
           # - appName: fasten
           #   namespace: apps
-          # - appName: ghost
-          #   namespace: apps
+          - appName: ghost
+            namespace: apps
           - appName: homer
             namespace: apps
           # - appName: immich
