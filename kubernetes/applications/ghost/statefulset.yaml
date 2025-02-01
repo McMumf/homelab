@@ -38,16 +38,16 @@ spec:
               value: "development"
             - name: url
               value: "https://blog.mcmumf.dev"
-            # - name: database__client
-            #   value: ""
-            # - name: database__connection__host
-            #   value: ""
-            # - name: database__connection__user
-            #   value: ""
-            # - name: database__connection__password
-            #   value: ""
-            # - name: database__connection__database
-            #   value: ""
+            - name: database__client
+              value: "mysql"
+            - name: database__connection__host
+              value: "ghost-innodb"
+            - name: database__connection__user
+              value: "rootUser"
+            - name: database__connection__password
+              value: "rootPassword"
+            - name: database__connection__database
+              value: "ghost"
             # - name: mail__from
             #   value: "'McMumf's Blog' <blog@mcmumf.dev>"
             # - name: mail__transport

@@ -1,0 +1,12 @@
+credentials:
+  root:
+    user: rootUser
+    password: rootPassword
+    host: "%"
+
+tls:
+  useSelfSigned: true
+
+serverInstances: 3
+routerInstances: 1 # or use router.instances
+baseServerId: 1000
