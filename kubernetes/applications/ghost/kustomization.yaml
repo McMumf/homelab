@@ -13,5 +13,5 @@ helmCharts:
     repo: https://mysql.github.io/mysql-operator/
     releaseName: ghost-innodb
     namespace: apps
-    version: 2.2.2
+    version: 2.2.3
     valuesFile: ghost-innodb-values.yaml

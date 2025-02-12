@@ -7,6 +7,6 @@ helmCharts:
     repo: https://mysql.github.io/mysql-operator/
     releaseName: mysql-operator
     namespace: mysql-operator
-    version: 2.2.2
+    version: 2.2.3
     includeCRDs: true
     valuesFile: values.yaml
