@@ -3,16 +3,22 @@ kind: Ingress
 metadata:
   name: scanservjs-ingress
   namespace: apps
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-production
 spec:
-  ingressClassName: internal-nginx
+  ingressClassName: nginx
+  tls:
+    - hosts:
+        - &host scanner.mcmumf.dev
+      secretName: scanservjs-cert
   rules:
-  - host: scanner.mcmumf.dev
-    http:
-      paths:
-      - path: /
-        pathType: Prefix
-        backend:
-          service:
-            name: scanservjs
-            port:
-              number: 8080
+    - host: *host
+      http:
+        paths:
+        - path: /
+          pathType: Prefix
+          backend:
+            service:
+              name: scanservjs
+              port:
+                number: 8080
