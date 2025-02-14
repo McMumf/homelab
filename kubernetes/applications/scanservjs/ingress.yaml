@@ -1,0 +1,18 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: scanservjs-ingress
+  namespace: apps
+spec:
+  ingressClassName: internal-nginx
+  rules:
+  - host: scanner.mcmumf.dev
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: scanservjs
+            port:
+              number: 8080

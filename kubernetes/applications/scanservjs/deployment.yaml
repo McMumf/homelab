@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: scanservjs
+  namespace: apps
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: scanservjs
+  template:
+    metadata:
+      labels:
+        app: scanservjs
+    spec:
+      containers:
+        - name: scanservjs
+          image: sbs20/scanservjs:v3.0.3
+          securityContext:
+            privileged: true
+          resources:
+            requests:
+              cpu: 250m
+              ephemeral-storage: 1Gi
+              memory: 256Mi
+            limits:
+              cpu: 500m
+              ephemeral-storage: 2Gi
+              memory: 1Gi
+          env:
+            - name: SANED_NET_HOSTS
+              value: "192.168.1.242"
+            - name: PIXMA_HOSTS
+              value: "192.168.1.242"
+          ports:
+            - containerPort: 8080
+          volumeMounts:
+            - name: dbus-socket
+              mountPath: /var/run/dbus/system_bus_socket
+              readOnly: true
+      volumes:
+        - name: dbus-socket
+          hostPath:
+            path: /var/run/dbus/system_bus_socket
+            type: Socket

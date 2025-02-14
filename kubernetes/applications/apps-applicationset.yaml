@@ -25,6 +25,8 @@ spec:
             namespace: apps
           - appName: paperless
             namespace: apps
+          - appName: scanservjs
+            namespace: apps
   template:
     metadata:
       name: "{{appName}}"
