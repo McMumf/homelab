@@ -19,6 +19,7 @@ controller:
     forwarded-for-header: "X-Forwarded-For"
     ssl-protocols: "TLSv1.3 TLSv1.2"
     proxy-add-original-uri-header: "true"
+    annotations-risk-level: Critical
   addHeaders:
     # https://cheatsheetseries.owasp.org/cheatsheets/HTTP_Headers_Cheat_Sheet.html
     # https://www.invicti.com/blog/web-security/http-security-headers/
@@ -35,7 +36,7 @@ controller:
     Cross-Origin-Embedder-Policy: "require-corp"
   service:
     externalTrafficPolicy: Local
-    loadBalancerIP: 192.168.69.4
+    loadBalancerIP: 192.168.69.6
   tolerations:
     - key: "node-role.kubernetes.io/control-plane"
       operator: "Exists"
