@@ -14,7 +14,7 @@
 
 1. Ensure ansible scripts are ran
 2. Get the join token from the master: `kubeadm token create --print-join-command`
-3. Run the following: `kubeadm join 192.168.1.90:6443 --token some.token1234 --discovery-token-ca-cert-hash sha256:somelonghash --cri-socket unix:///var/run/crio/crio.sock`
+3. Run the following: `kubeadm join 192.168.69.100:6443 --token some.token1234 --discovery-token-ca-cert-hash sha256:somelonghash --cri-socket unix:///var/run/crio/crio.sock`
    1. If it fails with an error, run the following
 
         ```sh

@@ -20,3 +20,9 @@
     ```shell
     ssh-copy-id -i ~/.ssh/id_ed25519.pub ansible-user@host
     ```
+
+4. Run
+
+    ```shell
+    ansible-playbook -i inventory.yaml site.yaml
+    ```
