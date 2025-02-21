@@ -1,3 +1,4 @@
 **/*.tgz
 kubernetes/infrastructure/cloudflare-tunnel/helmfile.yaml
 charts/
+.DS_Store
