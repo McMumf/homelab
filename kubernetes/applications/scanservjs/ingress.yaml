@@ -5,12 +5,6 @@ metadata:
   namespace: apps
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt-production
-    nginx.ingress.kubernetes.io/proxy-body-size: "10g"
-    nginx.org/client-max-body-size: "10g"
-    nginx.ingress.kubernetes.io/server-snippet: |
-      proxy_http_version 1.1;
-      proxy_set_header Upgrade "websocket";
-      proxy_set_header Connection "Upgrade";
 spec:
   ingressClassName: nginx
   tls:

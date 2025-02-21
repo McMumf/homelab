@@ -17,8 +17,8 @@ spec:
   ingressClassName: nginx
   tls:
     - hosts:
-        - &hostName z2m.mcmumf.dev
-      secretName: z2m-cert
+        - &hostName zigbee2mqtt.mcmumf.dev
+      secretName: zigbee2mqtt-cert
   rules:
     - host: *hostName
       http:
