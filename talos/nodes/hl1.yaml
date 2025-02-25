@@ -1,0 +1,6 @@
+machine:
+  network:
+    hostname: hl1
+  install:
+    disk: /dev
+    image: factory.talos.dev
