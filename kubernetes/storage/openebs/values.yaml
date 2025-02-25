@@ -1,0 +1,15 @@
+engines:
+  local:
+    lvm:
+      enabled: false
+    zfs:
+      enabled: false
+
+mayastor:
+  io_engine:
+    envcontext: "iova-mode=pa"
+  csi:
+    node:
+      initContainers:
+        # disable the init container that checks for the nvme_tcp module, since Talos has that module built-in.
+        enabled: false
