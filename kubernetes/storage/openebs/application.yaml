@@ -1,0 +1,32 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: openebs
+  namespace: argocd
+spec:
+  project: default
+  sources:
+    # Helm Chart
+    - repoURL: 'https://openebs.github.io/openebs'
+      targetRevision: '4.1.1'
+      chart: openebs
+      helm:
+        valueFiles:
+          - $values/kubernetes/storage/openebs/values.yaml
+    # Helm Values
+    - repoURL: 'https://github.com/clbx/JuiceCloud'
+      targetRevision: '3.0'
+      ref: values
+    # Kustomization
+    - repoURL: 'https://github.com/clbx/JuiceCloud'
+      targetRevision: '3.0'
+      path: kubernetes/storage/openebs
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: openebs
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+     - CreateNamespace=true
