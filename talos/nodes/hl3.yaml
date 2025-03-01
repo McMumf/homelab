@@ -2,5 +2,5 @@ machine:
   network:
     hostname: hl3
   install:
-    disk: /dev
-    image: factory.talos.dev
+    disk: /dev/nvme0n1
+    image: factory.talos.dev/installer/1ebd35242dcf45bc9eeddccf6f06a4d4187a824719bb84443092d59fe34cb3d0:v1.9.4
