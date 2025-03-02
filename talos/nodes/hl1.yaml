@@ -2,5 +2,5 @@ machine:
   network:
     hostname: hl1
   install:
-    disk: /dev
-    image: factory.talos.dev
+    disk: /dev/sda
+    image: factory.talos.dev/installer-secureboot/4fa1e2bb9d7fa57fe0ad9513a765322ea3064e9bfede11c3c9a18777f847bffd:v1.9.4
