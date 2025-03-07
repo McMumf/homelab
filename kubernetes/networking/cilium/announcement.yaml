@@ -1,0 +1,13 @@
+apiVersion: "cilium.io/v2alpha1"
+kind: CiliumL2AnnouncementPolicy
+metadata:
+  name: cilium-lb-all-services
+  namespace: kube-system
+spec:
+  nodeSelector:
+    matchLabels:
+      homelab/role: worker
+  serviceSelector:
+    matchLabels:
+      homelab/public-service: "true"
+  loadBalancerIPs: true
