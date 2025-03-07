@@ -1,6 +1,6 @@
 machine:
   network:
-    hostname: hl3
+    hostname: w2
   install:
     disk: /dev/nvme0n1
     image: factory.talos.dev/installer-secureboot/4fa1e2bb9d7fa57fe0ad9513a765322ea3064e9bfede11c3c9a18777f847bffd:v1.9.4

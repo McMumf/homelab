@@ -1,0 +1,8 @@
+apiVersion: v1alpha1
+kind: ExtensionServiceConfig
+name: nut-client
+configFiles:
+  - content: |-
+        MONITOR ${upsmonHost} 1 ${upsmonUser} ${upsmonPass} slave
+        SHUTDOWNCMD "/sbin/poweroff"
+    mountPath: /usr/local/etc/nut/upsmon.conf
