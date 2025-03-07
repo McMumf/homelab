@@ -1,10 +1,15 @@
-kubeProxyReplacement: false
+kubeProxyReplacement: strict
+
+ipam:
+  mode: kubernetes
+  operator:
+    lusterPoolIPv4PodCIDR: 10.42.0.0/16
 
 l2announcements:
   enabled: true
 
-ipam:
-  mode: kubernetes
+loadBalancer:
+  mode: dsr
 
 securityContext:
   capabilities:
