@@ -2,6 +2,24 @@
 
 ## Overview
 
+### Nodes
+
+#### Control Planes
+
+_Based on NASA's Manned Missions._
+
+- Apollo
+- Artemis
+- Skylab
+
+#### Workers
+
+_Based on NASA's shuttles._
+
+- Colombus
+- Atlantis
+- Challenger
+
 ### Setup
 
 1. Generate configs: `build-configs.sh`

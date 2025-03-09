@@ -1,3 +1,4 @@
+# control-plane 3
 machine:
   network:
     hostname: skylab

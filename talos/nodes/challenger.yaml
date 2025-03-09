@@ -1,3 +1,4 @@
+# worker 3
 machine:
   network:
     hostname: challenger

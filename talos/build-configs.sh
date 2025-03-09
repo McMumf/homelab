@@ -5,41 +5,41 @@ talosctl gen config --force \
     mcmumf https://192.168.5.100:6443 \
     --output-dir _out
 
-# cp1 (control-plane)
+# apollo (control-plane)
 talosctl machineconfig patch controlplane.yaml \
     --patch @patches/common.yaml \
-    --patch @nodes/cp1.yaml \
-    --output _out/cp1.yaml
+    --patch @nodes/apollo.yaml \
+    --output _out/apollo.yaml
 
-# cp2 (control-plane)
+# artemis (control-plane)
 talosctl machineconfig patch controlplane.yaml \
     --patch @patches/common.yaml \
-    --patch @nodes/cp2.yaml \
-    --output _out/cp2.yaml
+    --patch @nodes/artemis.yaml \
+    --output _out/artemis.yaml
 
-# cp3 (control-plane)
+# skylab (control-plane)
 talosctl machineconfig patch controlplane.yaml \
     --patch @patches/common.yaml \
-    --patch @nodes/cp3.yaml \
-    --output _out/cp3.yaml
+    --patch @nodes/skylab.yaml \
+    --output _out/skylab.yaml
 
-# w1 (worker and storage)
+# columbia (worker and storage)
 talosctl machineconfig patch worker.yaml \
     --patch @patches/common.yaml \
     --patch @patches/mayastor-patch.yaml \
-    --patch @nodes/w1.yaml \
-    --output _out/w1.yaml
+    --patch @nodes/columbia.yaml \
+    --output _out/columbia.yaml
 
-# w2 (worker and storage)
+# atlantis (worker and storage)
 talosctl machineconfig patch worker.yaml \
     --patch @patches/common.yaml \
     --patch @patches/mayastor-patch.yaml \
-    --patch @nodes/w2.yaml \
-    --output _out/w2.yaml
+    --patch @nodes/atlantis.yaml \
+    --output _out/atlantis.yaml
 
-# w3 (worker and storage)
+# challenger (worker and storage)
 talosctl machineconfig patch worker.yaml \
     --patch @patches/common.yaml \
     --patch @patches/mayastor-patch.yaml \
-    --patch @nodes/w3.yaml \
-    --output _out/w4.yaml
+    --patch @nodes/challenger.yaml \
+    --output _out/challenger.yaml
