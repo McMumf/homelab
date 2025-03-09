@@ -22,16 +22,18 @@
 
 ### Schematic
 
-ID: `4fa1e2bb9d7fa57fe0ad9513a765322ea3064e9bfede11c3c9a18777f847bffd`
+ID: `4a6d075edb1b336415b3d809208217dfbd390359d21787afc2f832c41ec56007`
 
 ```yaml
 customization:
-  systemExtensions:
-    officialExtensions:
-      - siderolabs/cloudflared
-      - siderolabs/glibc
-      - siderolabs/i915
-      - siderolabs/iscsi-tools
-      - siderolabs/nut-client
-      - siderolabs/realtek-firmware
+    systemExtensions:
+        officialExtensions:
+            - siderolabs/cloudflared
+            - siderolabs/glibc
+            - siderolabs/i915
+            - siderolabs/intel-ucode
+            - siderolabs/iscsi-tools
+            - siderolabs/nut-client
+            - siderolabs/realtek-firmware
+            - siderolabs/util-linux-tools
 ```

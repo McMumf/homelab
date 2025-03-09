@@ -2,7 +2,7 @@
 talosctl gen config --force \
     --talos-version 1.9.4 \
     --kubernetes-version 1.32.0 \
-    mcmumf https://192.168.69.100:6443 \
+    mcmumf https://192.168.5.100:6443 \
     --output-dir _out
 
 # cp1 (control-plane)
