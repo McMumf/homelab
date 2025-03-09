@@ -1,3 +1,0 @@
----
-dependencies:
-  - { role: common/prereqs, pkgs: ["gpg", "curl"] }

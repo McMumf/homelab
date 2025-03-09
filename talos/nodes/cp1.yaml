@@ -3,4 +3,4 @@ machine:
     hostname: cp1
   install:
     disk: /dev/sda
-    image: factory.talos.dev/installer/4a6d075edb1b336415b3d809208217dfbd390359d21787afc2f832c41ec56007:v1.9.4
+    image: factory.talos.dev/installer-secureboot/4a6d075edb1b336415b3d809208217dfbd390359d21787afc2f832c41ec56007:v1.9.4 
