@@ -3,5 +3,5 @@ machine:
   network:
     hostname: skylab
   install:
-    disk: /dev/sda
+    disk: /dev/sdb
     image: factory.talos.dev/installer-secureboot/4a6d075edb1b336415b3d809208217dfbd390359d21787afc2f832c41ec56007:v1.9.4 
