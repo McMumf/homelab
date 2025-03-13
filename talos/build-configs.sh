@@ -1,16 +1,16 @@
 #!/bin/bash
 talosctl gen config --force \
-    --talos-version 1.9.4 \
+    --talos-version 1.9.5 \
     --kubernetes-version 1.32.0 \
-    mcmumf https://192.168.5.100:6443 \
+    homelab https://192.168.5.100:6443 \
     --config-patch @patches/cni.yaml \
-    --config-patch @patches/extensions/cloudflared.yaml \
-    --config-patch @patches/extensions/nut.yaml \
     --output-dir _out
 
 # apollo (control-plane)
 talosctl machineconfig patch _out/controlplane.yaml \
     --patch @patches/common.yaml \
+    --patch @patches/extensions/cloudflared.yaml \
+    --patch @patches/extensions/nut.yaml \
     --patch @nodes/apollo.yaml \
     --output _out/apollo.yaml
 
@@ -22,6 +22,8 @@ talosctl machineconfig patch _out/controlplane.yaml \
 # Temporary worker?
 talosctl machineconfig patch _out/worker.yaml \
     --patch @patches/common.yaml \
+    --patch @patches/extensions/cloudflared.yaml \
+    --patch @patches/extensions/nut.yaml \
     --patch @nodes/artemis.yaml \
     --output _out/artemis.yaml
 
@@ -33,6 +35,8 @@ talosctl machineconfig patch _out/worker.yaml \
 # Temporary worker?
 talosctl machineconfig patch _out/worker.yaml \
     --patch @patches/common.yaml \
+    --patch @patches/extensions/cloudflared.yaml \
+    --patch @patches/extensions/nut.yaml \
     --patch @nodes/skylab.yaml \
     --output _out/skylab.yaml
 
@@ -40,6 +44,8 @@ talosctl machineconfig patch _out/worker.yaml \
 talosctl machineconfig patch _out/worker.yaml \
     --patch @patches/common.yaml \
     --patch @patches/mayastor-patch.yaml \
+    --patch @patches/extensions/cloudflared.yaml \
+    --patch @patches/extensions/nut.yaml \
     --patch @nodes/columbia.yaml \
     --output _out/columbia.yaml
 
@@ -47,6 +53,8 @@ talosctl machineconfig patch _out/worker.yaml \
 talosctl machineconfig patch _out/worker.yaml \
     --patch @patches/common.yaml \
     --patch @patches/mayastor-patch.yaml \
+    --patch @patches/extensions/cloudflared.yaml \
+    --patch @patches/extensions/nut.yaml \
     --patch @nodes/atlantis.yaml \
     --output _out/atlantis.yaml
 
@@ -54,5 +62,7 @@ talosctl machineconfig patch _out/worker.yaml \
 talosctl machineconfig patch _out/worker.yaml \
     --patch @patches/common.yaml \
     --patch @patches/mayastor-patch.yaml \
+    --patch @patches/extensions/cloudflared.yaml \
+    --patch @patches/extensions/nut.yaml \
     --patch @nodes/challenger.yaml \
     --output _out/challenger.yaml

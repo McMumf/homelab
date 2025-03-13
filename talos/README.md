@@ -25,18 +25,21 @@ _Based on NASA's shuttles._
 _Note: you may need to edit your cloudflared extension patch directly_
 
 1. Generate configs: `build-configs.sh`
-2. Apply configs: `apply-configs.sh`
-3. Setup control-plane conversations:
+2. Update cloudflared extension in each node's machine config
+   1. Replace `${cloudflared_tunnel_token}` with the actual token
+   2. So far, I haven't been able to figure out how to get it to populate from env
+3. Apply configs: `apply-configs.sh`
+4. Setup control-plane conversations:
     ```sh
     export TALOSCONFIG="_out/talosconfig"
     talosctl config endpoint $CONTROL_PLANE_IP
     talosctl config node $CONTROL_PLANE_IP
     ```
-4. Bootstrap:
+5. Bootstrap:
     ```sh
     talosctl bootstrap
     ```
-5. Retrieve kubeconfig: `talosctl --talosconfig $TALOSCONFIG kubeconfig _out/kubeconfig`
+6. Retrieve kubeconfig: `talosctl --talosconfig $TALOSCONFIG kubeconfig _out/kubeconfig`
 
 
 ### Schematic
