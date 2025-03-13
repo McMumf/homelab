@@ -22,6 +22,8 @@ _Based on NASA's shuttles._
 
 ### Setup
 
+_Note: you may need to edit your cloudflared extension patch directly_
+
 1. Generate configs: `build-configs.sh`
 2. Apply configs: `apply-configs.sh`
 3. Setup control-plane conversations:
@@ -35,12 +37,7 @@ _Based on NASA's shuttles._
     talosctl bootstrap
     ```
 5. Retrieve kubeconfig: `talosctl --talosconfig $TALOSCONFIG kubeconfig _out/kubeconfig`
-6. Patch extensions
-    ```sh
-    talosctl patch mc -p @extensions/nut.yaml
-    talosctl patch mc -p @extensions/cloudflared.yaml
-    ```
-    _note: you may need to edit your cloudflared patch directly_
+
 
 ### Schematic
 

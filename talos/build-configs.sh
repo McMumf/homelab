@@ -3,6 +3,9 @@ talosctl gen config --force \
     --talos-version 1.9.4 \
     --kubernetes-version 1.32.0 \
     mcmumf https://192.168.5.100:6443 \
+    --config-patch @patches/cni.yaml \
+    --config-patch @patches/extensions/cloudflared.yaml \
+    --config-patch @patches/extensions/nut.yaml \
     --output-dir _out
 
 # apollo (control-plane)
