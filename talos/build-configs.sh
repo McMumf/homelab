@@ -12,13 +12,23 @@ talosctl machineconfig patch _out/controlplane.yaml \
     --output _out/apollo.yaml
 
 # artemis (control-plane)
-talosctl machineconfig patch _out/controlplane.yaml \
+# talosctl machineconfig patch _out/controlplane.yaml \
+#     --patch @patches/common.yaml \
+#     --patch @nodes/artemis.yaml \
+#     --output _out/artemis.yaml
+# Temporary worker?
+talosctl machineconfig patch _out/worker.yaml \
     --patch @patches/common.yaml \
     --patch @nodes/artemis.yaml \
     --output _out/artemis.yaml
 
 # skylab (control-plane)
-talosctl machineconfig patch _out/controlplane.yaml \
+# talosctl machineconfig patch _out/controlplane.yaml \
+#     --patch @patches/common.yaml \
+#     --patch @nodes/skylab.yaml \
+#     --output _out/skylab.yaml
+# Temporary worker?
+talosctl machineconfig patch _out/worker.yaml \
     --patch @patches/common.yaml \
     --patch @nodes/skylab.yaml \
     --output _out/skylab.yaml

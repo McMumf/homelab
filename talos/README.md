@@ -32,11 +32,15 @@ _Based on NASA's shuttles._
     ```
 4. Bootstrap:
     ```sh
-    talosctl --talosconfig $TALOSCONFIG config endpoint <control plane 1 IP>
-    talosctl --talosconfig $TALOSCONFIG config node <control plane 1 IP>
-    talosctl --talosconfig $TALOSCONFIG bootstrap
+    talosctl bootstrap
     ```
-5. Retrieve kubeconfig: `talosctl --talosconfig $TALOSCONFIG kubeconfig .`
+5. Retrieve kubeconfig: `talosctl --talosconfig $TALOSCONFIG kubeconfig _out/kubeconfig`
+6. Patch extensions
+    ```sh
+    talosctl patch mc -p @extensions/nut.yaml
+    talosctl patch mc -p @extensions/cloudflared.yaml
+    ```
+    _note: you may need to edit your cloudflared patch directly_
 
 ### Schematic
 

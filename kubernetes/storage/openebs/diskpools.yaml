@@ -1,0 +1,26 @@
+apiVersion: "openebs.io/v1beta2"
+kind: DiskPool
+metadata:
+  name: columbia
+  namespace: openebs
+spec:
+  node: columbia
+  disks: [ "uring:///dev/disk/by-id/" ]
+---
+apiVersion: "openebs.io/v1beta2"
+kind: DiskPool
+metadata:
+  name: atlantis
+  namespace: openebs
+spec:
+  node: atlantis
+  disks: [ "uring:///dev/disk/by-id/" ]
+---
+apiVersion: "openebs.io/v1beta2"
+kind: DiskPool
+metadata:
+  name: challenger
+  namespace: openebs
+spec:
+  node: challenger
+  disks: [ "uring:///dev/disk/by-id/ ]
