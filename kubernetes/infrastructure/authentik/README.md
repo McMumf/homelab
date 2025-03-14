@@ -146,6 +146,14 @@ When updating to a new version, we need to make sure to pass in the postgres aut
     - Type: `LDAP`
     - Add LDAP Application to "Selected Application"
     - Under "Advanced Settings", set `kubernetes_service_type` to `LoadBalancer`
+    - Replace `kubernetes_json_patches: null` with the following
+        ```yaml
+        kubernetes_json_patches:
+          service:
+            - op: add
+            path: /spec/loadBalancerIP
+            value: 192.168.69.10
+        ```
 11. **Assign the Search Permissions**
 12. **Test LDAP**
 
