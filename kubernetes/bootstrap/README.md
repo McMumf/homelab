@@ -14,12 +14,9 @@ ArgoCD is needed to deploy the application sets.
 
 1. Instasll cilium
     ```sh
-    helm install cilium cilium/cilium --version 1.17.1 \
+    helm install cilium cilium/cilium --version 1.17.2 \
         --namespace kube-system \
         --set=ipam.mode=kubernetes \
-        --set l2announcements.enabled=true \
-        --set k8sClientRateLimit.qps=32 \
-        --set k8sClientRateLimit.burst=64 \
         --set=kubeProxyReplacement=true \
         --set=securityContext.capabilities.ciliumAgent="{CHOWN,KILL,NET_ADMIN,NET_RAW,IPC_LOCK,SYS_ADMIN,SYS_RESOURCE,DAC_OVERRIDE,FOWNER,SETGID,SETUID}" \
         --set=securityContext.capabilities.cleanCiliumState="{NET_ADMIN,SYS_ADMIN,SYS_RESOURCE}" \

@@ -1,26 +1,31 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: ingress-nginx
+  name: metallb
   namespace: argocd
 spec:
   project: default
   sources:
-    # Ingress
-    - repoURL: 'https://kubernetes.github.io/ingress-nginx'
-      targetRevision: '4.11.3'
-      chart: ingress-nginx
+    - repoURL: 'https://metallb.github.io/metallb'
+      targetRevision: '0.14.9'
+      chart: metallb
       helm:
-        releaseName: ingress-nginx
         valueFiles:
-        - $values/kubernetes/networking/ingress-nginx/values.yaml
-    # Values Ref
+          - $values/kubernetes/networking/metallb/values.yaml
     - repoURL: 'https://github.com/McMumf/homelab'
       targetRevision: 'talos'
       ref: values
+    - repoURL: 'https://github.com/McMumf/homelab'
+      targetRevision: 'talos'
+      path: kubernetes/networking/metallb/
+  ignoreDifferences:
+    - kind: CustomResourceDefinition
+      group: apiextensions.k8s.io
+      jqPathExpressions:
+        - '.spec.conversion.webhook.clientConfig.caBundle'
   destination:
     server: https://kubernetes.default.svc
-    namespace: ingress-nginx
+    namespace: metallb-system
   syncPolicy:
     automated:
       prune: true
