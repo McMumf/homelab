@@ -26,6 +26,7 @@ data:
     - Utilities:
         - scanservjs:
             href: http://192.168.5.11:8080
+            icon: https://raw.githubusercontent.com/sbs20/scanservjs/refs/heads/master/app-ui/src/icons/favicon.ico
             description: Web page to interact with the printer's Scanner
 
     - My Second Group:
