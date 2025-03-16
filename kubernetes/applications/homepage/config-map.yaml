@@ -39,11 +39,11 @@ data:
             description: Homepage is 😎
   widgets.yaml: |
     - datetime:
-      text_size: xl
-      format:
-        dateStyle: long
-        timeStyle: short
-        hourCycle: h23
+        text_size: xl
+        format:
+          dateStyle: long
+          timeStyle: short
+          hourCycle: h23
     - kubernetes:
         cluster:
           show: true
