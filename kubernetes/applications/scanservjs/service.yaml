@@ -9,7 +9,7 @@ spec:
   selector:
     app: scanservjs
   type: LoadBalancer
-  externalIp: 192.168.5.11
+  loadBalancerIP: 192.168.5.11
   ports:
     - protocol: TCP
       port: 8080
