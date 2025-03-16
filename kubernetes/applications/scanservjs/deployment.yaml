@@ -17,7 +17,7 @@ spec:
         - name: scanservjs
           image: sbs20/scanservjs:v3.0.3
           securityContext:
-            privileged: true
+            privileged: false
           resources:
             requests:
               cpu: 250m

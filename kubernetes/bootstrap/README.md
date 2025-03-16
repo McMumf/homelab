@@ -28,6 +28,8 @@ ArgoCD is needed to deploy the application sets.
 2. Install ArgoCD
     ```sh
     $ cd kubernetes/bootstrap
+    $ kubectl kustomize argocd --enable-helm | kubectl apply -f -
+    ...
     ```
 3. Apply your App Set(s)
 4. Prosper
