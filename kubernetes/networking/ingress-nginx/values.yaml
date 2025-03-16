@@ -9,7 +9,7 @@ controller:
   ingressClassResource:
     name: nginx
     enabled: true
-    default: false
+    default: true
     controllerValue: "k8s.io/ingress-nginx"
   config:
     enable-real-ip: true
