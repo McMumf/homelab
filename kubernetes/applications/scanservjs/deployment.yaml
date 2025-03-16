@@ -34,12 +34,3 @@ spec:
               value: "192.168.1.242"
           ports:
             - containerPort: 8080
-          volumeMounts:
-            - name: dbus-socket
-              mountPath: /var/run/dbus/system_bus_socket
-              readOnly: true
-      volumes:
-        - name: dbus-socket
-          hostPath:
-            path: /var/run/dbus/system_bus_socket
-            type: Socket
