@@ -10,7 +10,7 @@ data:
     mode: cluster
   settings.yaml: |
     title: McMumf's Homelab
-    background: https://unsplash.com/photos/green-trees-on-brown-rock-formation-near-sea-during-daytime-MBup3lKHQeA
+    background: https://raw.githubusercontent.com/McMumf/homelab/refs/heads/talos/assets/background.jpg
   #settings.yaml: |
   #  providers:
   #    longhorn:
