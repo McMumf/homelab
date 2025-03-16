@@ -9,6 +9,7 @@ data:
   kubernetes.yaml: |
     mode: cluster
   settings.yaml: |
+    title: McMumf's Homelab
     background: https://unsplash.com/photos/green-trees-on-brown-rock-formation-near-sea-during-daytime-MBup3lKHQeA
   #settings.yaml: |
   #  providers:
@@ -37,6 +38,12 @@ data:
             href: http://localhost/
             description: Homepage is 😎
   widgets.yaml: |
+    - datetime:
+      text_size: xl
+      format:
+        dateStyle: long
+        timeStyle: short
+        hourCycle: h23
     - kubernetes:
         cluster:
           show: true
