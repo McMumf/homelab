@@ -162,6 +162,10 @@ spec:
               mountPath: /app/data
             - name: mealie-nltk
               mountPath: /nltk_data/
+      volumes:
+        - name: mealie-nltk    
+          persistentVolumeClaim:
+            claimName: mealie-nltk  
   volumeClaimTemplates:
     - metadata:
         name: mealie-data
