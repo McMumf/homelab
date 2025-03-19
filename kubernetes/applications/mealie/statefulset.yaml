@@ -171,11 +171,3 @@ spec:
         resources:
           requests:
             storage: 8Gi
-    - metadata:
-        name: mealie-nltk
-      spec:
-        accessModes: ["ReadWriteOnce"]
-        storageClassName: "longhorn"
-        resources:
-          requests:
-            storage: 8Gi
