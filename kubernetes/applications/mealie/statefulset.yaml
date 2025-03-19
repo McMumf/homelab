@@ -160,9 +160,19 @@ spec:
           volumeMounts:
             - name: mealie-data
               mountPath: /app/data
+            - name: mealie-nltk
+              mountPath: /nltk_data/
   volumeClaimTemplates:
     - metadata:
         name: mealie-data
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        storageClassName: "longhorn"
+        resources:
+          requests:
+            storage: 8Gi
+    - metadata:
+        name: mealie-nltk
       spec:
         accessModes: ["ReadWriteOnce"]
         storageClassName: "longhorn"

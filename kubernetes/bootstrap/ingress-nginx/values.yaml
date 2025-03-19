@@ -41,6 +41,15 @@ controller:
     - key: "node-role.kubernetes.io/control-plane"
       operator: "Exists"
       effect: "NoSchedule"
+  affinity:
+    nodeAffinity: 
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+          - matchExpressions:
+            - key: kubernetes.io/hostname
+              operator: In
+              values:
+                - hl2
   allowSnippetAnnotations: true # used for authentik auth snippets
   metrics:
     enabled: true
