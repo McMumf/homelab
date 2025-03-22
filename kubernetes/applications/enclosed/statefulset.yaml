@@ -22,7 +22,7 @@ spec:
         fsGroup: 1000
       containers:
         - name: enclosed
-          image: corentinth/enclosed:1.14.0-rootless
+          image: corentinth/enclosed:1.15.0-rootless
           resources:
             requests:
               memory: 512Mi
