@@ -8,8 +8,7 @@ metadata:
 spec:
   selector:
     app: scanservjs
-  type: LoadBalancer
-  loadBalancerIP: 192.168.5.11
+  type: ClusterIP
   ports:
     - protocol: TCP
       port: 8080
