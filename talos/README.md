@@ -40,7 +40,7 @@ _Note: you may need to edit your cloudflared extension patch directly_
     talosctl bootstrap
     ```
 6. Retrieve kubeconfig: `talosctl --talosconfig $TALOSCONFIG kubeconfig _out/kubeconfig`
-
+7. Deploy the k8s bootstrap services: [kubernetes/bootstrap/README](../kubernetes/bootstrap/README.md)
 
 ### Schematic
 

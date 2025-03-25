@@ -14,22 +14,12 @@ ArgoCD is needed to deploy the application sets.
 
 1. Instasll cilium
     ```sh
-    helm install cilium cilium/cilium --version 1.17.2 \
-        --namespace kube-system \
-        --set=ipam.mode=kubernetes \
-        --set=kubeProxyReplacement=true \
-        --set externalIPs.enabled=true \
-        --set hostPort.enabled=true \
-        --set=securityContext.capabilities.ciliumAgent="{CHOWN,KILL,NET_ADMIN,NET_RAW,IPC_LOCK,SYS_ADMIN,SYS_RESOURCE,DAC_OVERRIDE,FOWNER,SETGID,SETUID}" \
-        --set=securityContext.capabilities.cleanCiliumState="{NET_ADMIN,SYS_ADMIN,SYS_RESOURCE}" \
-        --set=cgroup.autoMount.enabled=false \
-        --set=cgroup.hostRoot=/sys/fs/cgroup \
-        --set=k8sServiceHost=localhost \
-        --set=k8sServicePort=7445
+    $ cd kubernetes/bootstrap
+    $ kubectl kustomize cilium --enable-helm | kubectl apply -f -
+    ...
     ```
 2. Install ArgoCD
     ```sh
-    $ cd kubernetes/bootstrap
     $ kubectl kustomize argocd --enable-helm | kubectl apply -f -
     ...
     ```
