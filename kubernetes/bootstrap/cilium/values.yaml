@@ -4,13 +4,16 @@ ipam:
   mode: kubernetes
 
 l2announcements:
-  enabled: true
+  enabled: false
+l2-announcements-lease-duration: 3s
+l2-announcements-renew-deadline: 1s
+l2-announcements-retry-period: 500ms
 externalIPs:
   enabled: true
 
-k8sClientRateLimit:
-  qps: 32
-  burst: 64
+# k8sClientRateLimit:
+#   qps: 50
+#   burst: 100
 
 tunnelProtocol: geneve
 
@@ -43,10 +46,8 @@ k8sServiceHost: localhost
 k8sServicePort: 7445
 
 # from article
-# routingMode: native
-# ipv4NativeRoutingCIDR: 10.200.0.0/22
-endpointRoutes:
-  enabled: true
-ingressController:
-  enabled: true
-  loadbalancerMode: shared
+# endpointRoutes:
+#   enabled: true
+# ingressController:
+#   enabled: true
+#   loadbalancerMode: shared
