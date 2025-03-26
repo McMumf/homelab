@@ -7,19 +7,19 @@ spec:
   project: default
   sources:
     # Helm Chart
-    - repoURL: 'https://openebs.github.io/openebs'
-      targetRevision: '4.1.1'
+    - repoURL: "https://openebs.github.io/openebs"
+      targetRevision: "4.1.1"
       chart: openebs
       helm:
         valueFiles:
           - $values/kubernetes/storage/openebs/values.yaml
     # Helm Values
-    - repoURL: 'https://github.com/clbx/JuiceCloud'
-      targetRevision: '3.0'
+    - repoURL: "https://github.com/clbx/JuiceCloud"
+      targetRevision: "3.0"
       ref: values
     # Kustomization
-    - repoURL: 'https://github.com/clbx/JuiceCloud'
-      targetRevision: '3.0'
+    - repoURL: "https://github.com/clbx/JuiceCloud"
+      targetRevision: "3.0"
       path: kubernetes/storage/openebs
   destination:
     server: https://kubernetes.default.svc
@@ -29,4 +29,4 @@ spec:
       prune: true
       selfHeal: true
     syncOptions:
-     - CreateNamespace=true
+      - CreateNamespace=true
