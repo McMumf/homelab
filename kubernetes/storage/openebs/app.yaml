@@ -14,12 +14,12 @@ spec:
         valueFiles:
           - $values/kubernetes/storage/openebs/values.yaml
     # Helm Values
-    - repoURL: "https://github.com/clbx/JuiceCloud"
-      targetRevision: "3.0"
+    - repoURL: "https://github.com/McMumf/homelab"
+      targetRevision: "talos"
       ref: values
     # Kustomization
-    - repoURL: "https://github.com/clbx/JuiceCloud"
-      targetRevision: "3.0"
+    - repoURL: "https://github.com/McMumf/homelab"
+      targetRevision: "talos"
       path: kubernetes/storage/openebs
   destination:
     server: https://kubernetes.default.svc
