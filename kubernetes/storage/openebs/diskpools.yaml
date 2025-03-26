@@ -23,4 +23,4 @@ metadata:
   namespace: openebs
 spec:
   node: skylab
-  disks: [ "uring:///dev/disk/by-id/" ]
+  disks: [ "uring:///dev/disk/by-id/naa.500a07511ad725d0" ]

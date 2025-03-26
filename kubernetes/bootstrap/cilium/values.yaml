@@ -2,8 +2,6 @@ kubeProxyReplacement: true
 
 ipam:
   mode: kubernetes
-  operator:
-    clusterPoolIPv4PodCIDR: 10.42.0.0/16
 
 l2announcements:
   enabled: true
@@ -30,7 +28,7 @@ securityContext:
       - DAC_OVERRIDE
       - FOWNER
       - SETGID
-      - SETUID"
+      - SETUID
     cleanCiliumState:
       - NET_ADMIN
       - SYS_ADMIN
@@ -45,8 +43,8 @@ k8sServiceHost: localhost
 k8sServicePort: 7445
 
 # from article
-routingMode: native
-ipv4NativeRoutingCIDR: 10.200.0.0/22
+# routingMode: native
+# ipv4NativeRoutingCIDR: 10.200.0.0/22
 endpointRoutes:
   enabled: true
 ingressController:
