@@ -1,26 +1,26 @@
 apiVersion: "openebs.io/v1beta2"
 kind: DiskPool
 metadata:
-  name: columbia
+  name: apollo
   namespace: openebs
 spec:
-  node: columbia
-  disks: [ "uring:///dev/disk/by-id/" ]
+  node: apollo
+  disks: [ "uring:///dev/disk/by-id/naa.500a07511ad63cec" ]
 ---
 apiVersion: "openebs.io/v1beta2"
 kind: DiskPool
 metadata:
-  name: atlantis
+  name: artemis
   namespace: openebs
 spec:
-  node: atlantis
-  disks: [ "uring:///dev/disk/by-id/" ]
+  node: artemis
+  disks: [ "uring:///dev/disk/by-id/naa.500a07511ad6393d" ]
 ---
 apiVersion: "openebs.io/v1beta2"
 kind: DiskPool
 metadata:
-  name: challenger
+  name: skylab
   namespace: openebs
 spec:
-  node: challenger
-  disks: [ "uring:///dev/disk/by-id/ ]
+  node: skylab
+  disks: [ "uring:///dev/disk/by-id/" ]
