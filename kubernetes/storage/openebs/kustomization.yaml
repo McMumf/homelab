@@ -3,4 +3,5 @@ kind: Kustomization
 
 resources:
   - diskpools.yaml
+  - namespace.yaml
   - storageclass.yaml
