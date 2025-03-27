@@ -2,7 +2,7 @@ path "apps/*" {
     capabilities = ["read", "list"]
 }
 
-path "infrastructure/*" {
+path "infra/*" {
     capabilities = ["read", "list"]
 }
 
