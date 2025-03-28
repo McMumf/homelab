@@ -19,7 +19,7 @@ spec:
         - &host homepage.mcmumf.dev
       secretName: homepage-cert
   rules:
-    - host: "homepage.mcmumf.dev"
+    - host: *host
       http:
         paths:
           - path: "/"
