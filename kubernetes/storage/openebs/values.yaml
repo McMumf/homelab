@@ -32,12 +32,13 @@ mayastor:
       - key: "node-role.kubernetes.io/control-plane"
         operator: "Equal"
         value: ""
-    loki-stack:
-      loki:
-        tolerations:
-          - key: "node-role.kubernetes.io/control-plane"
-            operator: "Equal"
-            value: ""
+  loki-stack:
+    enabled: false
+    loki:
+      tolerations:
+        - key: "node-role.kubernetes.io/control-plane"
+          operator: "Equal"
+          value: ""
   csi:
     node:
       initContainers:
