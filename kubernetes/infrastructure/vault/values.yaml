@@ -18,6 +18,18 @@ server:
         hosts:
           - *hostName
 
+  extraInitContainers:
+    - name: unseal-perms
+      image: busybox:latest
+      command: ["sh","-c","chown -R 100:100 /vault/userconfig"]
+      volumeMounts:
+        - name: unseal-key-volume
+          mountPath: /vault/userconfig/unseal-key-1
+          subPath: unseal-key-1
+        - name: unseal-key-volume
+          mountPath: /vault/userconfig/unseal-key-2
+          subPath: unseal-key-2
+
   volumeMounts:
     - name: unseal-key-volume
       mountPath: /vault/userconfig/unseal-key-1
