@@ -36,8 +36,8 @@ data:
             icon:
             description: Send private and secure notes
 
-    - Homelab
-        - "Home-Assistant":
+    - Homelab:
+        - Home-Assistant:
             href: https://hassio.mcmumf.dev
             icon: https://raw.githubusercontent.com/home-assistant/frontend/refs/heads/dev/public/static/icons/favicon-32x32.png
         - Jellyin:
