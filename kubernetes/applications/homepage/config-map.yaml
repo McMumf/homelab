@@ -20,10 +20,11 @@ data:
   custom.css: ""
   custom.js: ""
   bookmarks.yaml: |
-    - Developer:
-        - Github:
-            - abbr: GH
-              href: https://github.com/
+    - Docs:
+        - Homepage:
+            - icon: homepage.png
+              href: https://gethomepage.dev/main/
+              description: Homepage Documentation
 
   services.yaml: |
     - Utilities:
