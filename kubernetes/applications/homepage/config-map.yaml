@@ -30,25 +30,39 @@ data:
         - scanservjs:
             href: https://scanner.mcmumf.dev
             icon: https://raw.githubusercontent.com/sbs20/scanservjs/refs/heads/master/app-ui/src/icons/favicon.ico
-            description: Web page to interact with the printer's Scanner
+            description: Web page to interact with the printer's scanner
+        - Enclosed:
+            href: https://enclosed.mcmumf.dev
+            icon:
+            description: Send private and secure notes
 
-        - Homelab:
-            - argocd:
-                href: https://argocd.mcmumf.dev
-                icon: https://raw.githubusercontent.com/devicons/devicon/refs/heads/master/icons/argocd/argocd-original.svg
-            - vault:
-                href: https://argocd.mcmumf.dev
-                icon: https://raw.githubusercontent.com/devicons/devicon/refs/heads/master/icons/vault/vault-original.svg
-
-    - Media:
+    - Homelab
+        - Home-Assistant:
+            href: https://hassio.mcmumf.dev
+            icon: https://raw.githubusercontent.com/home-assistant/frontend/refs/heads/dev/public/static/icons/favicon-32x32.png
         - Jellyin:
             href: https://jellyfin.mcmumf.dev
+            icon: https://raw.githubusercontent.com/jellyfin/jellyfin-ux/refs/heads/master/branding/SVG/icon-transparent.svg
             description: Movies, Music, TV
+        - Mealie:
+            href: https://recipes.mcmumf.dev
+            icon: https://raw.githubusercontent.com/mealie-recipes/mealie/refs/heads/mealie-next/frontend/static/icons/icon-x64.png
+            description: Recipes
 
-    - My Third Group:
-        - My Third Service:
-            href: http://localhost/
-            description: Homepage is 😎
+    - Operations:
+        - Authentik:
+            href: https://auth.mcmumf.dev
+            icon: https://raw.githubusercontent.com/goauthentik/authentik/refs/heads/main/web/icons/icon.svg
+            description: Account Management
+        - ArgoCD:
+            href: https://argocd.mcmumf.dev
+            icon: https://raw.githubusercontent.com/devicons/devicon/refs/heads/master/icons/argocd/argocd-original.svg
+            description:
+        - Vault:
+            href: https://argocd.mcmumf.dev
+            icon: https://raw.githubusercontent.com/devicons/devicon/refs/heads/master/icons/vault/vault-original.svg
+            description: Secrets management
+
   widgets.yaml: |
     - datetime:
         text_size: xl
