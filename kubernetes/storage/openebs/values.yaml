@@ -21,9 +21,23 @@ mayastor:
       value: ""
   io_engine:
     envcontext: "iova-mode=pa"
+    tolerations:
+      - key: "node-role.kubernetes.io/control-plane"
+        operator: "Equal"
+        value: ""
   etcd:
     nodeSelector:
       openebs.io/engine: mayastor
+    tolerations:
+      - key: "node-role.kubernetes.io/control-plane"
+        operator: "Equal"
+        value: ""
+  loki-stack:
+    loki:
+      tolerations:
+        - key: "node-role.kubernetes.io/control-plane"
+          operator: "Equal"
+          value: ""
   csi:
     node:
       initContainers:
