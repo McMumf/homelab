@@ -15,7 +15,7 @@ server:
       nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
       nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
       cert-manager.io/cluster-issuer: letsencrypt-production
-    ingressClassName: "cilium"
+    ingressClassName: "nginx"
     hostname: argocd.mcmumf.dev
     tls: true
   ingressGrpc:
@@ -24,6 +24,6 @@ server:
       nginx.ingress.kubernetes.io/backend-protocol: "GRPC"
       nginx.ingress.kubernetes.io/ssl-redirect: "true"
       cert-manager.io/cluster-issuer: letsencrypt-production
-    ingressClassName: "cilium"
+    ingressClassName: "nginx"
     hostname: grpc.argocd.mcmumf.dev
     tls: true
