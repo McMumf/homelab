@@ -7,7 +7,7 @@ metadata:
     app: morphos
 spec:
   ports:
-    - port: 87880807
+    - port: 8080
       name: web
   selector:
     app: morphos
