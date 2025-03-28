@@ -30,7 +30,7 @@ data:
         - scanservjs:
             href: https://scanner.mcmumf.dev
             icon: https://raw.githubusercontent.com/sbs20/scanservjs/refs/heads/master/app-ui/src/icons/favicon.ico
-            description: Web page to interact with the printer's scanner
+            description: Web interface for the printer's scanner
         - Enclosed:
             href: https://enclosed.mcmumf.dev
             icon:
@@ -40,6 +40,7 @@ data:
         - Home-Assistant:
             href: https://hassio.mcmumf.dev
             icon: https://raw.githubusercontent.com/home-assistant/frontend/refs/heads/dev/public/static/icons/favicon-32x32.png
+            description: Home automation 
         - Jellyin:
             href: https://jellyfin.mcmumf.dev
             icon: https://raw.githubusercontent.com/jellyfin/jellyfin-ux/refs/heads/master/branding/SVG/icon-transparent.svg
