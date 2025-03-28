@@ -57,7 +57,7 @@ data:
         - ArgoCD:
             href: https://argocd.mcmumf.dev
             icon: https://raw.githubusercontent.com/devicons/devicon/refs/heads/master/icons/argocd/argocd-original.svg
-            description:
+            description: Declarative GitOps CD for Kubernetes
         - Vault:
             href: https://argocd.mcmumf.dev
             icon: https://raw.githubusercontent.com/devicons/devicon/refs/heads/master/icons/vault/vault-original.svg
