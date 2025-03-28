@@ -17,9 +17,7 @@ server:
       - secretName: vault-cert
         hosts:
           - *hostName
-  statefulset:
-    securityContext:
-      fsGroup: 100
+
   volumeMounts:
     - name: unseal-key-volume
       mountPath: /vault/userconfig/unseal-key-1
