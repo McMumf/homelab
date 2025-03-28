@@ -34,14 +34,18 @@ data:
             description: Web interface for the printer's scanner
         - Enclosed:
             href: https://enclosed.mcmumf.dev
-            icon:
+            icon: https://raw.githubusercontent.com/CorentinTh/enclosed/refs/heads/main/packages/app-client/public/favicon-32x32.png
             description: Send private and secure notes
+        - Morphos
+            href: https://file-converter.mcmumf.dev
+            icon: https://raw.githubusercontent.com/danvergara/morphos/refs/heads/main/screenshots/morphos.jpg
+            description: File converter
 
     - Homelab:
         - Home-Assistant:
             href: https://hassio.mcmumf.dev
             icon: https://raw.githubusercontent.com/home-assistant/frontend/refs/heads/dev/public/static/icons/favicon-32x32.png
-            description: Home automation 
+            description: Home automation
         - Jellyin:
             href: https://jellyfin.mcmumf.dev
             icon: https://raw.githubusercontent.com/jellyfin/jellyfin-ux/refs/heads/master/branding/SVG/icon-transparent.svg
