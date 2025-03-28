@@ -1,7 +1,7 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: scanservjs-ingress
+  name: morphos-ingress
   namespace: apps
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt-production
@@ -10,7 +10,7 @@ spec:
   tls:
     - hosts:
         - &host file-converter.mcmumf.dev
-      secretName: scanservjs-cert
+      secretName: morphos-cert
   rules:
     - host: *host
       http:
