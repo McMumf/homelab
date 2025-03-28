@@ -36,7 +36,7 @@ data:
             href: https://enclosed.mcmumf.dev
             icon: https://raw.githubusercontent.com/CorentinTh/enclosed/refs/heads/main/packages/app-client/public/favicon-32x32.png
             description: Send private and secure notes
-        - Morphos
+        - Morphos:
             href: https://file-converter.mcmumf.dev
             icon: https://raw.githubusercontent.com/danvergara/morphos/refs/heads/main/screenshots/morphos.jpg
             description: File converter
