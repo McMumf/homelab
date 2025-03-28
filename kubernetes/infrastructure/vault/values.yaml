@@ -47,7 +47,7 @@ server:
       vault operator unseal $(cat /valt/userconfig/unseal-key-1) &&
       vault operator unseal $(cat /valt/userconfig/unseal-key-2) &&
       echo "Unsealed vault" >> /proc/1/fd/1 ||
-      echo "Could not unseal Vault automatically. Please do it manually" >> /proc/1/fs/1;
+      echo "Could not unseal Vault automatically. Please do it manually" >> /proc/1/fd/1;
 
   dataStorage:
     storageClass: openebs
