@@ -21,7 +21,7 @@ server:
   extraInitContainers:
     - name: unseal-perms
       image: busybox:latest
-      command: ["sh","-c","chown -R 100:100 /vault/userconfig"]
+      command: ["sh","-c","sleep 60 && chown -R 100:100 /vault/userconfig"]
       volumeMounts:
         - name: unseal-key-volume
           mountPath: /vault/userconfig/unseal-key-1
