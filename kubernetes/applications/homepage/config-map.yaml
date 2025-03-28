@@ -24,10 +24,18 @@ data:
         - Github:
             - abbr: GH
               href: https://github.com/
+    - Git Ops:
+        - ArgoCD:
+            - abbr: ACD
+              href: https://argocd.mcmumf.dev
+    - Cyber:
+        - Vault:
+            - abbr: V
+              href: https://vault.mcmumf.dev
   services.yaml: |
     - Utilities:
         - scanservjs:
-            href: http://192.168.5.11:8080
+            href: https://scanner.mcmumf.dev
             icon: https://raw.githubusercontent.com/sbs20/scanservjs/refs/heads/master/app-ui/src/icons/favicon.ico
             description: Web page to interact with the printer's Scanner
 
