@@ -32,7 +32,7 @@ server:
     - name: unseal-key-volume
       secret:
         secretName: vault-secrets
-        defaultMode: 0554
+        defaultMode: 0550
         optional: true
         items:
           - key: unseal-key-1
@@ -44,9 +44,9 @@ server:
     - /bin/sh
     - -c
     - |
-      sleep 30;
-      vault operator unseal $(cat /valt/userconfig/unseal-key-1) &&
-      vault operator unseal $(cat /valt/userconfig/unseal-key-2) &&
+      sleep 10;
+      vault operator unseal $(cat /vault/userconfig/unseal-key-1) &&
+      vault operator unseal $(cat /vault/userconfig/unseal-key-2) &&
       echo "Unsealed vault" >> /proc/1/fd/1 ||
       echo "Could not unseal Vault automatically. Please do it manually" >> /proc/1/fd/1;
 
