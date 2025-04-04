@@ -21,6 +21,10 @@ data:
   custom.js: ""
   bookmarks.yaml: |
     - References:
+        - Repo:
+            - icon: https://github.com/McMumf/homelab/blob/main/assets/logo.png
+              href: https://github.com/McMumf/homelab
+              description: The repo
         - Homepage:
             - icon: homepage.png
               href: https://gethomepage.dev/
@@ -65,7 +69,7 @@ data:
             icon: https://raw.githubusercontent.com/devicons/devicon/refs/heads/master/icons/argocd/argocd-original.svg
             description: Declarative GitOps CD for Kubernetes
         - Vault:
-            href: https://argocd.mcmumf.dev
+            href: https://vault.mcmumf.dev
             icon: https://raw.githubusercontent.com/devicons/devicon/refs/heads/master/icons/vault/vault-original.svg
             description: Secrets management
 
