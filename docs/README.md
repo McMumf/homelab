@@ -8,30 +8,30 @@ Follow the talos guide [here](../talos/README.md).
 
 ### 2. Bootstrap
 
-#### 2.1 Install Calico
+#### 2.1 Install Cilium
 
 ```sh
-kubectl kustomize calico --enable-helm | kubectl create -f -
+cd kubernetes/bootstrap
+kubectl kustomize calico --enable-helm | kubectl apply -f -
 ```
 
-_Note: it is important to utilize `create`_
+#### 2.2 Install ArgoCD
 
-#### 2.2 Install Longhorn
+#### 2.3 Install Vault
 
-#### 2.3 Install MetalLB
-
-#### 2.4 Install Ingress NGINX
-
-#### 2.5 Install Vault
-
-1. Run the install
-2. Configure the seal keys
+1. Apply the `app.yam` in `kubernetes/infrastructure/vault`
+2. Initialize Vault
+   1. Port-forward for now until we get ingress installed
 3. Configure the secret engines
 4. Configure the access policies
 5. Create a secret for external-secrets to utilize
 
-#### 2.6 Install External-Secrets
+#### 2.4 Install External-Secrets
 
-#### 2.7 Install ArgoCD
+#### 2.5 Install Cert-Manager
+
+#### 2.6 Install MetalLB
+
+#### 2.7 Install Ingress NGINX
 
 ### 3. Deploy Application Sets
