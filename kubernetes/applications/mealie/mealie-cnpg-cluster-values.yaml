@@ -16,7 +16,7 @@ cluster:
       memory: 1Gi
   storage:
     size: 8Gi
-    storageClass: longhorn
+    storageClass: openebs
   postgresql:
     parameters:
       log_hostname: "off"

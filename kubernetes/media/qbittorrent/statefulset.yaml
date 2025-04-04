@@ -62,7 +62,7 @@ spec:
         name: qbittorrent-data
       spec:
         accessModes: ["ReadWriteOnce"]
-        storageClassName: "longhorn"
+        storageClassName: "openebs"
         resources:
           requests:
             storage: 32Gi
@@ -70,7 +70,7 @@ spec:
         name: torrents
       spec:
         accessModes: ["ReadWriteOnce"]
-        storageClassName: "longhorn"
+        storageClassName: "openebs"
         resources:
           requests:
             storage: 256Gi

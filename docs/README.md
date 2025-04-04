@@ -2,28 +2,9 @@
 
 ## First Time Setup
 
-### 1. Ansible
+### 1. Talos
 
-#### 1.1 Build Inventory
-
-#### 1.2 Setup Ansible User
-
-#### 1.3 Execute Roles
-
-#### 1.4 Join Worker
-
-1. Ensure ansible scripts are ran
-2. Get the join token from the master: `kubeadm token create --print-join-command`
-3. Run the following: `kubeadm join 192.168.69.100:6443 --token some.token1234 --discovery-token-ca-cert-hash sha256:somelonghash --cri-socket unix:///var/run/crio/crio.sock`
-   1. If it fails with an error, run the following
-
-        ```sh
-        modprobe br_netfilter
-        echo '1' > /proc/sys/net/ipv4/ip_forward
-        ```
-
-   2. Rerun the join command
-4. Label the worker: `kubectl label node <WORKER-NAME> node-role.kubernetes.io/worker=worker`
+Follow the talos guide [here](../talos/README.md).
 
 ### 2. Bootstrap
 

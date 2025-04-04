@@ -82,7 +82,7 @@ spec:
         name: paperless-data
       spec:
         accessModes: ["ReadWriteOnce"]
-        storageClassName: "longhorn"
+        storageClassName: "openebs"
         resources:
           requests:
             storage: 32Gi
@@ -90,7 +90,7 @@ spec:
         name: paperless-media
       spec:
         accessModes: ["ReadWriteOnce"]
-        storageClassName: "longhorn"
+        storageClassName: "openebs"
         resources:
           requests:
             storage: 32Gi
@@ -98,7 +98,7 @@ spec:
         name: paperless-export
       spec:
         accessModes: ["ReadWriteOnce"]
-        storageClassName: "longhorn"
+        storageClassName: "openebs"
         resources:
           requests:
             storage: 32Gi

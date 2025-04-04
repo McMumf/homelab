@@ -165,7 +165,7 @@ spec:
         name: mealie-data
       spec:
         accessModes: ["ReadWriteOnce"]
-        storageClassName: "longhorn"
+        storageClassName: "openebs"
         resources:
           requests:
             storage: 8Gi
