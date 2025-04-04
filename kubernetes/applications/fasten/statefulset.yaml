@@ -61,7 +61,7 @@ spec:
         name: fasten-cache
       spec:
         accessModes: ["ReadWriteOnce"]
-        storageClassName: "longhorn"
+        storageClassName: "openebs"
         resources:
           requests:
             storage: 8Gi
