@@ -1,7 +1,8 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: web
+  name: immich-postgres
+  namespace: apps
 spec:
   selector:
     matchLabels:

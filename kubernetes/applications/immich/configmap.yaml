@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: immich-env
+  namespace: apps
+data:
+  DB_DATABASE_NAME: immich
+  DB_HOSTNAME: immich-postgres.apps.svc.cluster.local
+  DB_PORT: "5432"
+  DB_INIT_ARGS: '--data-checksums'
+  DISABLE_REVERSE_GEOCODING: "false"
+  REVERSE_GEOCODING_PRECISION: "2"
+  # ENABLE_MAPBOX: "false"
+  LOG_LEVEL: verbose
+  # NODE_ENV: "production"
+  REDIS_HOSTNAME: immich-redis.apps.svc.cluster.local
+  REDIS_PORT: "6379"
+  # REDIS_DBINDEX: "0"
+  # TYPESENSE_HOST: immich-typesense.{{ .Release.Namespace }}.svc.cluster.local
+  # TYPESENSE_DATA_DIR: /config
+  IMMICH_WEB_URL: http://immich-web.apps.svc.cluster.local:3000
+  IMMICH_SERVER_URL: http://immich-server.apps.svc.cluster.local:3001
+  IMMICH_MACHINE_LEARNING_URL: http://immich-machine-learning.apps.svc.cluster.local:3003
+  OAUTH_ENABLED: "false"
+  # OAUTH_ISSUER_URL: "https://auth.${SECRET_DOMAIN}/.well-known/openid-configuration"
+  # OAUTH_CLIENT_ID: immich
+  # OAUTH_CLIENT_SECRET: "${SECRET_IMMICH_OAUTH_CLIENT_SECRET}"
+  # OAUTH_AUTO_REGISTER: "true"
+  # OAUTH_BUTTON_TEXT: "Login with Authelia"

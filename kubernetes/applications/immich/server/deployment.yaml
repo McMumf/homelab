@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert -f docker-compose.yaml
+    kompose.version: 1.35.0 (HEAD)
+  labels:
+    app: immich-server
+  name: immich-server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: immich-server
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: immich-server
+    spec:
+      restartPolicy: Always
+      containers:
+        - name: immich-server
+          image: ghcr.io/immich-app/immich-server:v1.131.3
+          resources:
+            limits:
+              cpu: 1000m
+              ephemeral-storage: "8Gi"
+              memory: "4Gi"
+          ports:
+            - name: http
+              containerPort: 2283
+              protocol: TCP
+          envFrom:
+            - configMapRef:
+                name: immich-env
+          volumeMounts:
+            - name: nfs-volume
+              mountPath: /usr/src/app/upload
+            - mountPath: /etc/localtime
+              name: immich-server-configmap
+              readOnly: true
+              subPath: localtime
+      volumes:
+        - name: nfs-volume
+          nfs:
+            server: 192.168.1.70
+            path: /volume1/photos
