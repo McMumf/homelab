@@ -23,7 +23,7 @@ spec:
       containers:
         - name: ghost
           # image: ghost:5.98.1-alpine
-          image: ghost:5.116.1 # Use alpine when done messing around
+          image: ghost:5.116.2 # Use alpine when done messing around
           resources:
             requests:
               memory: 256Mi
