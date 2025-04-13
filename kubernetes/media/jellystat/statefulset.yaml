@@ -18,7 +18,7 @@ spec:
       containers:
         # Container
         - name: jellystat
-          image: cyfershepard/jellystat:1.1.4
+          image: cyfershepard/jellystat:1.1.5
           # Resources
           resources:
             requests:
