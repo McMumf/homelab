@@ -12,5 +12,5 @@ helmCharts:
     repo: https://operator.min.io
     releaseName: minio-operator
     namespace: minio-operator
-    version: 7.0.1
+    version: 7.1.0
     valuesFile: values.yaml
