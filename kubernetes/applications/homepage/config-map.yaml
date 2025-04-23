@@ -22,7 +22,7 @@ data:
   bookmarks.yaml: |
     - References:
         - Repo:
-            - icon: https://github.com/McMumf/homelab/blob/main/assets/logo.png
+            - icon: https://raw.githubusercontent.com/McMumf/homelab/refs/heads/main/assets/logo.png
               href: https://github.com/McMumf/homelab
               description: The repo
         - Homepage:
