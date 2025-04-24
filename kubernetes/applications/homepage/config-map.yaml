@@ -72,6 +72,10 @@ data:
             href: https://vault.mcmumf.dev
             icon: https://raw.githubusercontent.com/devicons/devicon/refs/heads/master/icons/vault/vault-original.svg
             description: Secrets management
+        - NAS:
+            href: https://nas.mcmumf.dev
+            icon: mdi-nas
+            description: Network Attached Storage
 
   widgets.yaml: |
     - datetime:
