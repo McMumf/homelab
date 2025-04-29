@@ -1,17 +1,17 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: smart-home
+  name: authentik
   namespace: argocd
 spec:
   project: default
   sources:
     - repoURL: 'https://github.com/McMumf/homelab'
       targetRevision: 'talos'
-      path: kubernetes/smart-home
+      path: kubernetes/infrastructure/authentik
   destination:
     server: https://kubernetes.default.svc
-    namespace: smart-home
+    namespace: authentik
   syncPolicy:
     automated:
       prune: true

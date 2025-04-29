@@ -37,5 +37,6 @@ data:
     devices: devices.yaml
     groups: groups.yaml
     # Home Assistant integration (MQTT discovery)
-    homeassistant: true
+    homeassistant:
+      enabled: true
     version: 4
