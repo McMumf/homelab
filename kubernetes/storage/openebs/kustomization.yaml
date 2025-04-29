@@ -5,3 +5,4 @@ resources:
   - diskpools.yaml
   - namespace.yaml
   - storageclass.yaml
+  - volumesnapshotclass.yaml
