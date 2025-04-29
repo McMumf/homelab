@@ -1,6 +1,6 @@
 global:
   persistence:
-    storageClass: longhorn
+    storageClass: openebs
 ingress:
   create: true
   annotations:
