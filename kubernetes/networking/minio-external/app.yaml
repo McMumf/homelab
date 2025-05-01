@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: minio-external
+  namespace: argocd
+spec:
+  project: default
+  sources:
+    - repoURL: "https://github.com/McMumf/homelab"
+      targetRevision: "talos"
+      path: kubernetes/networking/minio-external
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: networking
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
