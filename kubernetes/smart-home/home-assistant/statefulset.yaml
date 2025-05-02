@@ -65,7 +65,7 @@ spec:
               subPath: tls.key
               readOnly: true
         - name: code-server
-          image: codercom/code-server:4.99.3
+          image: codercom/code-server:4.99.4
           imagePullPolicy: IfNotPresent
           args:
             - --auth
