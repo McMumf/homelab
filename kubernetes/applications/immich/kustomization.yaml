@@ -4,4 +4,7 @@ namespace: apps
 
 resources:
   - configmap.yaml
-  - db/kustomization.yaml
+  - db/
+  - machine-learning/
+  - redis/
+  - server/
