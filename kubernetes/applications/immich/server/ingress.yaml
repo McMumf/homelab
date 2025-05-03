@@ -8,6 +8,11 @@ metadata:
     nginx.ingress.kubernetes.io/proxy-body-size: "0"
     nginx.ingress.kubernetes.io/proxy-read-timeout: "6000"
     nginx.ingress.kubernetes.io/proxy-send-timeout: "6000"
+    gethomepage.dev/description: Photo and video management
+    gethomepage.dev/enabled: "true"
+    gethomepage.dev/group: Homelab
+    gethomepage.dev/icon: homepage.png
+    gethomepage.dev/name: Immich
 spec:
   ingressClassName: nginx
   tls:

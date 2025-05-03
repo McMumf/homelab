@@ -60,14 +60,6 @@ data:
             href: https://auth.mcmumf.dev
             icon: https://raw.githubusercontent.com/goauthentik/authentik/refs/heads/main/web/icons/icon.svg
             description: Account Management
-        - ArgoCD:
-            href: https://argocd.mcmumf.dev
-            icon: https://raw.githubusercontent.com/devicons/devicon/refs/heads/master/icons/argocd/argocd-original.svg
-            description: Declarative GitOps CD for Kubernetes
-        - Vault:
-            href: https://vault.mcmumf.dev
-            icon: https://raw.githubusercontent.com/devicons/devicon/refs/heads/master/icons/vault/vault-original.svg
-            description: Secrets management
         - NAS:
             href: https://nas.mcmumf.dev
             icon: mdi-nas

@@ -19,7 +19,6 @@ spec:
       labels:
         app: immich-server
     spec:
-      restartPolicy: Always
       containers:
         - name: immich-server
           image: ghcr.io/immich-app/immich-server:v1.131.3
@@ -28,6 +27,10 @@ spec:
               cpu: 1000m
               ephemeral-storage: "8Gi"
               memory: "4Gi"
+            requests:
+              cpu: 500m
+              ephemeral-storage: "4Gi"
+              memory: "2Gi"
           ports:
             - name: http
               containerPort: 2283
@@ -45,5 +48,5 @@ spec:
       volumes:
         - name: nfs-volume
           nfs:
-            server: 192.168.1.70
+            server: 192.168.69.70
             path: /volume1/photos

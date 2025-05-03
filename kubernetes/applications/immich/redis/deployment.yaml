@@ -16,14 +16,17 @@ spec:
         app: immich-redis
     spec:
       automountServiceAccountToken: false
-      restartPolicy: Always
       containers:
         - name: redis
           image: redis:7.4-alpine@sha256:c1e88455c85225310bbea54816e9c3f4b5295815e6dbf80c34d40afc6df28275
           resources:
             limits:
               cpu: 500m
-              ephemeral-storage: 8Gi
+              ephemeral-storage: 4Gi
+              memory: 1Gi
+            requests:
+              cpu: 500m
+              ephemeral-storage: 2Gi
               memory: 1Gi
           ports:
             - name: http

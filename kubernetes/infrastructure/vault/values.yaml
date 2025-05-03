@@ -10,6 +10,11 @@ server:
     activeService: true
     annotations:
       cert-manager.io/cluster-issuer: letsencrypt-production
+      gethomepage.dev/description: Secrets Management
+      gethomepage.dev/enabled: "true"
+      gethomepage.dev/group: Cluster Management
+      gethomepage.dev/icon: https://raw.githubusercontent.com/devicons/devicon/refs/heads/master/icons/vault/vault-original.svg
+      gethomepage.dev/name: Vault
     hosts:
       - host: &hostName vault.mcmumf.dev
         paths: []

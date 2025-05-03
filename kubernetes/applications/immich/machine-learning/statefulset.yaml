@@ -23,15 +23,16 @@ spec:
               cpu: 500m
               ephemeral-storage: 8Gi
               memory: 2Gi
-          args:
-            - DEVICE=cpu
+            requests:
+              cpu: 500m
+              ephemeral-storage: 8Gi
+              memory: 2Gi
           ports:
             - containerPort: 3003
               name: tcp
           volumeMounts:
             - name: model-cache
               mountPath: /cache
-          restartPolicy: Always
   volumeClaimTemplates:
     - metadata:
         name: model-cache
