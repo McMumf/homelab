@@ -21,7 +21,7 @@ spec:
     spec:
       containers:
         - name: immich-server
-          image: ghcr.io/immich-app/immich-server:v1.131.3
+          image: ghcr.io/immich-app/immich-server:v1.132.3
           env:
             - name: "DB_PASSWORD"
               valueFrom:
@@ -54,10 +54,6 @@ spec:
           volumeMounts:
             - name: nfs-volume
               mountPath: /usr/src/app/upload
-            - mountPath: /etc/localtime
-              name: immich-server-configmap
-              readOnly: true
-              subPath: localtime
       volumes:
         - name: immich-server-configmap
           configMap:

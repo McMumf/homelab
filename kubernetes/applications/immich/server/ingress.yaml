@@ -3,6 +3,8 @@ kind: Ingress
 metadata:
   name: immich
   namespace: apps
+  labels:
+    app: immich-server
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt-production
     # proxy-body-size is set to 0 to remove the body limit on file uploads
@@ -14,6 +16,7 @@ metadata:
     gethomepage.dev/group: Homelab
     gethomepage.dev/icon: https://raw.githubusercontent.com/immich-app/immich/refs/heads/main/design/immich-logo.svg
     gethomepage.dev/name: Immich
+    gethomepage.dev/pod-selector: "app=immich"
 spec:
   ingressClassName: nginx
   tls:
@@ -30,4 +33,4 @@ spec:
               service:
                 name: immich-server
                 port:
-                  number: 3001
+                  number: 2283
