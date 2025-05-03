@@ -5,13 +5,14 @@ metadata:
   namespace: apps
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt-production
+    # proxy-body-size is set to 0 to remove the body limit on file uploads
     nginx.ingress.kubernetes.io/proxy-body-size: "0"
     nginx.ingress.kubernetes.io/proxy-read-timeout: "6000"
     nginx.ingress.kubernetes.io/proxy-send-timeout: "6000"
     gethomepage.dev/description: Photo and video management
     gethomepage.dev/enabled: "true"
     gethomepage.dev/group: Homelab
-    gethomepage.dev/icon: homepage.png
+    gethomepage.dev/icon: https://raw.githubusercontent.com/immich-app/immich/refs/heads/main/design/immich-logo.svg
     gethomepage.dev/name: Immich
 spec:
   ingressClassName: nginx

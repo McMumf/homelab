@@ -18,6 +18,9 @@ spec:
       containers:
         - name: immich-machine-learning
           image: ghcr.io/immich-app/immich-machine-learning:v1.131.3
+          env:
+            - name: TRANSFORMERS_CACHE
+              value: "/cache"
           resources:
             limits:
               cpu: 500m
@@ -41,4 +44,4 @@ spec:
         storageClassName: "openebs"
         resources:
           requests:
-            storage: 32Gi
+            storage: 10Gi
