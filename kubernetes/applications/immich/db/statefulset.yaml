@@ -33,17 +33,17 @@ spec:
             - -c
             - wal_compression=on
           env:
-            - name: "DB_PASSWORD"
+            - name: "POSTGRES_PASSWORD"
               valueFrom:
                 secretKeyRef:
-                  name: immich-secrets
+                  name: immich-postgres-secrets
                   key: pg-password
-            - name: "DB_USERNAME"
+            - name: "POSTGRES_USER"
               valueFrom:
                 secretKeyRef:
-                  name: immich-secrets
+                  name: immich-postgres-secrets
                   key: pg-username
-            - name: "DB_DATABASE_NAME"
+            - name: "POSTGRES_DB"
               value: "immich"
             - name: "POSTGRES_INITDB_ARGS"
               value: "--data-checksums"
@@ -53,13 +53,13 @@ spec:
           volumeMounts:
             - name: db-data
               mountPath: /var/lib/postgresql/data
+              subPath: data
           livenessProbe:
             exec:
               command:
                 - pg_isready --dbname="$${POSTGRES_DB}" --username="$${POSTGRES_USER}" || exit 1; Chksum="$$(psql --dbname="$${POSTGRES_DB}" --username="$${POSTGRES_USER}" --tuples-only --no-align --command='SELECT COALESCE(SUM(checksum_failures), 0) FROM pg_stat_database')"; echo "checksum failure count is $$Chksum"; [ "$$Chksum" = '0' ] || exit 1
             initialDelaySeconds: 30
             periodSeconds: 300
-          restartPolicy: Always
   volumeClaimTemplates:
     - metadata:
         name: db-data
