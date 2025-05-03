@@ -22,6 +22,19 @@ spec:
       containers:
         - name: immich-server
           image: ghcr.io/immich-app/immich-server:v1.131.3
+          env:
+            - name: "DB_PASSWORD"
+              valueFrom:
+                secretKeyRef:
+                  name: immich-postgres-secrets
+                  key: pg-password
+            - name: "DB_USERNAME"
+              valueFrom:
+                secretKeyRef:
+                  name: immich-postgres-secrets
+                  key: pg-username
+            - name: "DB_DATABASE_NAME"
+              value: "immich"
           resources:
             limits:
               cpu: 1000m
@@ -46,6 +59,9 @@ spec:
               readOnly: true
               subPath: localtime
       volumes:
+        - name: immich-server-configmap
+          configMap:
+            name: immich-server-configmap
         - name: nfs-volume
           nfs:
             server: 192.168.69.70

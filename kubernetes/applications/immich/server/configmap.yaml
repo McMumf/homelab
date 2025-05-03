@@ -1,13 +1,13 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: immich-env
+  name: immich-server-configmap
   namespace: apps
 data:
   DB_DATABASE_NAME: immich
   DB_HOSTNAME: immich-postgres.apps.svc.cluster.local
   DB_PORT: "5432"
-  DB_INIT_ARGS: '--data-checksums'
+  DB_INIT_ARGS: "--data-checksums"
   DISABLE_REVERSE_GEOCODING: "false"
   REVERSE_GEOCODING_PRECISION: "2"
   # ENABLE_MAPBOX: "false"
