@@ -23,7 +23,7 @@ spec:
               value: "/cache"
           resources:
             limits:
-              cpu: 500m
+              cpu: 1000m
               ephemeral-storage: 8Gi
               memory: 2Gi
             requests:
