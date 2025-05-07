@@ -50,7 +50,7 @@ spec:
               protocol: TCP
           envFrom:
             - configMapRef:
-                name: immich-env
+                name: immich-server-configmap
           volumeMounts:
             - name: nfs-volume
               mountPath: /usr/src/app/upload
