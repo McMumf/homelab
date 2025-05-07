@@ -11,6 +11,6 @@ helmCharts:
     releaseName: ingress-nginx
     namespace: ingress-nginx
     repo: https://kubernetes.github.io/ingress-nginx
-    version: 4.12.1
+    version: 4.12.2
     includeCRDs: true
     valuesFile: values.yaml
