@@ -1,7 +1,7 @@
 #!/bin/bash
 talosctl gen config --force \
     --talos-version 1.9.5 \
-    --kubernetes-version 1.32.0 \
+    --kubernetes-version 1.33.0 \
     homelab https://192.168.5.100:6443 \
     --config-patch @patches/cni.yaml \
     --output-dir _out
