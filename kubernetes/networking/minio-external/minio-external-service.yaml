@@ -4,5 +4,14 @@ metadata:
   name: minio-external-service
   namespace: networking
 spec:
+  ports:
+    - name: minio-console
+      protocol: TCP
+      port: 9090
+      targetPort: 9090
+    - name: s3
+      protocol: TCP
+      port: 9000
+      targetPort: 9000
   externalIPs:
     - 192.168.69.70
