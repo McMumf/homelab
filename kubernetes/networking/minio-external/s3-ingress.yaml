@@ -21,6 +21,6 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: s3-external-service
+                name: minio-external-service
                 port:
                   number: 9000
