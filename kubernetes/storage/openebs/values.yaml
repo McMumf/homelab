@@ -21,8 +21,6 @@ localpv-provisioner:
         value: ""
 
 mayastor:
-  crds:
-    enabled: true
   tolerations:
     - key: "node-role.kubernetes.io/control-plane"
       operator: "Equal"
