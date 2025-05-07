@@ -5,5 +5,4 @@ namespace: networking
 resources:
   - minio-external-service.yaml
   - minio-ingress.yaml
-  - s3-external-service.yaml
   - s3-ingress.yaml
