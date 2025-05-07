@@ -6,12 +6,23 @@ metadata:
 spec:
   project: default
   sources:
+    # Helm Chart
+    - repoURL: https://mariadb-operator.github.io/mariadb-operator
+      targetRevision: "0.38.1"
+      chart: mariadb-operator-crds
+    - repoURL: https://mariadb-operator.github.io/mariadb-operator
+      targetRevision: "0.38.1"
+      chart: mariadb-operator
+      helm:
+        valueFiles:
+          - $values/kubernetes/infrastructure/mariadb-operator/values.yaml
+    # Helm Values
     - repoURL: "https://github.com/McMumf/homelab"
       targetRevision: "talos"
-      path: kubernetes/infrastructure/mariadb-operator
+      ref: values
   destination:
     server: https://kubernetes.default.svc
-    namespace: authentik
+    namespace: mariadb-system
   syncPolicy:
     automated:
       prune: true
