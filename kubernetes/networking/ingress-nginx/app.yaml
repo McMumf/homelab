@@ -7,16 +7,16 @@ spec:
   project: default
   sources:
     # Ingress
-    - repoURL: 'https://kubernetes.github.io/ingress-nginx'
-      targetRevision: '4.11.3'
+    - repoURL: "https://kubernetes.github.io/ingress-nginx"
+      targetRevision: "4.12.2"
       chart: ingress-nginx
       helm:
         releaseName: ingress-nginx
         valueFiles:
-        - $values/kubernetes/networking/ingress-nginx/values.yaml
+          - $values/kubernetes/networking/ingress-nginx/values.yaml
     # Values Ref
-    - repoURL: 'https://github.com/McMumf/homelab'
-      targetRevision: 'talos'
+    - repoURL: "https://github.com/McMumf/homelab"
+      targetRevision: "talos"
       ref: values
   destination:
     server: https://kubernetes.default.svc
