@@ -7,6 +7,6 @@ releases:
     namespace: apps
     createNamespace: true
     chart: djjudas21/homer
-    version: 8.2.3
+    version: 8.2.4
     values:
       - values.yaml
