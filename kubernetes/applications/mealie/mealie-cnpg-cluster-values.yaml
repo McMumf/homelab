@@ -7,7 +7,7 @@ version:
   postgresql: "17"
 
 cluster:
-  instances: 1
+  instances: 2
   resources:
     limits:
       memory: 2Gi
