@@ -1,0 +1,4 @@
+tty: true
+
+scc:
+  create: false

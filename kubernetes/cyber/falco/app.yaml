@@ -1,0 +1,29 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: falco
+  namespace: argocd
+spec:
+  project: default
+  sources:
+    # Ingress
+    - repoURL: "https://falcosecurity.github.io/charts"
+      targetRevision: "4.21.3"
+      chart: falco
+      helm:
+        releaseName: falco
+        valueFiles:
+          - $values/kubernetes/cyber/falco/values.yaml
+    # Values Ref
+    - repoURL: "https://github.com/McMumf/homelab"
+      targetRevision: "talos"
+      ref: values
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: ingress-nginx
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
