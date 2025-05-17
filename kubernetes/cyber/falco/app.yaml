@@ -6,18 +6,10 @@ metadata:
 spec:
   project: default
   sources:
-    # Ingress
-    - repoURL: "https://falcosecurity.github.io/charts"
-      targetRevision: "4.21.3"
-      chart: falco
-      helm:
-        releaseName: falco
-        valueFiles:
-          - $values/kubernetes/cyber/falco/values.yaml
-    # Values Ref
+    # Kustomization
     - repoURL: "https://github.com/McMumf/homelab"
       targetRevision: "talos"
-      ref: values
+      path: kubernetes/cyber/falco
   destination:
     server: https://kubernetes.default.svc
     namespace: falco
