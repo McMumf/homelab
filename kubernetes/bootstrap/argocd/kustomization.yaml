@@ -11,5 +11,5 @@ helmCharts:
     repo: https://argoproj.github.io/argo-helm
     releaseName: argocd
     namespace: argocd
-    version: 8.0.3
+    version: 8.0.5
     valuesFile: values.yaml
