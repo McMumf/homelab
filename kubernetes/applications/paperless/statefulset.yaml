@@ -17,7 +17,7 @@ spec:
       automountServiceAccountToken: false
       containers:
         - name: paperless-ngx
-          image: ghcr.io/paperless-ngx/paperless-ngx:2.15
+          image: ghcr.io/paperless-ngx/paperless-ngx:2.16
           securityContext:
             allowPrivilegeEscalation: false
             seccompProfile:
