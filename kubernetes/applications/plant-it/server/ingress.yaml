@@ -10,7 +10,7 @@ metadata:
     gethomepage.dev/group: Homelab
     gethomepage.dev/icon: https://raw.githubusercontent.com/paperless-ngx/paperless-ngx/refs/heads/dev/src/paperless/static/paperless/img/favicon.ico
     gethomepage.dev/name: Plant-It
-    gethomepage.dev/pod-selector: "app=plant-it"
+    gethomepage.dev/pod-selector: "app=plantit-server"
 spec:
   ingressClassName: nginx
   tls:
