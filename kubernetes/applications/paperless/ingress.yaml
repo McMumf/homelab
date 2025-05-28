@@ -28,7 +28,7 @@ spec:
   tls:
     - hosts:
         - &hostName paperless.mcmumf.dev
-      secretName: paperless-cert
+      secretName: paperless.mcmumf.dev-tls
   rules:
     - host: *hostName
       http:
