@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: paperless-ngx
+  name: paperless
   namespace: argocd
 spec:
   project: default
