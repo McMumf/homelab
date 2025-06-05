@@ -1,0 +1,24 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: karakeep-web-ingress
+  namespace: karakeep
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-production
+spec:
+  ingressClassName: nginx
+  tls:
+    - hosts:
+        - &hostName keep.mcmumf.dev
+      secretName: keep.mcmumf.dev-tls
+  rules:
+    - host: *hostName
+      http:
+        paths:
+          - path: "/"
+            pathType: Prefix
+            backend:
+              service:
+                name: "web"
+                port:
+                  number: 3000
