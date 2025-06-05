@@ -22,7 +22,7 @@ spec:
         fsGroup: 1000
       containers:
         - name: hassio
-          image: "ghcr.io/home-assistant/home-assistant:2025.5.2"
+          image: "ghcr.io/home-assistant/home-assistant:2025.5.3"
           imagePullPolicy: IfNotPresent
           securityContext:
             runAsUser: 1000
@@ -65,7 +65,7 @@ spec:
               subPath: tls.key
               readOnly: true
         - name: code-server
-          image: codercom/code-server:4.100.2
+          image: codercom/code-server:4.100.3
           imagePullPolicy: IfNotPresent
           args:
             - --auth

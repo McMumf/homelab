@@ -19,7 +19,7 @@ spec:
       automountServiceAccountToken: false
       containers:
         - name: prowlarr
-          image: lscr.io/linuxserver/prowlarr:1.35.1
+          image: lscr.io/linuxserver/prowlarr:1.37.0
           resources:
             requests:
               cpu: 1000m
