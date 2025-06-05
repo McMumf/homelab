@@ -14,10 +14,17 @@ spec:
     spec:
       containers:
         - name: web
-          image: ghcr.io/karakeep-app/karakeep
+          image: ghcr.io/karakeep-app/karakeep:0.24.1
           imagePullPolicy: Always
           ports:
             - containerPort: 3000
+          resources:
+            limits:
+              cpu: 100m
+              memory: 1024Mi
+            requests:
+              cpu: 10m
+              memory: 512Mi
           env:
             - name: MEILI_ADDR
               value: http://meilisearch:7700
@@ -33,7 +40,7 @@ spec:
             - secretRef:
                 name: karakeep-secrets
             - configMapRef:
-                name: karakeep-configuration
+                name: karakeep-config
       volumes:
         - name: data
           persistentVolumeClaim:

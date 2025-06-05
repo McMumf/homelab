@@ -32,7 +32,7 @@ spec:
             - secretRef:
                 name: karakeep-secrets
             - configMapRef:
-                name: karakeep-configuration
+                name: karakeep-config
       volumes:
         - name: meilisearch
           persistentVolumeClaim:
