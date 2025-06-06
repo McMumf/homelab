@@ -6,23 +6,14 @@ metadata:
 spec:
   project: default
   sources:
-    - repoURL: 'https://metallb.github.io/metallb'
-      targetRevision: '0.14.9'
-      chart: metallb
-      helm:
-        valueFiles:
-          - $values/kubernetes/networking/metallb/values.yaml
-    - repoURL: 'https://github.com/McMumf/homelab'
-      targetRevision: 'talos'
-      ref: values
-    - repoURL: 'https://github.com/McMumf/homelab'
-      targetRevision: 'talos'
+    - repoURL: "https://github.com/McMumf/homelab"
+      targetRevision: "talos"
       path: kubernetes/networking/metallb/
   ignoreDifferences:
     - kind: CustomResourceDefinition
       group: apiextensions.k8s.io
       jqPathExpressions:
-        - '.spec.conversion.webhook.clientConfig.caBundle'
+        - ".spec.conversion.webhook.clientConfig.caBundle"
   destination:
     server: https://kubernetes.default.svc
     namespace: metallb-system

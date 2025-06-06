@@ -4,3 +4,11 @@ kind: Kustomization
 resources:
   - namespace.yaml
   - metallb-config.yaml
+
+helmCharts:
+  - name: metallb
+    repo: https://metallb.github.io/metallb
+    releaseName: metallb
+    namespace: apps
+    version: 0.15.1
+    valuesFile: values.yaml
