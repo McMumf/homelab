@@ -9,6 +9,6 @@ helmCharts:
   - name: metallb
     repo: https://metallb.github.io/metallb
     releaseName: metallb
-    namespace: apps
+    namespace: metallb-system
     version: 0.15.1
     valuesFile: values.yaml
