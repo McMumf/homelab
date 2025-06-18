@@ -6,17 +6,6 @@ metadata:
 spec:
   project: default
   sources:
-   # Helm Chart
-    - repoURL: "https://charts.goauthentik.io"
-      targetRevision: "2025.4.0"
-      chart: authentik
-      helm:
-        valueFiles:
-          - $values/kubernetes/infrastructure/authentik/values.yaml
-    # Helm Values
-    - repoURL: "https://github.com/McMumf/homelab"
-      targetRevision: "talos"
-      ref: values
     # Kustomize
     - repoURL: 'https://github.com/McMumf/homelab'
       targetRevision: 'talos'

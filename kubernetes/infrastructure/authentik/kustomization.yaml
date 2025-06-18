@@ -3,3 +3,11 @@ kind: Kustomization
 
 resources:
   - external-secrets.yaml
+
+helmCharts:
+  - name: authentik
+    repo: https://charts.goauthentik.io
+    releaseName: authentik
+    namespace: authentik
+    version: 2025.6.2
+    valuesFile: values.yaml
