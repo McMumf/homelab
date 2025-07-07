@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+namespace: outline
+metadata:
+  name: outline
+  labels:
+    app: outline
+    release: outline
+spec:
+  ports:
+    - port: 80
+      targetPort: 3000
+      name: web
+  selector:
+    app: {{ .Values.name }}
