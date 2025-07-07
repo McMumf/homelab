@@ -65,7 +65,7 @@ customization:
 1. Run the install command. Example:
 
   ```shell
-  $ talosctl upgrade --nodes <node ip> --image ghcr.io/siderolabs/installer-secureboot/4a6d075edb1b336415b3d809208217dfbd390359d21787afc2f832c41ec56007:v1.10.1
+  $ talosctl upgrade --nodes <node ip> --image factory.talos.dev/metal-installer-secureboot/4a6d075edb1b336415b3d809208217dfbd390359d21787afc2f832c41ec56007:<new_version>
   ```
 2. Make sure it boots with new EFI image
   - May need to enroll the EFI image from disk in bios
