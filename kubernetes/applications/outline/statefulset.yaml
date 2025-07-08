@@ -1,19 +1,17 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: outline
   namespace: outline
 spec:
   selector:
     matchLabels:
-      app: outline
+      app: outline-app
   replicas: 1
-  strategy:
-    type: Recreate
   template:
     metadata:
       labels:
-        app: outline
+        app: outline-app
     spec:
       containers:
         - name: outline
@@ -48,12 +46,11 @@ spec:
               value: ""
             - name: URL
               value: "https://notes.mcmumf.dev"
-            # - name: DATABASE_URL
-            #   value: "postgres://{{ .Values.postgresql.postgresqlUsername}}:{{ .Values.postgresql.postgresqlPassword }}@{{ .Release.Name }}-postgresql:5432/{{ .Values.postgresql.postgresqlDatabase }}"
-            # - name: DATABASE_URL_TEST
-            #   value: "postgres://{{ .Values.postgresql.postgresqlUsername }}:{{ .Values.postgresql.postgresqlPassword }}@{{ .Release.Name }}-postgresql:5432/{{ .Values.postgresql.postgresqlDatabase }}-test"
-            # - name: PGSSLMODE
-            #   value: "disable"
+            - name: DATABASE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: outline-secrets
+                  key: db-connection
             - name: REDIS_URL
               value: "redis://outline-redis:6379"
             # - name: AWS_ACCESS_KEY_ID

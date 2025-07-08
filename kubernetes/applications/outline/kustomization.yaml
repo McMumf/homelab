@@ -3,8 +3,10 @@ kind: Kustomization
 namespace: outline
 
 resources:
+  - ./db
   - external-secrets.yaml
   - ingress.yaml
+  - namespace.yaml
   - ./redis
   - statefulset.yaml
   - service.yaml
