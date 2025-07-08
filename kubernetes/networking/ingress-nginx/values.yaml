@@ -1,4 +1,5 @@
 controller:
+  kind: DaemonSet
   allowSnippetAnnotations: true
   updateStrategy:
     rollingUpdate:
