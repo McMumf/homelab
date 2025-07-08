@@ -53,6 +53,32 @@ spec:
                   key: db-connection
             - name: REDIS_URL
               value: "redis://outline-redis:6379"
+            - name: SMTP_HOST
+              valueFrom:
+                secretKeyRef:
+                  name: outline-secrets
+                  key: smtp-server
+            - name: SMTP_PORT
+              value: "587"
+            - name: SMTP_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: outline-secrets
+                  key: smtp-username
+            - name: SMTP_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: outline-secrets
+                  key: smtp-token
+            - name: SMTP_FROM_EMAIL
+              valueFrom:
+                secretKeyRef:
+                  name: outline-secrets
+                  key: smtp-username
+            - name: SMTP_TLS_CIPHERS
+              value: "TLSv1.2"
+            - name: SMTP_SECURE
+              value: "false"
             # - name: AWS_ACCESS_KEY_ID
             #   valueFrom:
             #     secretKeyRef:
@@ -75,6 +101,7 @@ spec:
             #   value: "true"
             # - name: AWS_S3_ACL
             #   value: "private"
+
           volumeMounts:
             - name: outline-data
               mountPath: /var/lib/outline/data
