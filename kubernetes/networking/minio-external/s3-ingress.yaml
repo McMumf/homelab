@@ -14,7 +14,7 @@ spec:
   tls:
     - hosts:
         - s3.mcmumf.dev
-      secretName: s3-ingress-cert
+      secretName: s3.mcmumf.dev-tls
   rules:
     - host: s3.mcmumf.dev
       http:

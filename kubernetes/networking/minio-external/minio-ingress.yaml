@@ -1,4 +1,4 @@
-cd apiVersion: networking.k8s.io/v1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: minio-ingress
@@ -12,7 +12,7 @@ spec:
   tls:
     - hosts:
         - minio.mcmumf.dev
-      secretName: minio-ingress-cert
+      secretName: minio.mcmumf.dev-tls
   rules:
     - host: minio.mcmumf.dev
       http:
