@@ -94,13 +94,13 @@ spec:
             - name: AWS_REGION
               value: "us-east-1"
             - name: AWS_S3_UPLOAD_BUCKET_URL
-              value: "https://s3.mcmumf.dev"
+              value: "http://192.168.69.70:9090"
             - name: AWS_S3_UPLOAD_BUCKET_NAME
               value: "outline"
             - name: AWS_S3_FORCE_PATH_STYLE
               value: "true"
-            # - name: AWS_S3_ACL
-            #   value: "private"
+            - name: AWS_S3_ACL
+              value: "private"
             - name: OIDC_CLIENT_ID
               valueFrom:
                 secretKeyRef:
