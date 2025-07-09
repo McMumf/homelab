@@ -3,6 +3,7 @@ kind: Kustomization
 namespace: networking
 
 resources:
+  - minio-external-endpoints.yaml
   - minio-external-service.yaml
   - minio-ingress.yaml
   - s3-ingress.yaml
