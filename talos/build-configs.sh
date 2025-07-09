@@ -11,7 +11,6 @@ talosctl machineconfig patch _out/controlplane.yaml \
     --patch @patches/common.yaml \
     --patch @patches/mayastor-patch.yaml \
     --patch @patches/mayastor-patch-cp.yaml \
-    --patch @patches/extensions/cloudflared.yaml \
     --patch @patches/extensions/nut.yaml \
     --patch @patches/metrics.yaml \
     --patch @nodes/apollo.yaml \
@@ -27,7 +26,6 @@ talosctl machineconfig patch _out/worker.yaml \
     --patch @patches/common.yaml \
     --patch @patches/mayastor-patch.yaml \
     --patch @patches/mayastor-patch-cp.yaml \
-    --patch @patches/extensions/cloudflared.yaml \
     --patch @patches/extensions/nut.yaml \
     --patch @nodes/artemis.yaml \
     --output _out/artemis.yaml
@@ -42,7 +40,6 @@ talosctl machineconfig patch _out/worker.yaml \
     --patch @patches/common.yaml \
     --patch @patches/mayastor-patch.yaml \
     --patch @patches/mayastor-patch-cp.yaml \
-    --patch @patches/extensions/cloudflared.yaml \
     --patch @patches/extensions/nut.yaml \
     --patch @nodes/skylab.yaml \
     --output _out/skylab.yaml
@@ -50,7 +47,6 @@ talosctl machineconfig patch _out/worker.yaml \
 # columbia (worker and storage)
 talosctl machineconfig patch _out/worker.yaml \
     --patch @patches/common.yaml \
-    --patch @patches/extensions/cloudflared.yaml \
     --patch @patches/extensions/nut.yaml \
     --patch @nodes/columbia.yaml \
     --output _out/columbia.yaml
@@ -58,7 +54,6 @@ talosctl machineconfig patch _out/worker.yaml \
 # atlantis (worker and storage)
 talosctl machineconfig patch _out/worker.yaml \
     --patch @patches/common.yaml \
-    --patch @patches/extensions/cloudflared.yaml \
     --patch @patches/extensions/nut.yaml \
     --patch @nodes/atlantis.yaml \
     --output _out/atlantis.yaml
@@ -66,7 +61,6 @@ talosctl machineconfig patch _out/worker.yaml \
 # challenger (worker and storage)
 talosctl machineconfig patch _out/worker.yaml \
     --patch @patches/common.yaml \
-    --patch @patches/extensions/cloudflared.yaml \
     --patch @patches/extensions/nut.yaml \
     --patch @nodes/challenger.yaml \
     --output _out/challenger.yaml

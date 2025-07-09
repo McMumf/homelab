@@ -44,19 +44,17 @@ _Note: you may need to edit your cloudflared extension patch directly_
 
 ### Schematic
 
-ID: `4a6d075edb1b336415b3d809208217dfbd390359d21787afc2f832c41ec56007`
+ID: `72b8d480a52e4864ddf7915064656d75b44474fcc48edbe9bdbbbc6223543695`
 
 ```yaml
 customization:
     systemExtensions:
         officialExtensions:
-            - siderolabs/cloudflared
             - siderolabs/glibc
             - siderolabs/i915
             - siderolabs/intel-ucode
             - siderolabs/iscsi-tools
             - siderolabs/nut-client
-            - siderolabs/realtek-firmware
             - siderolabs/util-linux-tools
 ```
 
