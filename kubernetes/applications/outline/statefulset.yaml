@@ -99,8 +99,8 @@ spec:
               value: "outline"
             - name: AWS_S3_FORCE_PATH_STYLE
               value: "true"
-            - name: AWS_S3_ACL
-              value: "private"
+            # - name: AWS_S3_ACL
+            #   value: "private"
             - name: OIDC_CLIENT_ID
               valueFrom:
                 secretKeyRef:

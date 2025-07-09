@@ -20,6 +20,7 @@ controller:
   config:
     enable-real-ip: true
     forwarded-for-header: proxy_protocol
+    use-forwarded-headers: true
     ssl-protocols: "TLSv1.2 TLSv1.3"
   service:
     externalTrafficPolicy: Local
