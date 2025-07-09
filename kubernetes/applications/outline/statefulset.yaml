@@ -94,7 +94,7 @@ spec:
             - name: AWS_REGION
               value: "us-east-1"
             - name: AWS_S3_UPLOAD_BUCKET_URL
-              value: "http://192.168.69.70:9090"
+              value: "http://192.168.69.70:9000"
             - name: AWS_S3_UPLOAD_BUCKET_NAME
               value: "outline"
             - name: AWS_S3_FORCE_PATH_STYLE
