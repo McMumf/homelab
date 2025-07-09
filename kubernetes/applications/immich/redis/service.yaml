@@ -1,14 +1,14 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: outline-redis
+  name: immich-redis
   namespace: outline
   labels:
-    app: outline-redis
+    app: immich-redis
 spec:
   type: ClusterIP
   selector:
-    app: outline-redis
+    app: immich-redis
   ports:
     - protocol: TCP
       port: 6379
