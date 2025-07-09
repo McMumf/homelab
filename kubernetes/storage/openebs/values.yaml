@@ -50,3 +50,6 @@ mayastor:
       initContainers:
         # disable the init container that checks for the nvme_tcp module, since Talos has that module built-in.
         enabled: false
+
+loki:
+  enabled: false
