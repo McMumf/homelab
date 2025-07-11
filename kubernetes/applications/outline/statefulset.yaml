@@ -100,9 +100,9 @@ spec:
             - name: AWS_S3_UPLOAD_BUCKET_NAME
               value: "outline-bucket"
             - name: AWS_S3_FORCE_PATH_STYLE
-              value: "false"
-            - name: AWS_S3_ACL
-              value: "private"
+              value: "true"
+            # - name: AWS_S3_ACL
+            #   value: "private"
             - name: OIDC_CLIENT_ID
               valueFrom:
                 secretKeyRef:
