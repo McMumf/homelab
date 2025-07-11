@@ -112,19 +112,21 @@ spec:
                   name: outline-secrets
                   key: oidc-secret
             - name: OIDC_AUTH_URI
-              value: "https://authentik-server.authentik/application/o/authorize/"
+              value: "https://auth.mcmumf.dev/application/o/authorize/"
             - name: OIDC_TOKEN_URI
-              value: "https://authentik-server.authentik/application/o/token/"
+              value: "https://auth.mcmumf.dev/application/o/token/"
             - name: OIDC_USERINFO_URI
-              value: "https://authentik-server.authentik/application/o/userinfo/"
+              value: "https://auth.mcmumf.dev/application/o/userinfo/"
             - name: OIDC_LOGOUT_URI
-              value: "https://authentik-server.authentik/application/o/outline/end-session/"
+              value: "https://auth.mcmumf.dev/application/o/outline/end-session/"
             - name: OIDC_USERNAME_CLAIM
               value: "preferred_username"
             - name: OIDC_DISPLAY_NAME
               value: "authentik"
             - name: OIDC_SCOPES
               value: "openid profile email"
+            - name: FORCE_HTTPS
+              value: "true"
           volumeMounts:
             - name: outline-data
               mountPath: /var/lib/outline/data

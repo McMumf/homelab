@@ -7,6 +7,8 @@ metadata:
     cert-manager.io/cluster-issuer: letsencrypt-production
     nginx.ingress.kubernetes.io/proxy-body-size: "10g"
     nginx.org/client-max-body-size: "10g"
+    nginx.ingress.kubernetes.io/enable-cors: "true"
+    nginx.ingress.kubernetes.io/cors-allow-origin: "https://s3.mcmumf.dev"
     gethomepage.dev/description: Our own knowledge base
     gethomepage.dev/enabled: "true"
     gethomepage.dev/group: Homelab
