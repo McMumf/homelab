@@ -92,11 +92,11 @@ spec:
                   name: outline-secrets
                   key: aws-access-id
             - name: AWS_REGION
-              value: "us-east-1"
+              value: "garage"
             - name: AWS_S3_UPLOAD_BUCKET_URL
-              value: "http://192.168.69.70:9000"
+              value: "https://s3.mcmumf.dev"
             - name: AWS_S3_UPLOAD_BUCKET_NAME
-              value: "outline"
+              value: "outline-bucket"
             - name: AWS_S3_FORCE_PATH_STYLE
               value: "true"
             - name: AWS_S3_ACL
