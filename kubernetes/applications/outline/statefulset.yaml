@@ -81,6 +81,28 @@ spec:
               value: "false"
             - name: FILE_STORAGE_UPLOAD_MAX_SIZE
               value: "26214400"
+            - name: AWS_ACCESS_KEY_ID
+              valueFrom:
+                secretKeyRef:
+                  name: outline-secrets
+                  key: aws-access-id
+            - name: AWS_SECRET_ACCESS_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: outline-secrets
+                  key: aws-access-id
+            - name: FILE_STORAGE
+              value: "s3"
+            - name: AWS_REGION
+              value: "garage"
+            - name: AWS_S3_UPLOAD_BUCKET_URL
+              value: "https://s3.mcmumf.dev"
+            - name: AWS_S3_UPLOAD_BUCKET_NAME
+              value: "outline-bucket"
+            - name: AWS_S3_FORCE_PATH_STYLE
+              value: "false"
+            - name: AWS_S3_ACL
+              value: "private"
             - name: OIDC_CLIENT_ID
               valueFrom:
                 secretKeyRef:
