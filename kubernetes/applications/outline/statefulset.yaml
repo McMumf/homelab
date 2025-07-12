@@ -24,7 +24,7 @@ spec:
             limits:
               cpu: 2000m
               ephemeral-storage: 8Gi
-              memory: 2Gi
+              memory: 4Gi
             requests:
               cpu: 500m
               ephemeral-storage: 8Gi
@@ -140,4 +140,4 @@ spec:
         storageClassName: "openebs"
         resources:
           requests:
-            storage: 100Gi
+            storage: 150Gi
