@@ -7,8 +7,8 @@ spec:
   generators:
     - list:
         elements:
-          - appName: authentik
-            namespace: authentik
+          # - appName: authentik
+          #   namespace: authentik
           - appName: cert-manager
             namespace: cert-manager
           - appName: cloudflare-tunnel
@@ -17,12 +17,12 @@ spec:
             namespace: cnpg-system
           - appName: external-secrets
             namespace: external-secrets
-          - appName: intel-device-plugins
-            namespace: inteldeviceplugins-system
+          # - appName: intel-device-plugins
+          #   namespace: inteldeviceplugins-system
           # - appName: node-feature-discovery
           #   namespace: node-feature-discovery
-          - appName: prometheus-stack
-            namespace: monitoring
+          # - appName: prometheus-stack
+          #   namespace: monitoring
   template:
     metadata:
       name: "{{appName}}"

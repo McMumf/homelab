@@ -9,24 +9,24 @@ spec:
         elements:
           - appName: cnpg-app-cluster
             namespace: apps
-          - appName: enclosed
-            namespace: apps
+          # - appName: enclosed
+          #   namespace: apps
           # - appName: fasten
           #   namespace: apps
           # - appName: ghost
           #   namespace: apps
-          - appName: homer
-            namespace: apps
+          # - appName: homer
+          #   namespace: apps
           # - appName: immich
           #   namespace: immich
           - appName: mealie
             namespace: apps
-          - appName: morphos
-            namespace: apps
-          - appName: paperless
-            namespace: apps
-          - appName: scanservjs
-            namespace: apps
+          # - appName: morphos
+          #   namespace: apps
+          # - appName: paperless
+          #   namespace: apps
+          # - appName: scanservjs
+          #   namespace: apps
   template:
     metadata:
       name: "{{appName}}"
