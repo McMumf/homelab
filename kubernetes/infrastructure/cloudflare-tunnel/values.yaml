@@ -14,3 +14,8 @@ cloudflare:
 
 image:
   tag: "2024.12.1"
+
+tolerations:
+  - key: "node-role.kubernetes.io/control-plane"
+    operator: "Equal"
+    effect: "NoSchedule"
