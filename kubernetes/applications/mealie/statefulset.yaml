@@ -51,34 +51,34 @@ spec:
             # OIDC Configs
             - name: OIDC_AUTH_ENABLED
               value: "false"
-            - name: OIDC_SIGNUP_ENABLED
-              value: "false"
-            - name: OIDC_CONFIGURATION_URL
-              value: "https://auth.mcmumf.dev/application/o/mealie/.well-known/openid-configuration"
-            - name: OIDC_CLIENT_ID
-              valueFrom:
-                secretKeyRef:
-                  name: mealie-secrets
-                  key: client-id
-            - name: OIDC_CLIENT_SECRET
-              valueFrom:
-                secretKeyRef:
-                  name: mealie-secrets
-                  key: client-secret
-            - name: OIDC_PROVIDER_NAME
-              value: "Authentik"
-            - name: OIDC_AUTO_REDIRECT
-              value: "false"
-            - name: OIDC_REMEMBER_ME
-              value: "true"
-            - name: LOG_LEVEL
-              value: "debug"
-            - name: OIDC_USER_CLAIM
-              value: "email"
-            - name: OIDC_USER_GROUP
-              value: "mealie-users"
-            - name: OIDC_ADMIN_GROUP
-              value: "mealie-admins"
+            # - name: OIDC_SIGNUP_ENABLED
+            #   value: "false"
+            # - name: OIDC_CONFIGURATION_URL
+            #   value: "https://auth.mcmumf.dev/application/o/mealie/.well-known/openid-configuration"
+            # - name: OIDC_CLIENT_ID
+            #   valueFrom:
+            #     secretKeyRef:
+            #       name: mealie-secrets
+            #       key: client-id
+            # - name: OIDC_CLIENT_SECRET
+            #   valueFrom:
+            #     secretKeyRef:
+            #       name: mealie-secrets
+            #       key: client-secret
+            # - name: OIDC_PROVIDER_NAME
+            #   value: "Authentik"
+            # - name: OIDC_AUTO_REDIRECT
+            #   value: "false"
+            # - name: OIDC_REMEMBER_ME
+            #   value: "true"
+            # - name: LOG_LEVEL
+            #   value: "debug"
+            # - name: OIDC_USER_CLAIM
+            #   value: "email"
+            # - name: OIDC_USER_GROUP
+            #   value: "mealie-users"
+            # - name: OIDC_ADMIN_GROUP
+            #   value: "mealie-admins"
             # Security Configs
             - name: SECURITY_MAX_LOGIN_ATTEMPTS
               value: "5"

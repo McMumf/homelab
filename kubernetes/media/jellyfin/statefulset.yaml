@@ -17,7 +17,7 @@ spec:
       automountServiceAccountToken: false
       # securityContext:
       #   supplementalGroups:
-      #     - 105 # Change this to match your "render" host group id from "getent group render | cut -d: -f3"
+      #     - 105 # Change this to match gyour "render" host group id from "getent group render | cut -d: -f3"
       containers:
         # Container
         - name: jellyfin

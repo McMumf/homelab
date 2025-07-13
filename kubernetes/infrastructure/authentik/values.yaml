@@ -41,6 +41,12 @@ server:
     ingressClassName: nginx
     annotations:
       cert-manager.io/cluster-issuer: letsencrypt-production
+      gethomepage.dev/description: User management
+      gethomepage.dev/enabled: "true"
+      gethomepage.dev/group: Operations
+      gethomepage.dev/icon: https://raw.githubusercontent.com/mealie-recipes/mealie/refs/heads/mealie-next/frontend/static/icons/icon-x64.png
+      gethomepage.dev/name: Authentik
+      gethomepage.dev/pod-selector: "app.kubernetes.io/name=authentik"
     hosts:
       - &authentikHost auth.mcmumf.dev
     tls:

@@ -7,6 +7,12 @@ metadata:
     app: zigbee2mqtt
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt-production
+    gethomepage.dev/description: Manage zigbee devices
+    gethomepage.dev/enabled: "true"
+    gethomepage.dev/group: Operations
+    gethomepage.dev/icon: https://raw.githubusercontent.com/Koenkk/zigbee2mqtt/refs/heads/master/images/logo.png
+    gethomepage.dev/name: Zigbee2MQTT
+    gethomepage.dev/pod-selector: "app=zigbee2mqtt"
 spec:
   ingressClassName: nginx
   tls:
