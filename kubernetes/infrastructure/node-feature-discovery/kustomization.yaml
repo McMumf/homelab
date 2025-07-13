@@ -3,6 +3,9 @@ kind: Kustomization
 
 namespace: node-feature-discovery
 
+resources:
+  - namespace.yaml
+
 helmCharts:
   - name: node-feature-discovery
     repo: https://kubernetes-sigs.github.io/node-feature-discovery/charts

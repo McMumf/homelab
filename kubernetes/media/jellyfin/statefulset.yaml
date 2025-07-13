@@ -15,9 +15,9 @@ spec:
         app: jellyfin
     spec:
       automountServiceAccountToken: false
-      securityContext:
-        supplementalGroups:
-          - 105 # Change this to match your "render" host group id from "getent group render | cut -d: -f3"
+      # securityContext:
+      #   supplementalGroups:
+      #     - 105 # Change this to match your "render" host group id from "getent group render | cut -d: -f3"
       containers:
         # Container
         - name: jellyfin
@@ -50,8 +50,8 @@ spec:
               port: jellyfin-http
             initialDelaySeconds: 5
             periodSeconds: 5
-          securityContext:
-            privileged: true
+          # securityContext:
+          #   privileged: true
           # Volume Mounts
           volumeMounts:
             - name: jellyfin-data
@@ -61,8 +61,8 @@ spec:
             - name: tls-certs
               mountPath: /config/tls
               readOnly: true
-            - name: "render-device"
-              mountPath: "/dev/dri/renderD128"
+            # - name: "render-device"
+            #   mountPath: "/dev/dri/renderD128"
       volumes:
         - name: homelab-nfs
           nfs:
@@ -70,10 +70,10 @@ spec:
             path: /volume1/library
         - name: tls-certs
           secret:
-            secretName: jellyfin-cert
-        - name: "render-device"
-          hostPath:
-            path: "/dev/dri/renderD128"
+            secretName: jellyfin.mcmumf.dev-tls
+        # - name: "render-device"
+        #   hostPath:
+        #     path: "/dev/dri/renderD128"
   volumeClaimTemplates:
     - metadata:
         name: jellyfin-data

@@ -26,9 +26,11 @@ data:
       transmit_power: 20
     # Enable the Zigbee2MQTT frontend
     frontend:
+      enabled: true
+      host: 0.0.0.0
       port: 8080
        # Optional, url on which the frontend can be reached, currently only used for the Home Assistant device configuration page
-      url: 'https://zigbee2mqtt.mcmumf.dev'
+      url: 'https://z2m.mcmumf.dev'
       # Optional, certificate file path for exposing HTTPS. The sibling property 'ssl_key' must be set for HTTPS to be activated
       ssl_cert: /app/certs/tls.crt
       # Optional, private key file path for exposing HTTPS. The sibling property 'ssl_cert' must be set for HTTPS to be activated
