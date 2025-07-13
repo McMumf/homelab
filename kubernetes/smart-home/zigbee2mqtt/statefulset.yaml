@@ -53,7 +53,7 @@ spec:
       volumes:
         - name: zigbee2mqtt-cert
           secret:
-            secretName: zigbee2mqtt-cert
+            secretName: z2m.mcmumf.dev-tls
         - name: zigbee2mqtt-config
           configMap:
             name: zigbee2mqtt-config
