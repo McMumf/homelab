@@ -7,9 +7,6 @@ metadata:
     app: hassio
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt-production
-    nginx.ingress.kubernetes.io/server-snippet: |
-      proxy_set_header Upgrade "websocket";
-      proxy_set_header Connection "Upgrade";
 spec:
   ingressClassName: nginx
   tls:

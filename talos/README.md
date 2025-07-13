@@ -22,12 +22,7 @@ _Based on NASA's shuttles._
 
 ### Setup
 
-_Note: you may need to edit your cloudflared extension patch directly_
-
 1. Generate configs: `build-configs.sh`
-2. Update cloudflared extension in each node's machine config
-   1. Replace `${cloudflared_tunnel_token}` with the actual token
-   2. So far, I haven't been able to figure out how to get it to populate from env
 3. Apply configs: `apply-configs.sh`
 4. Setup control-plane conversations:
     ```sh
