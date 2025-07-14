@@ -12,6 +12,15 @@
    2. Search for SSL Cert path
    3. Enter password if necessary
 
+### OIDC
+
+1. Create a custom Property Mapping
+  - name: `Group Membership`
+  - scope name: `groups`
+  - description: `See which groups you belong to`
+  - expression: `return [group.name for group in user.ak_groups.all()]`
+2. Add to Jellyfin OIDC Provider's Scope under "Advanced Protocol Settings"
+
 ### LDAP
 
 #### Prerequisites
