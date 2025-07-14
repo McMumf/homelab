@@ -12,5 +12,5 @@ spec:
   ports:
     - name: zigbee2mqtt
       port: 8080
-      targetPort: http
+      targetPort: z2m-http
       protocol: TCP

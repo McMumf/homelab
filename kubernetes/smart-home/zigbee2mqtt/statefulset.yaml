@@ -36,7 +36,7 @@ spec:
             - name: "ZIGBEE2MQTT_DATA"
               value: "/app/data"
           ports:
-            - name: http
+            - name: z2m-http
               containerPort: 8080
               protocol: TCP
           volumeMounts:
