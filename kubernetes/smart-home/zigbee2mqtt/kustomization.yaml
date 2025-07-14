@@ -1,8 +1,11 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
+namespace: smart-home
 
-resources:
-  - configmap.yaml
-  - ingress.yaml
-  - service.yaml
-  - statefulset.yaml
+helmCharts:
+  - name: zigbee2mqtt
+    repo: https://charts.zigbee2mqtt.io
+    releaseName: zigbee2mqtt
+    namespace: smart-home
+    version: 2.5.1
+    valuesFile: values.yaml
