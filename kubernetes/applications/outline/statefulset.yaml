@@ -13,6 +13,10 @@ spec:
       labels:
         app: outline-app
     spec:
+      securityContext:
+        runAsUser: 1001
+        runAsGroup: 1001
+        fsGroup: 1001
       containers:
         - name: outline
           image: outlinewiki/outline:0.85.0
