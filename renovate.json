@@ -3,6 +3,9 @@
     "extends": [
         "config:recommended"
     ],
+    "ignorePaths": [
+        "legacy/**"
+    ],
     "kubernetes": {
         "fileMatch": [
             "\\.yaml$"
