@@ -1,0 +1,65 @@
+authentik:
+  error_reporting:
+    enabled: true
+  log_level: trace
+  email:
+    use_tls: true
+
+global:
+  postgresql:
+    enabled: true
+    auth:
+      existingSecret: authentik-secrets
+  envFrom:
+    - secretRef:
+        name: authentik-secrets
+
+postgresql:
+  enabled: true
+  auth:
+    existingSecret: authentik-secrets
+  primary:
+    persistence:
+      enabled: true
+      storageClass: openebs
+redis:
+  enabled: true
+  global:
+    defaultStorageClass: openebs
+
+server:
+  volumes:
+    - name: tls-cert
+      secret:
+        secretName: authentik-cert
+  volumeMounts:
+    - name: tls-cert
+      mountPath: /certs
+      readOnly: true
+  ingress:
+    enabled: true
+    ingressClassName: nginx
+    annotations:
+      cert-manager.io/cluster-issuer: letsencrypt-production
+      gethomepage.dev/description: User management
+      gethomepage.dev/enabled: "true"
+      gethomepage.dev/group: Operations
+      gethomepage.dev/icon: https://raw.githubusercontent.com/goauthentik/authentik/refs/heads/main/website/static/img/icon.png
+      gethomepage.dev/name: Authentik
+      gethomepage.dev/pod-selector: "app.kubernetes.io/name=authentik"
+    hosts:
+      - &authentikHost auth.mcmumf.dev
+    tls:
+      - hosts:
+          - *authentikHost
+        secretName: authentik-cert
+
+worker:
+  volumes:
+    - name: tls-cert
+      secret:
+        secretName: authentik-cert
+  volumeMounts:
+    - name: tls-cert
+      mountPath: /certs
+      readOnly: true
