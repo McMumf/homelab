@@ -1,0 +1,12 @@
+repositories:
+  - name: djjudas21
+    url: https://djjudas21.github.io/charts/
+
+releases:
+  - name: homer
+    namespace: apps
+    createNamespace: true
+    chart: djjudas21/homer
+    version: 8.2.4
+    values:
+      - values.yaml

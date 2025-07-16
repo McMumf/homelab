@@ -1,0 +1,14 @@
+- name: Install CRI-O
+  include_tasks: pkg.yaml
+
+- name: Reload systemd daemon
+  become: true
+  ansible.builtin.systemd:
+    daemon_reload: true
+
+- name: Enable and start the crio service
+  become: true
+  ansible.builtin.systemd:
+    name: crio
+    enabled: true
+    state: started

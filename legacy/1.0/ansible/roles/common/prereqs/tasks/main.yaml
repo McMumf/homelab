@@ -1,0 +1,78 @@
+---
+
+# Add debian backports repository
+- name: Add modified sources.list
+  ansible.builtin.copy:
+    src: sources.list
+    dest: /etc/apt/sources.list
+    mode: "0640"
+  become: true
+
+- name: Install common packages
+  become: true
+  ansible.builtin.apt:
+    update_cache: yes
+    name:
+      - curl
+      - gnupg2
+      - software-properties-common
+      - apt-transport-https
+      - ca-certificates
+      - vim
+      - ldap-utils
+      - needrestart
+      - nut-client
+      - cryptsetup
+      - parted
+      - open-iscsi
+      - nfs-common
+      - jq
+    state: present
+
+
+- name: Install Kubernetes packages
+  include_tasks: pkg.yaml
+
+- name: Disable system swap
+  shell: "swapoff -a"
+
+- name: Remove current swaps from fstab
+  lineinfile:
+    dest: /etc/fstab
+    regexp: '(?i)^([^#][\S]+\s+(none|swap)\s+swap.*)'
+    line: '# \1'
+    backrefs: yes
+    state: present
+
+- name: Disable swappiness and pass bridged IPv4 traffic to iptable's chains
+  sysctl:
+    name: "{{ item.name }}"
+    value: "{{ item.value }}"
+    state: present
+  with_items:
+    - { name: "vm.swappiness", value: "0" }
+
+- name: Create service drop-in directory
+  file:
+    path: /etc/systemd/system/kubelet.service.d/
+    state: directory
+    owner: "{{ ansible_user | default(ansible_user_id) }}"
+    group: "{{ ansible_user | default(ansible_user_id) }}"
+    mode: 0750
+
+- name: Copy kubeadm conf to drop-in directory
+  template: src=20-extra-args.conf.j2 dest=/etc/systemd/system/kubelet.service.d/20-extra-args.conf
+
+- name: Reload kubelet daemon
+  systemd:
+    name: kubelet
+    daemon_reload: yes
+    enabled: yes
+
+# Update Kernel
+- name: Update kernel
+  ansible.builtin.apt:
+    name: linux-image-amd64
+    state: latest
+    default_release: bookworm-backports
+  become: true

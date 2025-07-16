@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: enclosed-svc
+  namespace: apps
+  labels:
+    app: enclosed
+spec:
+  ports:
+    - port: 8787
+      name: web
+  selector:
+    app: enclosed

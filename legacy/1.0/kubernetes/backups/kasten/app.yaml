@@ -1,0 +1,21 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: kasten
+  namespace: argocd
+spec:
+  project: default
+  sources:
+    # Kustomization
+    - repoURL: "https://github.com/McMumf/homelab"
+      targetRevision: "main"
+      path: kubernetes/backups/kasten
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: kasten-io
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

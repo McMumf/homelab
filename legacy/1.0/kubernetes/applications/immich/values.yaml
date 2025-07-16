@@ -1,0 +1,15 @@
+replicas: 1
+
+server:
+  ingress:
+    enabled: true
+    host: photos.mcmumf.dev
+    tls:
+      enabled: true
+    certManager:
+      enabled: true
+      issuer: letsencrypt-production
+
+secrets:
+  vault:
+    enabled: true

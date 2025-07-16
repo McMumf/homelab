@@ -1,0 +1,19 @@
+master:
+  hosts:
+    192.168.69.100:
+      ansible_user: ansible-user
+      ansible_ssh_private_key_file: ~/.ssh/automation
+
+workers:
+  hosts:
+    192.168.69.101:
+      ansible_user: ansible-user
+      ansible_ssh_private_key_file: ~/.ssh/automation
+      i915: true
+    192.168.69.102:
+      ansible_user: ansible-user
+      ansible_ssh_private_key_file: ~/.ssh/automation
+
+i915:
+  hosts:
+    192.168.69.101:

@@ -1,0 +1,106 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: paperless-ngx
+  namespace: apps
+spec:
+  serviceName: "paperless-ngx"
+  replicas: 1
+  selector:
+    matchLabels:
+      app: paperless-ngx
+  template:
+    metadata:
+      labels:
+        app: paperless-ngx
+    spec:
+      automountServiceAccountToken: false
+      containers:
+        - name: paperless-ngx
+          image: ghcr.io/paperless-ngx/paperless-ngx:2.17
+          resources:
+            limits:
+              cpu: 1500m
+              memory: 4Gi
+              ephemeral-storage: 4Gi
+            requests:
+              cpu: 250m
+              memory: 1Gi
+              ephemeral-storage: 2Gi
+          ports:
+            - name: paperless-web
+              containerPort: 8000
+              protocol: TCP
+          env:
+            - name: PAPERLESS_URL
+              value: "https://paperless.mcmumf.dev"
+            - name: PAPERLESS_ENABLE_HTTP_REMOTE_USER
+              value: "TRUE"
+            - name: PAPERLESS_HTTP_REMOTE_USER_HEADER_NAME
+              value: "HTTP_X_AUTHENTIK_USERNAME"
+            - name: PAPERLESS_SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: paperless-secrets
+                  key: secret_key
+            - name: PAPERLESS_ADMIN_USER
+              valueFrom:
+                secretKeyRef:
+                  name: paperless-secrets
+                  key: admin_user
+            - name: PAPERLESS_ADMIN_MAIL
+              valueFrom:
+                secretKeyRef:
+                  name: paperless-secrets
+                  key: admin_email
+            - name: PAPERLESS_ADMIN_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: paperless-secrets
+                  key: admin_password
+          volumeMounts:
+            - name: paperless-data
+              mountPath: /usr/src/paperless/data
+            - name: paperless-media
+              mountPath: /usr/src/paperless/media
+            - name: paperless-export
+              mountPath: /usr/src/paperless/export
+        - name: broker
+          image: docker.io/library/redis:8.0
+          resources:
+            limits:
+              cpu: 1000m
+              memory: 2Gi
+              ephemeral-storage: 2Gi
+            requests:
+              cpu: 500m
+              memory: 512Mi
+              ephemeral-storage: 2Gi
+          ports:
+            - name: redis
+              containerPort: 6379
+  volumeClaimTemplates:
+    - metadata:
+        name: paperless-data
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        storageClassName: "openebs"
+        resources:
+          requests:
+            storage: 32Gi
+    - metadata:
+        name: paperless-media
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        storageClassName: "openebs"
+        resources:
+          requests:
+            storage: 32Gi
+    - metadata:
+        name: paperless-export
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        storageClassName: "openebs"
+        resources:
+          requests:
+            storage: 32Gi

@@ -1,0 +1,24 @@
+- name: Install packages for intel GPU
+  ansible.builtin.apt:
+    pkg:
+      - firmware-misc-nonfree
+      - vainfo
+      - mesa-utils
+      - intel-opencl-icd
+    state: latest
+  become: true
+
+- name: Add i915 config
+  ansible.builtin.copy:
+    src: i915.conf
+    dest: /etc/modprobe.d/i915.conf
+    mode: "0640"
+
+# Add missing HuC/GuC files for i915
+- name: Clone kernel firmware repo
+  ansible.builtin.git:
+    repo: "git://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git"
+    dest: /tmp/linux-firmware
+
+- name: Copy dg2 HuC firmware
+  ansible.builtin.command: cp /tmp/linux-firmware/i915/dg2_huc_gsc.bin /lib/firmware/i915/dg2_huc_gsc.bin

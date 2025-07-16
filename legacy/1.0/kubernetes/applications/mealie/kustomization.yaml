@@ -1,0 +1,18 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: apps
+
+resources:
+  - external-secrets.yaml
+  - statefulset.yaml
+  - service.yaml
+  - ingress.yaml
+  - nltk-pvc.yaml
+  
+helmCharts:
+  - name: cluster
+    repo: https://cloudnative-pg.github.io/charts
+    releaseName: mealie-cnpg
+    namespace: apps
+    version: 0.3.1
+    valuesFile: mealie-cnpg-cluster-values.yaml

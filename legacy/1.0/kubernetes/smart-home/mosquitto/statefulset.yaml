@@ -1,0 +1,59 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: mosquitto
+  namespace: smart-home
+spec:
+  serviceName: "mosquitto"
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mosquitto
+  template:
+    metadata:
+      labels:
+        app: mosquitto
+    spec:
+      automountServiceAccountToken: false
+      containers:
+        - name: mosquitto
+          image: eclipse-mosquitto:2.0.21
+          resources:
+            requests:
+              cpu: 500m
+              memory: 256Mi
+              ephemeral-storage: 2Gi
+            limits:
+              cpu: 1000m
+              memory: 1Gi
+              ephemeral-storage: 4Gi
+          env:
+            - name: TZ
+              value: "America/New_York"
+          ports:
+            - name: mqtt
+              containerPort: 1883
+              protocol: TCP
+          volumeMounts:
+            - name: mosquitto-data
+              mountPath: /etc/mosquitto
+            - name: mosquitto-config
+              mountPath: "/mosquitto/config/mosquitto.conf"
+              subPath: mosquitto.conf
+              readOnly: true
+      volumes:
+        - name: mosquitto-config
+          configMap:
+            name: mosquitto-config
+            items:
+              - key: "mosquitto.conf"
+                path: "mosquitto.conf"
+  volumeClaimTemplates:
+    - metadata:
+        name: mosquitto-data
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        storageClassName: "openebs"
+        resources:
+          requests:
+            storage: 32Gi

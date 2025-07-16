@@ -1,0 +1,2 @@
+---
+calico_cni_opts: "interface={{ network_interface }}"

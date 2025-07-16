@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: fasten-svc
+  namespace: apps
+  labels:
+    app: fasten
+spec:
+  ports:
+    - port: 8080
+      name: web
+  selector:
+    app: fasten

@@ -1,0 +1,140 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: hassio
+  namespace: smart-home
+  labels:
+    app: hassio
+spec:
+  serviceName: hassio
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hassio
+  template:
+    metadata:
+      labels:
+        app: hassio
+    spec:
+      hostNetwork: false
+      automountServiceAccountToken: false
+      securityContext:
+        fsGroup: 1000
+      containers:
+        - name: hassio
+          image: "ghcr.io/home-assistant/home-assistant:2025.7.1"
+          imagePullPolicy: IfNotPresent
+          securityContext:
+            runAsUser: 1000
+            runAsGroup: 1000
+            capabilities:
+              add:
+                - NET_ADMIN
+                - NET_RAW
+                - NET_BROADCAST
+          resources:
+            requests:
+              memory: 128Mi
+              cpu: 100m
+              ephemeral-storage: &ephemeralHaStorage 8Gi
+            limits:
+              memory: 2Gi
+              cpu: 1000m
+              ephemeral-storage: *ephemeralHaStorage
+          ports:
+            - name: http
+              containerPort: 8123
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /
+              port: http
+          readinessProbe:
+            httpGet:
+              path: /
+              port: http
+          volumeMounts:
+            - name: hassio
+              mountPath: /config
+            - name: tls-certs
+              mountPath: "/ssl/tls.crt"
+              subPath: tls.crt
+              readOnly: true
+            - name: tls-certs
+              mountPath: "/ssl/tls.key"
+              subPath: tls.key
+              readOnly: true
+        - name: code-server
+          image: codercom/code-server:4.101.2
+          imagePullPolicy: IfNotPresent
+          args:
+            - --auth
+            - none
+            - --user-data-dir
+            - "/config/.vscode"
+            - --extensions-dir
+            - "/config/.vscode"
+            - --port
+            - "12321"
+            - "/config"
+          securityContext:
+            runAsUser: 1000
+            runAsGroup: 1000
+          resources:
+            requests:
+              memory: 1Gi
+              cpu: 2000m
+              ephemeral-storage: &ephemeralHaCodeStorage 8Gi
+            limits:
+              memory: 1Gi
+              cpu: 2000m
+              ephemeral-storage: *ephemeralHaStorage
+          ports:
+            - name: code-http
+              containerPort: 12321
+              protocol: TCP
+          volumeMounts:
+            - name: hassio
+              mountPath: /config
+      # initContainers:
+      # - name: code-server-init
+      #   image: codercom/code-server:4.93.1
+      #   imagePullPolicy: IfNotPresent
+      #   command:
+      #     - sh
+      #     - -c
+      #     - |
+      #       code-server install-extension redhat.vscode-yaml
+      #       code-server install-extension keesschollaart.vscode-home-assistant
+      #   volumeMounts:
+      #     - name: hassio-code-server-data
+      #       mountPath: /home/coder
+      volumes:
+        - name: tls-certs
+          secret:
+            secretName: hassio-cert
+            items:
+              - key: tls.crt
+                path: tls.crt
+              - key: tls.key
+                path: tls.key
+
+  volumeClaimTemplates:
+    - metadata:
+        name: hassio
+      spec:
+        accessModes:
+          - "ReadWriteOnce"
+        storageClassName: "longhorn"
+        resources:
+          requests:
+            storage: 32Gi
+    - metadata:
+        name: hassio-code-server-data
+      spec:
+        accessModes:
+          - "ReadWriteOnce"
+        storageClassName: "longhorn"
+        resources:
+          requests:
+            storage: 4Gi

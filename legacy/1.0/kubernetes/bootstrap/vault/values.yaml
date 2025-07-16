@@ -1,0 +1,4 @@
+includeCRDs: true
+
+injector:
+  enabled: false

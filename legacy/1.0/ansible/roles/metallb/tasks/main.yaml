@@ -1,0 +1,28 @@
+---
+- name: "Create tmp directory"
+  file:
+    path: "{{ tmp_dir }}"
+    state: directory
+    mode: 0750
+  tags: metallb
+
+- name: "Install MetalLB"
+  shell: "kubectl apply -f {{ metallb_yaml_url }}"
+  tags: metallb
+
+- name: "Create configmap file"
+  template:
+    src: metallb-config.yml.j2
+    dest: "{{ tmp_dir }}/metallb-config.yml"
+  tags: metallb
+
+- name: "Create MetalLB configmap in kubernetes"
+  shell: "kubectl apply -f {{ tmp_dir }}/metallb-config.yml"
+  tags: metallb
+
+- name: "Clean-up"
+  file:
+    path: "{{ tmp_dir }}"
+    state: absent
+  ignore_errors: true
+  tags: metallb

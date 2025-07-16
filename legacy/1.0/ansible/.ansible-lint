@@ -1,0 +1,10 @@
+---
+exclude_paths:
+  # default paths
+  - '.cache/'
+  - '.github/'
+
+skip_list:
+  - 'fqcn-builtins'
+  - 'no-handler'
+  - 'no-changed-when'

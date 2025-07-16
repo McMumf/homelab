@@ -1,0 +1,24 @@
+- name: Add CRI-O GPG key
+  apt_key:
+    url: https://pkgs.k8s.io/addons:/cri-o:/stable:/{{ crio_version }}/deb/Release.key
+    keyring: /etc/apt/keyrings/cri-o-apt-keyring.gpg
+    state: present
+
+- name: Add CRI-O repo
+  shell: |
+    echo "deb [signed-by=/etc/apt/keyrings/cri-o-apt-keyring.gpg] https://pkgs.k8s.io/addons:/cri-o:/stable:/{{ crio_version }}/deb/ /" | tee /etc/apt/sources.list.d/cri-o.list
+
+- name: Install cri-o packages
+  become: true
+  ansible.builtin.apt:
+    name:
+      - cri-o
+    state: present
+    update_cache: true
+    install_recommends: no
+
+- name: Hold CRI-O package cri-o
+  become: true
+  ansible.builtin.dpkg_selections:
+    name: cri-o
+    selection: hold

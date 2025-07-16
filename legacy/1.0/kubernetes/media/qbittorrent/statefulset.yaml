@@ -1,0 +1,76 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: qbittorrent
+  namespace: media
+spec:
+  serviceName: "qbittorrent"
+  replicas: 1
+  selector:
+    matchLabels:
+      app: qbittorrent
+  template:
+    metadata:
+      labels:
+        app: qbittorrent
+    spec:
+      securityContext:
+        fsGroup: 1000
+      automountServiceAccountToken: false
+      containers:
+        - name: qbittorrent
+          image: lscr.io/linuxserver/qbittorrent:4.6.4-r0-ls321
+          resources:
+            requests:
+              cpu: 1000m
+              memory: 500Mi
+              ephemeral-storage: 32Gi
+            limits:
+              cpu: 2000m
+              memory: 4Gi
+              ephemeral-storage: 32Gi
+          ports:
+            - name: ui
+              containerPort: 8090
+              protocol: TCP
+            - name: torrent
+              containerPort: 6881
+              protocol: TCP
+          env:
+            - name: PUID
+              value: "1000"
+            - name: PGID
+              value: "1000"
+            - name: WEBUI_PORT
+              value: "8090"
+            - name: TORRENTING_PORT
+              value: "6881"
+          volumeMounts:
+            - name: qbittorrent-data
+              mountPath: /config
+            - name: torrents
+              mountPath: /downloads
+            - name: homelab-nfs
+              mountPath: /mnt/library
+      volumes:
+        - name: homelab-nfs
+          nfs:
+            server: 192.168.1.70
+            path: /volume1/library
+  volumeClaimTemplates:
+    - metadata:
+        name: qbittorrent-data
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        storageClassName: "longhorn"
+        resources:
+          requests:
+            storage: 32Gi
+    - metadata:
+        name: torrents
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        storageClassName: "longhorn"
+        resources:
+          requests:
+            storage: 256Gi

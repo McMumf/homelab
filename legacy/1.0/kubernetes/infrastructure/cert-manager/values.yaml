@@ -1,0 +1,6 @@
+crds:
+  enabled: true
+featureGates: "AdditionalCertificateOutputFormats=true"
+webhook:
+  extraArgs:
+    - "--feature-gates=AdditionalCertificateOutputFormats=true"
