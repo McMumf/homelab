@@ -1,0 +1,26 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: hassio-code
+  namespace: smart-home
+  labels:
+    app: hassio
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-production
+spec:
+  ingressClassName: nginx
+  tls:
+    - hosts:
+        - &codeHostName hassio-code.mcmumf.dev
+      secretName: hassio-coder-cert
+  rules:
+    - host: *codeHostName
+      http:
+        paths:
+          - path: /
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: code-server
+                port:
+                  number: 12321
