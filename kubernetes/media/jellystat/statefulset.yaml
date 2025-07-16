@@ -1,0 +1,71 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: jellystat
+  namespace: media
+spec:
+  serviceName: "jellystat"
+  replicas: 1
+  selector:
+    matchLabels:
+      app: jellystat
+  template:
+    metadata:
+      labels:
+        app: jellystat
+    spec:
+      automountServiceAccountToken: false
+      containers:
+        # Container
+        - name: jellystat
+          image: cyfershepard/jellystat:1.1.6
+          # Resources
+          resources:
+            requests:
+              cpu: 1000m
+              memory: 1Gi
+              ephemeral-storage: 32Gi
+            limits:
+              cpu: 2000m
+              memory: 1Gi
+              ephemeral-storage: 32Gi
+          env:
+            - name: POSTGRES_USER
+              valueFrom:
+                secretKeyRef:
+                  name: cnpg-operator-cnpg-media-app
+                  key: username
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: cnpg-operator-cnpg-media-app
+                  key: password
+            - name: POSTGRES_IP
+              value: "cnpg-operator-cnpg-media-rw.media"
+            - name: POSTGRES_PORT
+              value: "5432"
+            - name: POSTGRES_DB
+              value: "app"
+            - name: JWT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: jellystat-secrets
+                  key: jwt
+          # Ports
+          ports:
+            - name: jellystat-http
+              containerPort: 3000
+              protocol: TCP
+          # Volume Mounts
+          volumeMounts:
+            - name: jellystat-backup-data
+              mountPath: /app/backend/backup-data
+  volumeClaimTemplates:
+    - metadata:
+        name: jellystat-backup-data
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        storageClassName: "openebs"
+        resources:
+          requests:
+            storage: 32Gi
