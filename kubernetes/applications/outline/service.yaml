@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: outline-svc
+  namespace: outline
+  labels:
+    app: outline-app
+spec:
+  ports:
+    - port: 3000
+      name: web
+  selector:
+    app: outline-app

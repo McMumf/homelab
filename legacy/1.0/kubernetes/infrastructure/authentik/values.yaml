@@ -18,9 +18,14 @@ postgresql:
   enabled: true
   auth:
     existingSecret: authentik-secrets
-
+  primary:
+    persistence:
+      enabled: true
+      storageClass: openebs
 redis:
   enabled: true
+  global:
+    defaultStorageClass: openebs
 
 server:
   volumes:
@@ -36,9 +41,12 @@ server:
     ingressClassName: nginx
     annotations:
       cert-manager.io/cluster-issuer: letsencrypt-production
-      nginx.ingress.kubernetes.io/server-snippet: |
-        proxy_set_header Upgrade "websocket";
-        proxy_set_header Connection "Upgrade";
+      gethomepage.dev/description: User management
+      gethomepage.dev/enabled: "true"
+      gethomepage.dev/group: Operations
+      gethomepage.dev/icon: https://raw.githubusercontent.com/goauthentik/authentik/refs/heads/main/website/static/img/icon.png
+      gethomepage.dev/name: Authentik
+      gethomepage.dev/pod-selector: "app.kubernetes.io/name=authentik"
     hosts:
       - &authentikHost auth.mcmumf.dev
     tls:

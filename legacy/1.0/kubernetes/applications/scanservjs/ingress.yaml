@@ -5,6 +5,12 @@ metadata:
   namespace: apps
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt-production
+    gethomepage.dev/description: Web interface for the printer's scanner
+    gethomepage.dev/enabled: "true"
+    gethomepage.dev/group: Utilities
+    gethomepage.dev/icon: https://raw.githubusercontent.com/sbs20/scanservjs/refs/heads/master/app-ui/src/icons/favicon.ico
+    gethomepage.dev/name: scanserv
+    gethomepage.dev/pod-selector: "app=scanservjs"
 spec:
   ingressClassName: nginx
   tls:
@@ -15,10 +21,10 @@ spec:
     - host: *host
       http:
         paths:
-        - path: /
-          pathType: Prefix
-          backend:
-            service:
-              name: scanservjs
-              port:
-                number: 8080
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: scanservjs
+                port:
+                  number: 8080

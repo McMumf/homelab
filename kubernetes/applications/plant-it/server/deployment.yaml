@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: plantit-server
+  namespace: apps
+  labels:
+    app: plantit-server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: plantit-server
+  template:
+    metadata:
+      labels:
+        app: plantit-server
+    spec:
+      containers:
+        - name: server
+          image: msdeluise/plant-it-server:latest
+          ports:
+            - containerPort: 8080
+            - containerPort: 3000
+          env:
+            - name: MYSQL_PSW
+              valueFrom:
+                secretKeyRef:
+                  name: plantitsecret
+                  key: MYSQL_PSW
+            - name: JWT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: plantitsecret
+                  key: JWT_SECRET
+            - name: FLORACODEX_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: plantitsecret
+                  key: FLORACODEX_KEY
+          envFrom:
+            - configMapRef:
+                name: plantitconfig

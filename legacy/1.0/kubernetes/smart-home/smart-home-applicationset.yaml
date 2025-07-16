@@ -1,44 +1,20 @@
 apiVersion: argoproj.io/v1alpha1
-kind: ApplicationSet
+kind: Application
 metadata:
   name: smart-home
   namespace: argocd
 spec:
-  generators:
-    - list:
-        elements:
-          - appName: home-assistant
-          - appName: mosquitto
-          - appName: zigbee2mqtt
-  template:
-    metadata:
-      name: "{{appName}}"
-    spec:
-      project: default
-      source:
-        repoURL: https://github.com/McMumf/Homelab.git
-        targetRevision: HEAD
-        path: kubernetes/smart-home/{{appName}}
-      destination:
-        server: "https://kubernetes.default.svc"
-        namespace: "smart-home"
-      ignoreDifferences:
-        - kind: ExternalSecret
-          group: external-secrets.io
-          jqPathExpressions:
-            - ".spec.data[] | select(.remoteRef) | .remoteRef.conversionStrategy"
-            - ".spec.data[] | select(.remoteRef) | .remoteRef.decodingStrategy"
-            - ".spec.data[] | select(.remoteRef) | .remoteRef.metadataPolicy"
-      syncPolicy:
-        automated:
-          prune: true
-          selfHeal: true
-        syncOptions:
-          - CreateNamespace=true
-          - ServerSideApply=true
-        retry:
-          limit: 2
-          backoff:
-            duration: "5s"
-            factor: 2
-            maxDuration: "3m0s"
+  project: default
+  sources:
+    - repoURL: 'https://github.com/McMumf/homelab'
+      targetRevision: 'main'
+      path: kubernetes/smart-home
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: smart-home
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

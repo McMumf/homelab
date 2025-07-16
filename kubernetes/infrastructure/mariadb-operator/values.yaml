@@ -1,0 +1,6 @@
+metrics:
+  enabled: false # will be true eventually
+
+webhook:
+  certManager:
+    enabled: true

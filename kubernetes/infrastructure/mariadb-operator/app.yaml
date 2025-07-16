@@ -1,0 +1,31 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: mariadb-operator
+  namespace: argocd
+spec:
+  project: default
+  sources:
+    # Helm Chart
+    - repoURL: https://mariadb-operator.github.io/mariadb-operator
+      targetRevision: "0.38.1"
+      chart: mariadb-operator-crds
+    - repoURL: https://mariadb-operator.github.io/mariadb-operator
+      targetRevision: "0.38.1"
+      chart: mariadb-operator
+      helm:
+        valueFiles:
+          - $values/kubernetes/infrastructure/mariadb-operator/values.yaml
+    # Helm Values
+    - repoURL: "https://github.com/McMumf/homelab"
+      targetRevision: "main"
+      ref: values
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: mariadb-system
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

@@ -1,0 +1,16 @@
+cloudflare:
+  tunnelName: "k8s-tunnel"
+  # Secret defines the tunnelId, tunnelName, accountNumber, and tunnel secret
+  secretName: tunnel-credentials
+  # Define ingress rules for the tunnel. See
+  # https://developers.cloudflare.com/cloudflare-one/connections/connect-apps/configuration/configuration-file/ingress
+  originRequest:
+    http2Origin: true # Attempts to use HTTP/2.0
+  ingress:
+    - hostname: "*.mcmumf.dev"
+      service: http://ingress-nginx-controller.ingress-nginx.svc.cluster.local:80
+      originRequest:
+        originServerName: mcmumf.dev
+
+image:
+  tag: "2025.7.0"

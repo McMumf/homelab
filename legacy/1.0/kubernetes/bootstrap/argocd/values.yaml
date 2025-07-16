@@ -15,6 +15,11 @@ server:
       nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
       nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
       cert-manager.io/cluster-issuer: letsencrypt-production
+      gethomepage.dev/description: Cluster GitOps
+      gethomepage.dev/enabled: "true"
+      gethomepage.dev/group: Cluster Management
+      gethomepage.dev/icon: https://raw.githubusercontent.com/devicons/devicon/refs/heads/master/icons/argocd/argocd-original.svg
+      gethomepage.dev/name: ArgoCD
     ingressClassName: "nginx"
     hostname: argocd.mcmumf.dev
     tls: true

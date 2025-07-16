@@ -1,0 +1,36 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: outline-ingress
+  namespace: outline
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-production
+    nginx.ingress.kubernetes.io/proxy-body-size: "10g"
+    nginx.org/client-max-body-size: "10g"
+    nginx.ingress.kubernetes.io/enable-cors: "true"
+    nginx.ingress.kubernetes.io/cors-allow-origin: "https://s3.mcmumf.dev"
+    gethomepage.dev/description: Our own knowledge base
+    gethomepage.dev/enabled: "true"
+    gethomepage.dev/group: Homelab
+    gethomepage.dev/icon: https://raw.githubusercontent.com/outline/outline/refs/heads/main/public/images/favicon-32.png
+    gethomepage.dev/name: Outline
+    gethomepage.dev/pod-selector: "app=outline-app"
+  labels:
+    app: outline-app
+spec:
+  ingressClassName: nginx
+  tls:
+    - hosts:
+        - notes.mcmumf.dev
+      secretName: notes.mcmumf.dev-tls
+  rules:
+    - host: notes.mcmumf.dev
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: outline-svc
+                port:
+                  number: 3000

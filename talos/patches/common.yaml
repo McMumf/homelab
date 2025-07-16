@@ -1,0 +1,5 @@
+# for kubelet cert rotation to support metrics server
+machine:
+  kubelet:
+    extraArgs:
+      rotate-server-certificates: true

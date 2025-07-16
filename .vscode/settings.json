@@ -1,5 +1,7 @@
 {
+    "editor.insertSpaces": true,
     "files.insertFinalNewline": true,
+    "files.trimTrailingWhitespace": true,
     "[helm]": {
         "editor.insertSpaces": true,
         "editor.tabSize": 2
@@ -33,6 +35,5 @@
             "comments": false,
             "strings": true
         }
-    },
-    "ansible.python.interpreterPath": "c:\\Users\\mccaf\\miniconda3\\python.exe"
+    }
 }

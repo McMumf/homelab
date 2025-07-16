@@ -71,12 +71,12 @@ spec:
             - name: LDAP_ADMIN_FILTER
               value: "(memberOf=cn=RecipeAdmin,ou=groups,dc=ldap,dc=goauthentik,dc=io)"
             # OIDC Configs
-            # - name: OIDC_AUTH_ENABLED
-            #   value: "true"
+            - name: OIDC_AUTH_ENABLED
+              value: "false"
             # - name: OIDC_SIGNUP_ENABLED
-            #   value: "true"
+            #   value: "false"
             # - name: OIDC_CONFIGURATION_URL
-            #   value: "https://auth.mcmumf.dev/application/o/recipes/.well-known/openid-configuration"
+            #   value: "https://auth.mcmumf.dev/application/o/mealie/.well-known/openid-configuration"
             # - name: OIDC_CLIENT_ID
             #   valueFrom:
             #     secretKeyRef:
@@ -88,7 +88,7 @@ spec:
             #       name: mealie-secrets
             #       key: client-secret
             # - name: OIDC_PROVIDER_NAME
-            #   value: "auth.mcmumf.dev"
+            #   value: "Authentik"
             # - name: OIDC_AUTO_REDIRECT
             #   value: "false"
             # - name: OIDC_REMEMBER_ME
@@ -98,9 +98,9 @@ spec:
             # - name: OIDC_USER_CLAIM
             #   value: "email"
             # - name: OIDC_USER_GROUP
-            #   value: "HomelabUsers"
+            #   value: "mealie-users"
             # - name: OIDC_ADMIN_GROUP
-            #   value: "RecipeAdmin"
+            #   value: "mealie-admins"
             # Security Configs
             - name: SECURITY_MAX_LOGIN_ATTEMPTS
               value: "5"
@@ -163,15 +163,15 @@ spec:
             - name: mealie-nltk
               mountPath: /nltk_data/
       volumes:
-        - name: mealie-nltk    
+        - name: mealie-nltk
           persistentVolumeClaim:
-            claimName: mealie-nltk  
+            claimName: mealie-nltk
   volumeClaimTemplates:
     - metadata:
         name: mealie-data
       spec:
         accessModes: ["ReadWriteOnce"]
-        storageClassName: "longhorn"
+        storageClassName: "openebs"
         resources:
           requests:
             storage: 8Gi

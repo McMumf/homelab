@@ -2,3 +2,9 @@
 kubernetes/infrastructure/cloudflare-tunnel/helmfile.yaml
 charts/
 .DS_Store
+.vagrant/
+
+talos/_out/
+talos/controlplane.yaml
+talos/worker.yaml
+talos/talosconfig

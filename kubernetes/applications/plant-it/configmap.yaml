@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: plantitconfig
+  namespace: apps
+data:
+  MYSQL_HOST: "plantit-db-svc"
+  MYSQL_PORT: "3306"
+  MYSQL_USERNAME: "root"
+  MYSQL_DATABASE: "bootdb"
+  JWT_EXP: "1"
+  USERS_LIMIT: "-1"
+  UPLOAD_DIR: "/upload-dir"
+  API_PORT: "8080"
+  LOG_LEVEL: "DEBUG"
+  ALLOWED_ORIGINS: "*"
+  CACHE_TTL: "86400"
+  CACHE_HOST: "plantit-cache"
+  CACHE_PORT: "6379"

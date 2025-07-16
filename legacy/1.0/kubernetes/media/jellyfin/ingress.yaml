@@ -9,15 +9,18 @@ metadata:
     nginx.ingress.kubernetes.io/proxy-read-timeout: "600"
     nginx.ingress.kubernetes.io/proxy-send-timeout: "600"
     nginx.ingress.kubernetes.io/client-max-body-size: "20m"
-    nginx.ingress.kubernetes.io/server-snippet: |
-      proxy_set_header Upgrade "websocket";
-      proxy_set_header Connection "Upgrade";
+    gethomepage.dev/description: Manage zigbee devices
+    gethomepage.dev/enabled: "true"
+    gethomepage.dev/group: Homelab
+    gethomepage.dev/icon: https://raw.githubusercontent.com/jellyfin/jellyfin-ux/refs/heads/master/branding/SVG/icon-transparent.svg
+    gethomepage.dev/name: Jellyfin
+    gethomepage.dev/pod-selector: "app=jellyfin"
 spec:
   ingressClassName: nginx
   tls:
     - hosts:
         - jellyfin.mcmumf.dev
-      secretName: jellyfin-cert
+      secretName: jellyfin.mcmumf.dev-tls
   rules:
     - host: jellyfin.mcmumf.dev
       http:

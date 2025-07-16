@@ -1,0 +1,36 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: immich
+  namespace: apps
+  labels:
+    app: immich-server
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-production
+    # proxy-body-size is set to 0 to remove the body limit on file uploads
+    nginx.ingress.kubernetes.io/proxy-body-size: "0"
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "6000"
+    nginx.ingress.kubernetes.io/proxy-send-timeout: "6000"
+    gethomepage.dev/description: Photo and video management
+    gethomepage.dev/enabled: "true"
+    gethomepage.dev/group: Homelab
+    gethomepage.dev/icon: https://raw.githubusercontent.com/immich-app/immich/refs/heads/main/design/immich-logo.svg
+    gethomepage.dev/name: Immich
+    gethomepage.dev/pod-selector: "app=immich-server"
+spec:
+  ingressClassName: nginx
+  tls:
+    - hosts:
+        - &hostName photos.mcmumf.dev
+      secretName: immich-tls-cert
+  rules:
+    - host: *hostName
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: immich-server
+                port:
+                  number: 2283

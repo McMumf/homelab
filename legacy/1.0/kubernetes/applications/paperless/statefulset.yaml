@@ -22,11 +22,11 @@ spec:
             limits:
               cpu: 1500m
               memory: 4Gi
-              ephemeral-storage: 32Gi
+              ephemeral-storage: 4Gi
             requests:
               cpu: 250m
               memory: 1Gi
-              ephemeral-storage: 32Gi
+              ephemeral-storage: 2Gi
           ports:
             - name: paperless-web
               containerPort: 8000
@@ -34,6 +34,8 @@ spec:
           env:
             - name: PAPERLESS_URL
               value: "https://paperless.mcmumf.dev"
+            - name: PAPERLESS_ENABLE_HTTP_REMOTE_USER
+              value: "TRUE"
             - name: PAPERLESS_HTTP_REMOTE_USER_HEADER_NAME
               value: "HTTP_X_AUTHENTIK_USERNAME"
             - name: PAPERLESS_SECRET_KEY
@@ -46,7 +48,7 @@ spec:
                 secretKeyRef:
                   name: paperless-secrets
                   key: admin_user
-            - name: PAPERLESS_ADMIN_EMAIL
+            - name: PAPERLESS_ADMIN_MAIL
               valueFrom:
                 secretKeyRef:
                   name: paperless-secrets
@@ -82,7 +84,7 @@ spec:
         name: paperless-data
       spec:
         accessModes: ["ReadWriteOnce"]
-        storageClassName: "longhorn"
+        storageClassName: "openebs"
         resources:
           requests:
             storage: 32Gi
@@ -90,7 +92,7 @@ spec:
         name: paperless-media
       spec:
         accessModes: ["ReadWriteOnce"]
-        storageClassName: "longhorn"
+        storageClassName: "openebs"
         resources:
           requests:
             storage: 32Gi
@@ -98,7 +100,7 @@ spec:
         name: paperless-export
       spec:
         accessModes: ["ReadWriteOnce"]
-        storageClassName: "longhorn"
+        storageClassName: "openebs"
         resources:
           requests:
             storage: 32Gi

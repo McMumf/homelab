@@ -1,0 +1,51 @@
+garage:
+  # Use only 2 replicas per object
+  replicationFactor: 2
+
+# Start 4 instances (StatefulSets) of garage
+deployment:
+  replicaCount: 4
+
+# Override default storage class and size
+persistence:
+  meta:
+    storageClass: "openebs"
+    size: 100Mi
+  data:
+    storageClass: "openebs"
+    size: 10Gi
+
+ingress:
+  s3:
+    api:
+      enabled: true
+      className: "nginx"
+      annotations:
+        cert-manager.io/cluster-issuer: letsencrypt-production
+        nginx.ingress.kubernetes.io/proxy-body-size: "10g"
+        nginx.org/client-max-body-size: "10g"
+      hosts:
+        - host: s3.mcmumf.dev
+          paths:
+            - path: /
+              pathType: Prefix
+      tls:
+        - secretName: s3.mcmumf.dev-tls
+          hosts:
+            - s3.mcmumf.dev
+    web:
+      enabled: true
+      className: "nginx"
+      annotations:
+        cert-manager.io/cluster-issuer: letsencrypt-production
+        nginx.ingress.kubernetes.io/proxy-body-size: "10g"
+        nginx.org/client-max-body-size: "10g"
+      hosts:
+        - host: garage.mcmumf.dev
+          paths:
+            - path: /
+              pathType: Prefix
+      tls:
+        - secretName: garage.mcmumf.dev-tls
+          hosts:
+            - garage.mcmumf.dev

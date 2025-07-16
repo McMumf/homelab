@@ -7,15 +7,17 @@ metadata:
     app: hassio
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt-production
-    nginx.ingress.kubernetes.io/server-snippet: |
-      proxy_set_header Upgrade "websocket";
-      proxy_set_header Connection "Upgrade";
+    gethomepage.dev/enabled: "true"
+    gethomepage.dev/group: Homelab
+    gethomepage.dev/icon: https://raw.githubusercontent.com/home-assistant/frontend/refs/heads/dev/public/static/icons/favicon-512x512.png
+    gethomepage.dev/name: Home Assistant
+    gethomepage.dev/pod-selector: "app=hassio"
 spec:
   ingressClassName: nginx
   tls:
     - hosts:
         - &hostName hassio.mcmumf.dev
-      secretName: hassio-cert
+      secretName: hassio.mcmumf.dev-tls
   rules:
     - host: *hostName
       http:

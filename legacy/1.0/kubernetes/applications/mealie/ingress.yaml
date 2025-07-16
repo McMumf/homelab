@@ -7,16 +7,12 @@ metadata:
     cert-manager.io/cluster-issuer: letsencrypt-production
     nginx.ingress.kubernetes.io/proxy-body-size: "10g"
     nginx.org/client-max-body-size: "10g"
-    nginx.ingress.kubernetes.io/server-snippet: |
-      proxy_http_version 1.1;
-      proxy_set_header Upgrade "websocket";
-      proxy_set_header Connection "Upgrade";
-
-      proxy_set_header Host $host;
-      proxy_set_header X-Real-IP $remote_addr;
-      proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-      proxy_set_header X-Forwarded-Proto $scheme;
-      proxy_read_timeout 90;
+    gethomepage.dev/description: Our Recipes
+    gethomepage.dev/enabled: "true"
+    gethomepage.dev/group: Homelab
+    gethomepage.dev/icon: https://raw.githubusercontent.com/mealie-recipes/mealie/refs/heads/mealie-next/frontend/static/icons/icon-x64.png
+    gethomepage.dev/name: Mealie
+    gethomepage.dev/pod-selector: "app=mealie"
 spec:
   ingressClassName: nginx
   tls:

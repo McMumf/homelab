@@ -1,0 +1,147 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: outline
+  namespace: outline
+spec:
+  selector:
+    matchLabels:
+      app: outline-app
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: outline-app
+    spec:
+      securityContext:
+        runAsUser: 1001
+        runAsGroup: 1001
+        fsGroup: 1001
+      containers:
+        - name: outline
+          image: outlinewiki/outline:0.85.0
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 3000
+              name: web
+          resources:
+            limits:
+              cpu: 2000m
+              ephemeral-storage: 8Gi
+              memory: 4Gi
+            requests:
+              cpu: 500m
+              ephemeral-storage: 8Gi
+              memory: 1Gi
+          env:
+            - name: SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: outline-secrets
+                  key: secret-key
+            - name: UTILS_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: outline-secrets
+                  key: utils-secret
+            - name: PORT
+              value: "3000"
+            - name: COLLABORATION_URL
+              value: ""
+            - name: URL
+              value: "https://notes.mcmumf.dev"
+            - name: DATABASE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: outline-secrets
+                  key: db-connection
+            - name: REDIS_URL
+              value: "redis://outline-redis:6379"
+            - name: SMTP_HOST
+              valueFrom:
+                secretKeyRef:
+                  name: outline-secrets
+                  key: smtp-server
+            - name: SMTP_PORT
+              value: "587"
+            - name: SMTP_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: outline-secrets
+                  key: smtp-username
+            - name: SMTP_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: outline-secrets
+                  key: smtp-token
+            - name: SMTP_FROM_EMAIL
+              valueFrom:
+                secretKeyRef:
+                  name: outline-secrets
+                  key: smtp-username
+            - name: SMTP_TLS_CIPHERS
+              value: "TLSv1.2"
+            - name: SMTP_SECURE
+              value: "false"
+            - name: FILE_STORAGE_UPLOAD_MAX_SIZE
+              value: "26214400"
+            - name: AWS_ACCESS_KEY_ID
+              valueFrom:
+                secretKeyRef:
+                  name: outline-secrets
+                  key: aws-access-id
+            - name: AWS_SECRET_ACCESS_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: outline-secrets
+                  key: aws-access-id
+            - name: FILE_STORAGE
+              value: "local"
+            # - name: AWS_REGION
+            #   value: "garage"
+            # - name: AWS_S3_UPLOAD_BUCKET_URL
+            #   value: "https://s3.mcmumf.dev"
+            # - name: AWS_S3_UPLOAD_BUCKET_NAME
+            #   value: "outline-bucket"
+            # - name: AWS_S3_FORCE_PATH_STYLE
+            #   value: "true"
+            # - name: AWS_S3_ACL
+            #   value: "private"
+            - name: OIDC_CLIENT_ID
+              valueFrom:
+                secretKeyRef:
+                  name: outline-secrets
+                  key: oidc-client
+            - name: OIDC_CLIENT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: outline-secrets
+                  key: oidc-secret
+            - name: OIDC_AUTH_URI
+              value: "https://auth.mcmumf.dev/application/o/authorize/"
+            - name: OIDC_TOKEN_URI
+              value: "https://auth.mcmumf.dev/application/o/token/"
+            - name: OIDC_USERINFO_URI
+              value: "https://auth.mcmumf.dev/application/o/userinfo/"
+            - name: OIDC_LOGOUT_URI
+              value: "https://auth.mcmumf.dev/application/o/outline/end-session/"
+            - name: OIDC_USERNAME_CLAIM
+              value: "preferred_username"
+            - name: OIDC_DISPLAY_NAME
+              value: "authentik"
+            - name: OIDC_SCOPES
+              value: "openid profile email"
+            - name: FORCE_HTTPS
+              value: "true"
+          volumeMounts:
+            - name: outline-data
+              mountPath: /var/lib/outline/data
+  volumeClaimTemplates:
+    - metadata:
+        name: outline-data
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        storageClassName: "openebs"
+        resources:
+          requests:
+            storage: 150Gi

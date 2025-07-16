@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: karakeep-config
+  namespace: karakeep
+spec: {}
+data:
+  KARAKEEP_VERSION: release
+  NEXTAUTH_URL: https://keep.mcmumf.dev

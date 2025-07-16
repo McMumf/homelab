@@ -3,6 +3,9 @@ kind: Kustomization
 
 namespace: inteldeviceplugins-system
 
+resources:
+  - namespace.yaml
+
 helmCharts:
   - name: intel-device-plugins-operator
     repo: https://intel.github.io/helm-charts/

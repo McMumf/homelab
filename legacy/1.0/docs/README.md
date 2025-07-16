@@ -2,55 +2,36 @@
 
 ## First Time Setup
 
-### 1. Ansible
+### 1. Talos
 
-#### 1.1 Build Inventory
-
-#### 1.2 Setup Ansible User
-
-#### 1.3 Execute Roles
-
-#### 1.4 Join Worker
-
-1. Ensure ansible scripts are ran
-2. Get the join token from the master: `kubeadm token create --print-join-command`
-3. Run the following: `kubeadm join 192.168.69.100:6443 --token some.token1234 --discovery-token-ca-cert-hash sha256:somelonghash --cri-socket unix:///var/run/crio/crio.sock`
-   1. If it fails with an error, run the following
-
-        ```sh
-        modprobe br_netfilter
-        echo '1' > /proc/sys/net/ipv4/ip_forward
-        ```
-
-   2. Rerun the join command
-4. Label the worker: `kubectl label node <WORKER-NAME> node-role.kubernetes.io/worker=worker`
+Follow the talos guide [here](../talos/README.md).
 
 ### 2. Bootstrap
 
-#### 2.1 Install Calico
+#### 2.1 Install Cilium
 
 ```sh
-kubectl kustomize calico --enable-helm | kubectl create -f -
+cd kubernetes/bootstrap
+kubectl kustomize calico --enable-helm | kubectl apply -f -
 ```
 
-_Note: it is important to utilize `create`_
+#### 2.2 Install ArgoCD
 
-#### 2.2 Install Longhorn
+#### 2.3 Install Vault
 
-#### 2.3 Install MetalLB
-
-#### 2.4 Install Ingress NGINX
-
-#### 2.5 Install Vault
-
-1. Run the install
-2. Configure the seal keys
+1. Apply the `app.yam` in `kubernetes/infrastructure/vault`
+2. Initialize Vault
+   1. Port-forward for now until we get ingress installed
 3. Configure the secret engines
 4. Configure the access policies
 5. Create a secret for external-secrets to utilize
 
-#### 2.6 Install External-Secrets
+#### 2.4 Install External-Secrets
 
-#### 2.7 Install ArgoCD
+#### 2.5 Install Cert-Manager
+
+#### 2.6 Install MetalLB
+
+#### 2.7 Install Ingress NGINX
 
 ### 3. Deploy Application Sets

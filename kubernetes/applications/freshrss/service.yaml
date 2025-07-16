@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: fresh-rss-svc
+  namespace: apps
+  labels:
+    app: fresh-rss-app
+spec:
+  ports:
+    - port: 80
+      name: fresh-rss-web
+  selector:
+    app: fresh-rss-app

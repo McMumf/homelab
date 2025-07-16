@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: morphos
+  namespace: apps
+spec:
+  selector:
+    matchLabels:
+      app: "morphos"
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: morphos
+    spec:
+      automountServiceAccountToken: false
+      terminationGracePeriodSeconds: 10
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+      containers:
+        - name: morphos
+          image: ghcr.io/danvergara/morphos-server:0.6.0
+          resources:
+            requests:
+              memory: 512Mi
+              cpu: 500m
+              ephemeral-storage: 8Gi
+            limits:
+              memory: 512Mi
+              cpu: 500m
+              ephemeral-storage: 8Gi
+          ports:
+            - containerPort: 8080
+              name: web

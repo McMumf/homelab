@@ -8,6 +8,7 @@ metadata:
 spec:
   selector:
     app: scanservjs
+  type: ClusterIP
   ports:
     - protocol: TCP
       port: 8080
