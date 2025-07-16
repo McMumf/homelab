@@ -7,7 +7,7 @@ spec:
   project: default
   sources:
     - repoURL: 'https://github.com/McMumf/homelab'
-      targetRevision: 'talos'
+      targetRevision: 'main'
       path: kubernetes/applications/scanservjs
   destination:
     server: https://kubernetes.default.svc
