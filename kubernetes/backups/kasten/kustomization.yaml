@@ -7,5 +7,5 @@ helmCharts:
     repo: https://charts.kasten.io/
     releaseName: k10
     namespace: kasten-io
-    version: 7.5.10
+    version: 8.0.4
     valuesFile: values.yaml
