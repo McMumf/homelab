@@ -7,7 +7,7 @@
         "legacy/**"
     ],
     "kubernetes": {
-        "fileMatch": [
+        "managerFilePatterns": [
             "\\.yaml$"
         ]
     }
