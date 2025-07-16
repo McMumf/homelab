@@ -15,7 +15,7 @@ spec:
           - $values/kubernetes/infrastructure/prometheus-stack/values.yaml
     # Helm Values
     - repoURL: "https://github.com/McMumf/homelab"
-      targetRevision: "talos"
+      targetRevision: "main"
       ref: values
   destination:
     server: https://kubernetes.default.svc

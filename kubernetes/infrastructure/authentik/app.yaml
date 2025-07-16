@@ -8,7 +8,7 @@ spec:
   sources:
     # Kustomize
     - repoURL: 'https://github.com/McMumf/homelab'
-      targetRevision: 'talos'
+      targetRevision: 'main'
       path: kubernetes/infrastructure/authentik
   destination:
     server: https://kubernetes.default.svc

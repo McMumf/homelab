@@ -16,7 +16,7 @@ spec:
           - $values/kubernetes/networking/ingress-nginx/values.yaml
     # Values Ref
     - repoURL: "https://github.com/McMumf/homelab"
-      targetRevision: "talos"
+      targetRevision: "main"
       ref: values
   destination:
     server: https://kubernetes.default.svc

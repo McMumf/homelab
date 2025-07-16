@@ -8,7 +8,7 @@ spec:
   sources:
     # Kustomization
     - repoURL: "https://github.com/McMumf/homelab"
-      targetRevision: "talos"
+      targetRevision: "main"
       path: kubernetes/cyber/falco
   destination:
     server: https://kubernetes.default.svc

@@ -15,11 +15,11 @@ spec:
           - $values/kubernetes/storage/openebs/values.yaml
     # Helm Values
     - repoURL: "https://github.com/McMumf/homelab"
-      targetRevision: "talos"
+      targetRevision: "main"
       ref: values
     # Kustomization
     - repoURL: "https://github.com/McMumf/homelab"
-      targetRevision: "talos"
+      targetRevision: "main"
       path: kubernetes/storage/openebs
   destination:
     server: https://kubernetes.default.svc
