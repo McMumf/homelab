@@ -13,5 +13,5 @@ helmCharts:
     repo: https://cloudnative-pg.github.io/charts
     releaseName: mealie-cnpg
     namespace: apps
-    version: 0.2.1
+    version: 0.3.1
     valuesFile: mealie-cnpg-cluster-values.yaml
