@@ -1,17 +1,17 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: outline
+  name: immich
   namespace: argocd
 spec:
   project: default
   sources:
     - repoURL: "https://github.com/McMumf/homelab"
-      targetRevision: "talos"
-      path: kubernetes/applications/outline
+      targetRevision: "main"
+      path: kubernetes/applications/immich
   destination:
     server: https://kubernetes.default.svc
-    namespace: outline
+    namespace: apps
   syncPolicy:
     automated:
       prune: true

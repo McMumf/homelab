@@ -7,7 +7,7 @@ spec:
   project: default
   sources:
     - repoURL: 'https://github.com/McMumf/homelab'
-      targetRevision: 'main'
+      targetRevision: 'talos'
       path: kubernetes/applications/homepage
   destination:
     server: https://kubernetes.default.svc

@@ -1,0 +1,32 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: mealie-ingress
+  namespace: apps
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-production
+    nginx.ingress.kubernetes.io/proxy-body-size: "10g"
+    nginx.org/client-max-body-size: "10g"
+    gethomepage.dev/description: Our Recipes
+    gethomepage.dev/enabled: "true"
+    gethomepage.dev/group: Homelab
+    gethomepage.dev/icon: https://raw.githubusercontent.com/mealie-recipes/mealie/refs/heads/mealie-next/frontend/static/icons/icon-x64.png
+    gethomepage.dev/name: Mealie
+    gethomepage.dev/pod-selector: "app=mealie"
+spec:
+  ingressClassName: nginx
+  tls:
+    - hosts:
+        - recipes.mcmumf.dev
+      secretName: recipes-cert
+  rules:
+    - host: recipes.mcmumf.dev
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: mealie-svc
+                port:
+                  number: 9000

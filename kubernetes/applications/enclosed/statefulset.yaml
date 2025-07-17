@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: enclosed
+  namespace: apps
+spec:
+  selector:
+    matchLabels:
+      app: "enclosed"
+  serviceName: "enclosed"
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: enclosed
+    spec:
+      automountServiceAccountToken: false
+      terminationGracePeriodSeconds: 10
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+      containers:
+        - name: enclosed
+          image: corentinth/enclosed:1.15.0-rootless
+          resources:
+            requests:
+              memory: 512Mi
+              cpu: 500m
+              ephemeral-storage: 8Gi
+            limits:
+              memory: 512Mi
+              cpu: 500m
+              ephemeral-storage: 8Gi
+          env:
+            - name: AUTHENTICATION_JWT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: enclosed-secrets
+                  key: jwt-secret
+          ports:
+            - containerPort: 8787
+              name: web
+          volumeMounts:
+            - name: enclosed-data
+              mountPath: /app/.data
+  volumeClaimTemplates:
+    - metadata:
+        name: enclosed-data
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        storageClassName: "openebs"
+        resources:
+          requests:
+            storage: 4Gi

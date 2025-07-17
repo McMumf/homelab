@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: immich-machine-learning
+  namespace: apps
+spec:
+  selector:
+    matchLabels:
+      app: immich-machine-learning
+  serviceName: "immich-machine-learning"
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: immich-machine-learning
+    spec:
+      automountServiceAccountToken: false
+      terminationGracePeriodSeconds: 10
+      containers:
+        - name: immich-machine-learning
+          image: ghcr.io/immich-app/immich-machine-learning:v1.131.3
+          env:
+            - name: TRANSFORMERS_CACHE
+              value: "/cache"
+          resources:
+            limits:
+              cpu: 2000m
+              ephemeral-storage: 8Gi
+              memory: 2Gi
+            requests:
+              cpu: 500m
+              ephemeral-storage: 8Gi
+              memory: 2Gi
+          ports:
+            - containerPort: 3003
+              name: tcp
+          volumeMounts:
+            - name: model-cache
+              mountPath: /cache
+  volumeClaimTemplates:
+    - metadata:
+        name: model-cache
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        storageClassName: "openebs"
+        resources:
+          requests:
+            storage: 10Gi

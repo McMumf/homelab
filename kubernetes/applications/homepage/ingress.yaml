@@ -17,7 +17,7 @@ spec:
   tls:
     - hosts:
         - &host homepage.mcmumf.dev
-      secretName: homepage-cert
+      secretName: homepage.mcmumf.dev-tls
   rules:
     - host: *host
       http:

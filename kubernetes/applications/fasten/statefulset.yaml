@@ -1,0 +1,67 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: fasten
+  namespace: apps
+spec:
+  selector:
+    matchLabels:
+      app: "fasten"
+  serviceName: "fasten"
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: fasten
+    spec:
+      automountServiceAccountToken: false
+      terminationGracePeriodSeconds: 10
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+      imagePullSecrets:
+        - name: docker-reg
+      containers:
+        - name: fasten
+          image: ghcr.io/fastenhealth/fasten-onprem:main-v1.1.2
+          resources:
+            requests:
+              memory: 1Gi
+              cpu: 500m
+              ephemeral-storage: 8Gi
+            limits:
+              memory: 1Gi
+              cpu: 500m
+              ephemeral-storage: 8Gi
+          env:
+            - name: AUTHENTICATION_JWT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: fasten-secrets
+                  key: jwt-secret
+          ports:
+            - containerPort: 8080
+              name: web
+          volumeMounts:
+            - name: fasten-db
+              mountPath: /opt/fasten/db
+            - name: fasten-cache
+              mountPath: /opt/fasten/cache
+  volumeClaimTemplates:
+    - metadata:
+        name: fasten-db
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        storageClassName: "openebs"
+        resources:
+          requests:
+            storage: 32Gi
+    - metadata:
+        name: fasten-cache
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        storageClassName: "openebs"
+        resources:
+          requests:
+            storage: 8Gi
