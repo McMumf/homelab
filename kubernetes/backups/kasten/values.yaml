@@ -7,7 +7,7 @@ ingress:
     cert-manager.io/cluster-issuer: letsencrypt-production
   tls:
     enabled: true
-    secretName: "kasten-tls"
+    secretName: "kasten.mcmumf.dev"
   class: "nginx"
   host: "kasten.mcmumf.dev"
 
