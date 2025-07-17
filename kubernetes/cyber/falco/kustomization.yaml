@@ -10,5 +10,5 @@ helmCharts:
     repo: https://falcosecurity.github.io/charts
     releaseName: falco
     namespace: falco
-    version: 4.22.0
+    version: 6.0.2
     valuesFile: values.yaml
