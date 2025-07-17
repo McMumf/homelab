@@ -6,8 +6,8 @@ metadata:
 spec:
   project: default
   sources:
-    - repoURL: 'https://github.com/McMumf/homelab'
-      targetRevision: 'main'
+    - repoURL: "https://github.com/McMumf/homelab"
+      targetRevision: "main"
       path: kubernetes/smart-home
   destination:
     server: https://kubernetes.default.svc
