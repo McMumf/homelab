@@ -1,6 +1,14 @@
 global:
   persistence:
     storageClass: openebs
+
+serviceAccount:
+  name: kasten-service-account
+
+prometheus:
+  server:
+    enabled: false
+
 ingress:
   create: true
   annotations:
