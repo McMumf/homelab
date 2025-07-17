@@ -56,16 +56,8 @@ spec:
           volumeMounts:
             - name: hassio
               mountPath: /config
-            - name: tls-certs
-              mountPath: "/ssl/tls.crt"
-              subPath: tls.crt
-              readOnly: true
-            - name: tls-certs
-              mountPath: "/ssl/tls.key"
-              subPath: tls.key
-              readOnly: true
         - name: code-server
-          image: codercom/code-server:4.101.2
+          image: codercom/code-server:4.97.2
           imagePullPolicy: IfNotPresent
           args:
             - --auth
@@ -109,23 +101,13 @@ spec:
       #   volumeMounts:
       #     - name: hassio-code-server-data
       #       mountPath: /home/coder
-      volumes:
-        - name: tls-certs
-          secret:
-            secretName: hassio-cert
-            items:
-              - key: tls.crt
-                path: tls.crt
-              - key: tls.key
-                path: tls.key
-
   volumeClaimTemplates:
     - metadata:
         name: hassio
       spec:
         accessModes:
           - "ReadWriteOnce"
-        storageClassName: "longhorn"
+        storageClassName: "openebs"
         resources:
           requests:
             storage: 32Gi
@@ -134,7 +116,7 @@ spec:
       spec:
         accessModes:
           - "ReadWriteOnce"
-        storageClassName: "longhorn"
+        storageClassName: "openebs"
         resources:
           requests:
             storage: 4Gi
