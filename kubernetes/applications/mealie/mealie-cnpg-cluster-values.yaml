@@ -12,7 +12,7 @@ cluster:
     limits:
       memory: 2Gi
     requests:
-      cpu: 1
+      cpu: "1"
       memory: 1Gi
   storage:
     size: 8Gi
