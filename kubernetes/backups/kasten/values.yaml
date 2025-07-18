@@ -1,13 +1,21 @@
 global:
   persistence:
     storageClass: openebs
+
+serviceAccount:
+  name: kasten-service-account
+
+prometheus:
+  server:
+    enabled: false
+
 ingress:
   create: true
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt-production
   tls:
     enabled: true
-    secretName: "kasten-tls"
+    secretName: "kasten.mcmumf.dev"
   class: "nginx"
   host: "kasten.mcmumf.dev"
 
