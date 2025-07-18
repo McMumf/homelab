@@ -52,4 +52,4 @@ mayastor:
         enabled: false
 
 loki:
-  enabled: true
+  enabled: false
