@@ -15,7 +15,7 @@ cluster:
       cpu: 1000m
       memory: 1Gi
   storage:
-    size: 32Gi
+    size: 8Gi
     storageClass: openebs
   postgresql:
     parameters:

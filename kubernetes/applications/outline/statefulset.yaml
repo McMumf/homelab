@@ -4,6 +4,7 @@ metadata:
   name: outline
   namespace: outline
 spec:
+  serviceName: outline
   selector:
     matchLabels:
       app: outline-app
@@ -13,6 +14,7 @@ spec:
       labels:
         app: outline-app
     spec:
+      automountServiceAccountToken: false
       securityContext:
         runAsUser: 1001
         runAsGroup: 1001
@@ -144,4 +146,4 @@ spec:
         storageClassName: "openebs"
         resources:
           requests:
-            storage: 150Gi
+            storage: 32Gi
