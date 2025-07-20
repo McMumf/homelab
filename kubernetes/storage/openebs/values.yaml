@@ -51,5 +51,11 @@ mayastor:
         # disable the init container that checks for the nvme_tcp module, since Talos has that module built-in.
         enabled: false
 
+preUpgradeHook:
+  tolerations:
+    - key: "node-role.kubernetes.io/control-plane"
+      operator: "Equal"
+      value: ""
+
 loki:
   enabled: false
