@@ -9,7 +9,7 @@ parameters:
   repl: "3"
   allowVolumeExpansion: "true"
 allowVolumeExpansion: true
-reclaimPolicy: Retain
+reclaimPolicy: Delete
 provisioner: io.openebs.csi-mayastor
 # ---
 # # a single replica thin provisioned storage class that Kasten can use for its backups
