@@ -1,9 +1,3 @@
-openebs-crds:
-  csi:
-    volumeSnapshots:
-      enabled: true
-      keep: true
-
 engines:
   local:
     lvm:
@@ -21,35 +15,23 @@ localpv-provisioner:
         value: ""
 
 mayastor:
+  # Global toleration
   tolerations:
     - key: "node-role.kubernetes.io/control-plane"
       operator: "Equal"
       value: ""
-  io_engine:
-    envcontext: "iova-mode=pa"
-    tolerations:
-      - key: "node-role.kubernetes.io/control-plane"
-        operator: "Equal"
-        value: ""
+  csi:
+    node:
+      initContainers:
+        # disable the init container that checks for the nvme_tcp module, since Talos has that module built-in.
+        enabled: false
   etcd:
-    nodeSelector:
-      openebs.io/engine: mayastor
     tolerations:
       - key: "node-role.kubernetes.io/control-plane"
         operator: "Equal"
         value: ""
   loki-stack:
     enabled: false
-    loki:
-      tolerations:
-        - key: "node-role.kubernetes.io/control-plane"
-          operator: "Equal"
-          value: ""
-  csi:
-    node:
-      initContainers:
-        # disable the init container that checks for the nvme_tcp module, since Talos has that module built-in.
-        enabled: false
 
 preUpgradeHook:
   tolerations:
@@ -58,4 +40,4 @@ preUpgradeHook:
       value: ""
 
 loki:
-  enabled: true
+  enabled: false
