@@ -47,7 +47,7 @@ server:
       gethomepage.dev/icon: https://raw.githubusercontent.com/goauthentik/authentik/refs/heads/main/website/static/img/icon.png
       gethomepage.dev/name: Authentik
       gethomepage.dev/pod-selector: "app.kubernetes.io/name=authentik"
-      nginx.ingress.kubernetes.io/server-alias: "http3.example.com"
+      nginx.ingress.kubernetes.io/server-alias: "auth.mcmumf.dev"
       nginx.ingress.kubernetes.io/proxy-ssl-redirect: "true"
     hosts:
       - &authentikHost auth.mcmumf.dev
