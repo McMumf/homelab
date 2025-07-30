@@ -1,0 +1,74 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: minecraft-vanilla
+  namespace: games
+spec:
+  serviceName: "minecraft-vanillla"
+  replicas: 1
+  selector:
+    matchLabels:
+      app: minecraft-vanilla
+  template:
+    metadata:
+      labels:
+        app: minecraft-vanilla
+    spec:
+      automountServiceAccountToken: false
+      containers:
+        - name: minecraft-vanilla
+          image: itzg/minecraft-server:2025.6.2
+          resources:
+            limits:
+              cpu: 3
+              ephemeral-storage: 4Gi
+              memory: 6Gi
+            requests:
+              cpu: 1
+              ephemeral-storage: 256Mi
+              memory: 4Gi
+          ports:
+            - name: minecraft
+              containerPort: 25565
+              protocol: TCP
+            - name: bedrock
+              containerPort: 19132
+              protocol: UDP
+            - name: bedrock0
+              containerPort: 19132
+              protocol: TCP
+          env:
+            - name: TYPE
+              value: "PAPER"
+            - name: VERSION
+              value: "1.21.8"
+            - name: PAPER_CHANNEL
+              value: "default"
+            - name: EULA
+              value: "TRUE"
+            - name: MEMORY
+              value: 4G
+            - name: OVERRIDE_SERVER_PROPERTIES
+              value: "true"
+            - name: SEED
+              value: "MConK8S"
+            - name: VIEW_DISTANCE
+              value: "12"
+            - name: MOTD
+              value: "McMumf's Vanilla (Java+Bedrock) Server"
+            - name: PLUGINS
+              value: |
+                https://download.geysermc.org/v2/projects/geyser/versions/latest/builds/latest/downloads/spigot
+                https://download.geysermc.org/v2/projects/floodgate/versions/latest/builds/latest/downloads/spigot
+          volumeMounts:
+            - name: minecraft-vanilla
+              mountPath: /data
+  volumeClaimTemplates:
+    - metadata:
+        name: minecraft-vanilla
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        storageClassName: openebs
+        resources:
+          requests:
+            storage: 32Gi

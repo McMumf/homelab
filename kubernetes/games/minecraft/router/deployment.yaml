@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: minecraft-router
+  namespace: games
+  labels:
+    app: minecraft-router
+spec:
+  selector:
+    matchLabels:
+      app: minecraft-router
+  template:
+    metadata:
+      labels:
+        app: minecraft-router
+    spec:
+      serviceAccountName: mc-router
+      containers:
+        - name: mc-router
+          image: itzg/mc-router:1.34.0
+          args:
+            - "--api-binding"
+            - ":8080"
+            - "--in-kube-cluster"
+            - "--auto-scale-up"
+          ports:
+            - name: proxy
+              containerPort: 25565
+              protocol: TCP
+            - name: web
+              containerPort: 8080
+              protocol: TCP
+          resources:
+            limits:
+              cpu: 500m
+              ephemeral-storage: 4Gi
+              memory: 100Mi
+            requests:
+              cpu: 100m
+              ephemeral-storage: 4Gi
+              memory: 50Mi
