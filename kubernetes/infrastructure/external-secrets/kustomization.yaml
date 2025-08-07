@@ -19,5 +19,6 @@ helmCharts:
     includeCRDs: true
     valuesInline:
       includeCRDs: true
-      image: ghcr.io/external-secrets/external-secrets:v0.19.0-ubi
+      image:
+        tag: v0.19.0-ubi
 
