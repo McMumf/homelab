@@ -1,4 +1,0 @@
----
-dependencies:
-  - { role: "common/prereqs", pkgs: ["kubelet", "kubeadm"] }
-  - { role: kubernetes/common, pkgs: ["kubelet", "kubeadm"] }

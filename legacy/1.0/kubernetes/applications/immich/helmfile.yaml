@@ -1,8 +1,0 @@
-releases:
-  - name: immich
-    namespace: immich
-    createNamespace: true
-    chart: ../../../charts/immich
-    version: 1.1.0
-    values:
-      - values.yaml
