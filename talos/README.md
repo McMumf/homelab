@@ -58,7 +58,30 @@ customization:
 1. Run the install command. Example:
 
   ```shell
-  $ talosctl upgrade --nodes <node ip> --image factory.talos.dev/metal-installer-secureboot/4a6d075edb1b336415b3d809208217dfbd390359d21787afc2f832c41ec56007:<new_version>
+  $ talosctl upgrade --nodes <node ip> --image factory.talos.dev/metal-installer-secureboot/72b8d480a52e4864ddf7915064656d75b44474fcc48edbe9bdbbbc6223543695"<new_version>
   ```
 2. Make sure it boots with new EFI image
   - May need to enroll the EFI image from disk in bios
+
+## Updating Kubernetes
+
+1. Dry Run the upgrade
+
+  ```shell
+  $ talosctl --nodes <controlplane node> upgrade-k8s --to 1.33.3 --dry-run
+  ```
+
+- Checks what will be upgraded
+- Will pull the required images
+
+2. Do the upgrade
+
+  ```shell
+  $ talosctl --nodes <controlplane node> upgrade-k8s --to 1.33.3
+  talosctl --nodes 192.168.5.100 upgrade-k8s --to 1.33.3 --dry-run
+  automatically detected the lowest Kubernetes version 1.33.0
+  discovered controlplane nodes ["cp-1" "cp-2" "c-3"]
+  discovered worker nodes ["worker-1" "worker-2", "worker-3"]
+  ...
+
+  ```
