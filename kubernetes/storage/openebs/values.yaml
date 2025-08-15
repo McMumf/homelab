@@ -20,6 +20,8 @@ mayastor:
     - key: "node-role.kubernetes.io/control-plane"
       operator: "Equal"
       value: ""
+  io_engine:
+    envcontext: "iova-mode=pa"
   csi:
     node:
       initContainers:
