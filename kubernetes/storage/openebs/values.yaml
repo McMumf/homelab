@@ -15,19 +15,23 @@ localpv-provisioner:
         value: ""
 
 mayastor:
-  # Global toleration
   tolerations:
     - key: "node-role.kubernetes.io/control-plane"
       operator: "Equal"
       value: ""
-  io_engine:
-    envcontext: "iova-mode=pa"
   csi:
     node:
       initContainers:
-        # disable the init container that checks for the nvme_tcp module, since Talos has that module built-in.
         enabled: false
+  io_engine:
+    envcontext: "iova-mode=pa"
+    tolerations:
+      - key: "node-role.kubernetes.io/control-plane"
+        operator: "Equal"
+        value: ""
   etcd:
+    nodeSelector:
+      openebs.io/engine: mayastor
     tolerations:
       - key: "node-role.kubernetes.io/control-plane"
         operator: "Equal"
