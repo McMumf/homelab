@@ -17,7 +17,7 @@ spec:
       automountServiceAccountToken: false
       containers:
         - name: fresh-rss
-          image: freshrss/freshrss:1.26.3
+          image: freshrss/freshrss:1.27.0
           imagePullPolicy: Always
           ports:
             - containerPort: 80
