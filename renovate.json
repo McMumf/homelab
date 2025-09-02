@@ -1,15 +1,8 @@
 {
-    "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-    "extends": [
-        "config:recommended"
-    ],
-    "ignorePaths": [
-        "legacy/**",
-        "kubernetes/storage/garage"
-    ],
-    "kubernetes": {
-        "managerFilePatterns": [
-            "\\.yaml$"
-        ]
-    }
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": ["config:recommended"],
+  "ignorePaths": ["legacy/**", "kubernetes/storage/garage"],
+  "kubernetes": {
+    "managerFilePatterns": ["/kubernetes/.+\\.yaml$/"]
+  }
 }
