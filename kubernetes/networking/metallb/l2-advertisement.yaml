@@ -6,3 +6,10 @@ metadata:
 spec:
   ipAddressPools:
     - default
+  nodeSelectors:
+    - matchLabels:
+        kubernetes.io/hostname: atlantis
+    - matchLabels:
+        kubernetes.io/hostname: columbia
+    - matchLabels:
+        kubernetes.io/hostname: challenger
