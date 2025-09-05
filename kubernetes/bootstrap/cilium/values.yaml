@@ -1,5 +1,9 @@
 kubeProxyReplacement: true
 
+hubble:
+  relay:
+    enabled: true
+
 ipam:
   mode: kubernetes
 
@@ -44,7 +48,6 @@ cgroup:
 
 k8sServiceHost: localhost
 k8sServicePort: 7445
-
 # from article
 # endpointRoutes:
 #   enabled: true
