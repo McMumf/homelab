@@ -58,7 +58,7 @@ customization:
 1. Run the install command. Example:
 
   ```shell
-  $ talosctl upgrade --nodes <node ip> --image factory.talos.dev/metal-installer-secureboot/72b8d480a52e4864ddf7915064656d75b44474fcc48edbe9bdbbbc6223543695"<new_version>
+  $ talosctl upgrade --nodes <node ip> --image factory.talos.dev/metal-installer-secureboot/72b8d480a52e4864ddf7915064656d75b44474fcc48edbe9bdbbbc6223543695:v<new_version>
   ```
 2. Make sure it boots with new EFI image
   - May need to enroll the EFI image from disk in bios

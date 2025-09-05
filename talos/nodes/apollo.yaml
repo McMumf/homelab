@@ -4,4 +4,4 @@ machine:
     hostname: apollo
   install:
     disk: /dev/sdb
-    image: factory.talos.dev/metal-installer-secureboot/4a6d075edb1b336415b3d809208217dfbd390359d21787afc2f832c41ec56007:v1.10.6
+    image: factory.talos.dev/metal-installer-secureboot/4a6d075edb1b336415b3d809208217dfbd390359d21787afc2f832c41ec56007:v1.11.0
