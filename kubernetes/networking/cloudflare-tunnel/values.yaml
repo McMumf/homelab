@@ -7,6 +7,10 @@ cloudflare:
   originRequest:
     http2Origin: true # Attempts to use HTTP/2.0
   ingress:
+    - hostname: "mc.mcmumf.dev"
+      service: tcp://minecraft-router-game.games.svc.cluster.local:25565
+      originRequest:
+        originServerName: mcmumf.dev
     - hostname: "*.mcmumf.dev"
       service: http://ingress-nginx-controller.ingress-nginx.svc.cluster.local:80
       originRequest:
