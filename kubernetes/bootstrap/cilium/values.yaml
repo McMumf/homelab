@@ -3,21 +3,31 @@ kubeProxyReplacement: true
 hubble:
   relay:
     enabled: true
+  ui:
+    enabled: true
 
 ipam:
   mode: kubernetes
 
+l2NeighDiscovery:
+  enabled: true
+
 l2announcements:
-  enabled: false
-l2-announcements-lease-duration: 3s
-l2-announcements-renew-deadline: 1s
-l2-announcements-retry-period: 500ms
+  enabled: true
+  leaseDuration: 10s
+  leaseRenewDeadline: 5s
+  leaseRetryPeriod: 1s
+  interfacePattern: "^(eno1|enp2s0|enp42s0)$"
+
+k8sClientRateLimit:
+  burst: 20
+  qps: 10
+
 externalIPs:
   enabled: true
 
-# k8sClientRateLimit:
-#   qps: 50
-#   burst: 100
+endpointRoutes:
+  enabled: true
 
 tunnelProtocol: geneve
 
@@ -48,9 +58,3 @@ cgroup:
 
 k8sServiceHost: localhost
 k8sServicePort: 7445
-# from article
-# endpointRoutes:
-#   enabled: true
-# ingressController:
-#   enabled: true
-#   loadbalancerMode: shared
