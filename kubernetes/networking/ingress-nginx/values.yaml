@@ -25,6 +25,8 @@ controller:
   service:
     externalTrafficPolicy: Local
     loadBalancerIP: 192.168.5.6
+    labels:
+      homelab-lb: true
   tolerations:
     - key: "node-role.kubernetes.io/control-plane"
       operator: "Equal"
