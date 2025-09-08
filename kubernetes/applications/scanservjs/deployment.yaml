@@ -16,7 +16,7 @@ spec:
       automountServiceAccountToken: false
       containers:
         - name: scanservjs
-          image: sbs20/scanservjs:v3.0.3
+          image: sbs20/scanservjs:v3.0.4
           securityContext:
             privileged: false
           resources:
