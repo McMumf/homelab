@@ -7,6 +7,6 @@ helmCharts:
     repo: https://openebs.github.io/monitoring/
     releaseName: monitoring
     namespace: openebs
-    version: 4.1.0
+    version: 4.1.1
     includeCRDs: true
     valuesFile: values.yaml
