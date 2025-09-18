@@ -21,7 +21,7 @@ spec:
         fsGroup: 1001
       containers:
         - name: outline
-          image: outlinewiki/outline:0.87.3
+          image: outlinewiki/outline:0.87.4
           imagePullPolicy: Always
           ports:
             - containerPort: 3000
