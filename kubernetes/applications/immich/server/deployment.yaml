@@ -22,7 +22,7 @@ spec:
       automountServiceAccountToken: false
       containers:
         - name: immich-server
-          image: ghcr.io/immich-app/immich-server:v1.142.1
+          image: ghcr.io/immich-app/immich-server:v1.143.0
           env:
             - name: "DB_PASSWORD"
               valueFrom:
