@@ -6,7 +6,7 @@ metadata:
 spec:
   selector:
     matchLabels:
-      app: "morphos"
+      app: morphos
   replicas: 1
   template:
     metadata:

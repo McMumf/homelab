@@ -16,7 +16,7 @@ spec:
   tls:
     - hosts:
         - &host morphos.mcmumf.dev
-      secretName: morphos-cert
+      secretName: morphos.mcmumf.dev-tls
   rules:
     - host: *host
       http:
