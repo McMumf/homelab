@@ -15,7 +15,7 @@ spec:
   ingressClassName: nginx
   tls:
     - hosts:
-        - &host file-converter.mcmumf.dev
+        - &host morphos.mcmumf.dev
       secretName: morphos-cert
   rules:
     - host: *host
