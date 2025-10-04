@@ -17,7 +17,7 @@ spec:
       automountServiceAccountToken: false
       containers:
         - name: minecraft-vanilla
-          image: itzg/minecraft-server:2025.9.2
+          image: itzg/minecraft-server:2025.10.0
           resources:
             limits:
               cpu: 3
