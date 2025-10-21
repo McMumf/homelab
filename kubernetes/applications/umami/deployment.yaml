@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: umami
+  namespace: apps
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: umami
+  template:
+    metadata:
+      labels:
+        app: umami
+    spec:
+      automountServiceAccountToken: false
+      containers:
+        - name: umami
+          image: docker.umami.is/umami-software/umami:postgresql-v2.19.0
+          securityContext:
+            privileged: false
+          resources:
+            requests:
+              cpu: 250m
+              ephemeral-storage: 1Gi
+              memory: 256Mi
+            limits:
+              cpu: 500m
+              ephemeral-storage: 2Gi
+              memory: 1Gi
+          env:
+            - name: PRIMARY_DOMAIN
+              value: umami.mcmumf.dev
+            - name: HASH_SALT
+              valueFrom:
+                secretKeyRef:
+                  name: umami-secrets
+                  key: salt
+            - name: DATABASE_TYPE
+              value: "postgresql"
+            - name: DATABASE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: umami-cnpg-app
+                  key: uri
+          ports:
+            - name: umami-web
+              containerPort: 3000
+              protocol: TCP

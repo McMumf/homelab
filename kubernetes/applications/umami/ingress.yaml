@@ -1,0 +1,30 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: umami
+  namespace: apps
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-production
+    gethomepage.dev/description: The modern analytics platform for effortless insights
+    gethomepage.dev/enabled: "true"
+    gethomepage.dev/group: Utilities
+    gethomepage.dev/icon: https://raw.githubusercontent.com/paperless-ngx/paperless-ngx/refs/heads/dev/src/paperless/static/paperless/img/favicon.ico
+    gethomepage.dev/name: Umami
+    gethomepage.dev/pod-selector: "app=umami"
+spec:
+  ingressClassName: nginx
+  tls:
+    - hosts:
+        - &hostName umami.mcmumf.dev
+      secretName: umami.mcmumf.dev-tls
+  rules:
+    - host: *hostName
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: umami
+                port:
+                  number: 3000

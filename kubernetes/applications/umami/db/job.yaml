@@ -1,0 +1,44 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  annotations:
+    helm.sh/hook: test
+    helm.sh/hook-delete-policy: before-hook-creation,hook-succeeded
+  labels:
+    app.kubernetes.io/component: database-ping-test
+  name: umami-cnpg-ping-test
+  namespace: apps
+spec:
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/component: database-ping-test
+      name: umami-cnpg-ping-test
+    spec:
+      containers:
+        - args:
+            - -c
+            - apk add postgresql-client && psql "postgresql://$PGUSER:$PGPASS@umami-cnpg-rw.outline.svc.cluster.local:5432/${PGDBNAME:-$PGUSER}"
+              -c 'SELECT 1'
+          command:
+            - sh
+          env:
+            - name: PGUSER
+              valueFrom:
+                secretKeyRef:
+                  key: username
+                  name: umami-cnpg-app
+            - name: PGPASS
+              valueFrom:
+                secretKeyRef:
+                  key: password
+                  name: umami-cnpg-app
+            - name: PGDBNAME
+              valueFrom:
+                secretKeyRef:
+                  key: dbname
+                  name: umami-cnpg-app
+                  optional: true
+          image: alpine:3.17
+          name: alpine
+      restartPolicy: Never

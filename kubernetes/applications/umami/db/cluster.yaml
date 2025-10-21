@@ -1,0 +1,57 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  labels:
+    app.kubernetes.io/instance: umami-cnpg
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: cluster
+    app.kubernetes.io/part-of: cloudnative-pg
+    helm.sh/chart: cluster-0.3.1
+  name: umami-cnpg
+  namespace: outline
+spec:
+  affinity:
+    topologyKey: topology.kubernetes.io/zone
+  bootstrap:
+    initdb:
+      database: umami
+      encoding: UTF8
+      owner: umami
+  enablePDB: true
+  enableSuperuserAccess: true
+  imageName: ghcr.io/cloudnative-pg/postgresql:17
+  imagePullPolicy: IfNotPresent
+  instances: 1
+  logLevel: info
+  managed:
+    roles:
+      - comment: umami User
+        ensure: present
+        inRoles:
+          - pg_monitor
+          - pg_signal_backend
+        login: true
+        name: umami
+        superuser: true
+  monitoring:
+    disableDefaultQueries: false
+    enablePodMonitor: false
+  postgresGID: 26
+  postgresUID: 26
+  postgresql:
+    parameters:
+      log_hostname: "off"
+      log_timezone: UTC
+      max_connections: "200"
+      shared_buffers: 256MB
+  primaryUpdateMethod: switchover
+  primaryUpdateStrategy: unsupervised
+  resources:
+    limits:
+      memory: 2Gi
+    requests:
+      cpu: 1000m
+      memory: 1Gi
+  storage:
+    size: 8Gi
+    storageClass: openebs
