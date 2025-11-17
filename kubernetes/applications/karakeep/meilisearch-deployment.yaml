@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: meilisearch
-          image: getmeili/meilisearch:v1.25.0
+          image: getmeili/meilisearch:v1.26.0
           resources:
             limits:
               cpu: 500m
