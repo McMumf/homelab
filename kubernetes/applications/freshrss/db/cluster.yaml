@@ -1,0 +1,57 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  labels:
+    app.kubernetes.io/instance: fresh-rss-cnpg
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: cluster
+    app.kubernetes.io/part-of: cloudnative-pg
+    helm.sh/chart: cluster-0.3.1
+  name: freshrss-cnpg
+  namespace: apps
+spec:
+  affinity:
+    topologyKey: topology.kubernetes.io/zone
+  bootstrap:
+    initdb:
+      database: freshrss
+      encoding: UTF8
+      owner: freshrss
+  enablePDB: true
+  enableSuperuserAccess: true
+  imageName: ghcr.io/cloudnative-pg/postgresql:17
+  imagePullPolicy: IfNotPresent
+  instances: 1
+  logLevel: info
+  managed:
+    roles:
+      - comment: freshrss User
+        ensure: present
+        inRoles:
+          - pg_monitor
+          - pg_signal_backend
+        login: true
+        name: freshrss
+        superuser: true
+  monitoring:
+    disableDefaultQueries: false
+    enablePodMonitor: false
+  postgresGID: 26
+  postgresUID: 26
+  postgresql:
+    parameters:
+      log_hostname: "off"
+      log_timezone: UTC
+      max_connections: "200"
+      shared_buffers: 256MB
+  primaryUpdateMethod: switchover
+  primaryUpdateStrategy: unsupervised
+  resources:
+    limits:
+      memory: 2Gi
+    requests:
+      cpu: 1000m
+      memory: 1Gi
+  storage:
+    size: 8Gi
+    storageClass: openebs

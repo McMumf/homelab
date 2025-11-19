@@ -1,5 +1,8 @@
 kubeProxyReplacement: true
 
+gatewayAPI:
+  enabled: true
+
 hubble:
   relay:
     enabled: true

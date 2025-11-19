@@ -1,27 +1,27 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: fresh-rss
+  name: freshrss
   namespace: apps
 spec:
   selector:
     matchLabels:
-      app: fresh-rss-app
-  serivceName: "fresh-rss"
+      app: freshrss-app
+  serviceName: "freshrss"
   replicas: 1
   template:
     metadata:
       labels:
-        app: fresh-rss-app
+        app: freshrss-app
     spec:
       automountServiceAccountToken: false
       containers:
-        - name: fresh-rss
+        - name: freshrss
           image: freshrss/freshrss:1.27.1
           imagePullPolicy: Always
           ports:
             - containerPort: 80
-              name: fresh-rss-web
+              name: freshrss-web
           resources:
             limits:
               cpu: 2000m
@@ -44,56 +44,56 @@ spec:
             #   value: https://rss.mcmumf.dev
             # - name: CRON_MIN
             #   value: "*/15"
-            # # DB
-            # - name: DB_HOST
-            #   valueFrom:
-            #     secretKeyRef:
-            #       name: fresh-rss-cnpg-app
-            #       key: host
-            # - name: DB_BASE
-            #   value: freshrss
-            # - name: DB_PASSWORD
-            #   valueFrom:
-            #     secretKeyRef:
-            #       name: fresh-rss-cnpg-app
-            #       key: password
-            # - name: DB_USER
-            #   valueFrom:
-            #     secretKeyRef:
-            #       name: fresh-rss-cnpg-app
-            #       key: user
+            # DB
+            - name: DB_HOST
+              valueFrom:
+                secretKeyRef:
+                  name: freshrss-cnpg-app
+                  key: host
+            - name: DB_BASE
+              value: freshrss
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: freshrss-cnpg-app
+                  key: password
+            - name: DB_USER
+              valueFrom:
+                secretKeyRef:
+                  name: freshrss-cnpg-app
+                  key: user
             # OIDC
-            - name: OIDC_ENABLED
-              value: "1"
-            - name: OIDC_PROVIDER_METADATA_URL
-              value: "https://auth.mcmumf.dev/application/o/fresh-rss/.well-known/openid-configuration"
-            - name: OIDC_CLIENT_ID
-              valueFrom:
-                secretKeyRef:
-                  name: fresh-rss-secrets
-                  key: oidc-client-id
-            - name: OIDC_CLIENT_SECRET
-              valueFrom:
-                secretKeyRef:
-                  name: fresh-rss-secrets
-                  key: oidc-client-secret
-            - name: OIDC_CLIENT_CRYPTO_KEY
-              valueFrom:
-                secretKeyRef:
-                  name: fresh-rss-secrets
-                  key: oidc-client-crypto-key
-            - name: OIDC_X_FORWARDED_HEADERS
-              value: "X-Forwarded-Host X-Forwarded-Port X-Forwarded-Proto"
-            - name: OIDC_REMOTE_USER_CLAIM
-              value: "preferred_username"
-            - name: OIDC_SCOPES
-              value: "openid profile"
+            # - name: OIDC_ENABLED
+            #   value: "1"
+            # - name: OIDC_PROVIDER_METADATA_URL
+            #   value: "https://auth.mcmumf.dev/application/o/freshrss/.well-known/openid-configuration"
+            # - name: OIDC_CLIENT_ID
+            #   valueFrom:
+            #     secretKeyRef:
+            #       name: freshrss-secrets
+            #       key: oidc-client-id
+            # - name: OIDC_CLIENT_SECRET
+            #   valueFrom:
+            #     secretKeyRef:
+            #       name: freshrss-secrets
+            #       key: oidc-client-secret
+            # - name: OIDC_CLIENT_CRYPTO_KEY
+            #   valueFrom:
+            #     secretKeyRef:
+            #       name: freshrss-secrets
+            #       key: oidc-client-crypto-key
+            # - name: OIDC_X_FORWARDED_HEADERS
+            #   value: "X-Forwarded-Host X-Forwarded-Port X-Forwarded-Proto"
+            # - name: OIDC_REMOTE_USER_CLAIM
+            #   value: "preferred_username"
+            # - name: OIDC_SCOPES
+            #   value: "openid email profile"
           volumeMounts:
-            - name: fresh-rss-data
+            - name: freshrss-data
               mountPath: /var/www/FreshRSS/data
   volumeClaimTemplates:
     - metadata:
-        name: fresh-rss-data
+        name: freshrss-data
       spec:
         accessModes: ["ReadWriteOnce"]
         storageClassName: "openebs"

@@ -12,16 +12,22 @@ ArgoCD is needed to deploy the application sets.
 
 ## Setup
 
-1. Instasll cilium
+1. Install Gateway API
+    ```sh
+    $ cd kubernetes/bootstrap
+    $ kubectl apply -k gateway-api
+    ...
+    ```
+2. Install cilium
     ```sh
     $ cd kubernetes/bootstrap
     $ kubectl kustomize cilium --enable-helm | kubectl apply -f -
     ...
     ```
-2. Install ArgoCD
+3. Install ArgoCD
     ```sh
     $ kubectl kustomize argocd --enable-helm | kubectl apply -f -
     ...
     ```
-3. Apply your App Set(s)
-4. Prosper
+4. Apply your App Set(s)
+5. Prosper
