@@ -5,6 +5,7 @@ namespace: kube-system
 resources:
   - address-pool.yaml
   - announcement.yaml
+  - gateway.yaml
 
 helmCharts:
   - name: cilium

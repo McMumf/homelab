@@ -9,6 +9,7 @@ spec:
         operator: DoesNotExist
   interfaces:
     - eno1
+    - enp1s0
     - enp2s0
     - enp42s0
   externalIPs: true
