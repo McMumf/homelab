@@ -2,7 +2,7 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: traccar-5055-ingress
-  namespace: apps
+  namespace: traccar
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt-production
 spec:
@@ -15,7 +15,7 @@ spec:
     - host: loc.mcmumf.dev
       http:
         paths:
-          - path: /
+          - path: /osmand
             pathType: Prefix
             backend:
               service:

@@ -5,6 +5,7 @@ namespace: traccar
 resources:
   - ./db
   - namespace.yaml
+  - ingress.yaml
 
 helmCharts:
   - name: traccar
