@@ -11,6 +11,10 @@ cloudflare:
       service: tcp://minecraft-router-game.games.svc.cluster.local:25565
       originRequest:
         originServerName: mcmumf.dev
+    - hostname: "loc.mcmumf.dev"
+      service: http://external-traccar.traccar.svc.cluster.local
+      originRequest:
+        originServerName: mcmumf.dev
     - hostname: "*.mcmumf.dev"
       service: http://ingress-nginx-controller.ingress-nginx.svc.cluster.local:80
       originRequest:

@@ -1,0 +1,81 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: traccar-timescaledb
+  namespace: apps
+spec:
+  selector:
+    matchLabels:
+      app: traccar-timescaledb
+  serviceName: "traccar-timescaledb"
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: traccar-timescaledb
+    spec:
+      automountServiceAccountToken: false
+      terminationGracePeriodSeconds: 10
+      containers:
+        - name: traccar-timescaledb
+          image: timescale/timescaledb:2.23.1-pg17
+          resources:
+            limits:
+              cpu: 2
+              ephemeral-storage: 8Gi
+              memory: 2Gi
+            requests:
+              cpu: 1
+              ephemeral-storage: 8Gi
+              memory: 1Gi
+          args:
+            - postgres
+            - -c
+            - search_path="$(user)", public
+            - -c
+            - logging_collector=on
+            - -c
+            - max_wal_size=2GB
+            - -c
+            - shared_buffers=512MB
+            - -c
+            - wal_compression=on
+          env:
+            - name: TIMESCALEDB_TELEMETRY
+              value: "off"
+            - name: "POSTGRES_PASSWORD"
+              valueFrom:
+                secretKeyRef:
+                  name: traccar-timescaledb-secrets
+                  key: pg-password
+            - name: "POSTGRES_USER"
+              valueFrom:
+                secretKeyRef:
+                  name: traccar-timescaledb-secrets
+                  key: pg-username
+            - name: "POSTGRES_DB"
+              value: "traccar"
+            - name: "POSTGRES_INITDB_ARGS"
+              value: "--data-checksums"
+          ports:
+            - containerPort: 5432
+              name: tcp
+          volumeMounts:
+            - name: traccar-timescaledb-data
+              mountPath: /var/lib/postgresql/data
+              subPath: data
+          livenessProbe:
+            exec:
+              command:
+                - pg_isready --dbname="$${POSTGRES_DB}" --username="$${POSTGRES_USER}" || exit 1; Chksum="$$(psql --dbname="$${POSTGRES_DB}" --username="$${POSTGRES_USER}" --tuples-only --no-align --command='SELECT COALESCE(SUM(checksum_failures), 0) FROM pg_stat_database')"; echo "checksum failure count is $$Chksum"; [ "$$Chksum" = '0' ] || exit 1
+            initialDelaySeconds: 30
+            periodSeconds: 300
+  volumeClaimTemplates:
+    - metadata:
+        name: traccar-timescaledb-data
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        storageClassName: "openebs"
+        resources:
+          requests:
+            storage: 32Gi

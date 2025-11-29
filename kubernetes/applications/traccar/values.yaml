@@ -1,0 +1,46 @@
+image:
+  flavor: debian
+  pullPolicy: Always
+
+env:
+  - name: "CONFIG_USE_ENVIRONMENT_VARIABLES"
+    value: "true"
+  - name: DATABASE_DRIVER
+    value: org.postgresql.Driver
+  - name: DATABASE_URL
+    value: jdbc:postgresql://traccar-timescaledb:5432/traccar
+  - name: DATABASE_USER
+    valueFrom:
+      secretKeyRef:
+        name: traccar-timescaledb-secrets
+        key: pg-username
+  - name: DATABASE_PASSWORD
+    valueFrom:
+      secretKeyRef:
+        name: traccar-timescaledb-secrets
+        key: pg-password
+
+ingress:
+  enabled: true
+  extraAnnotations: {}
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+  hosts:
+    - host: gps.mcmumf.dev
+      paths:
+        - /
+  tls:
+    - secretName: gps.mcmumf.dev-tls
+      hosts:
+        - gps.mcmumf.dev
+
+command: ["java", "-Xms512m", "-Xmx512m", "-Djava.net.preferIPv4Stack=true"]
+args: ["-jar", "tracker-server.jar", "conf/traccar.xml"]
+
+mysql:
+  enabled: false
+
+externalService:
+  enabled: true
+  loadBalancerIP: "192.168.5.7"
