@@ -12,7 +12,7 @@ cloudflare:
       originRequest:
         originServerName: mcmumf.dev
     - hostname: "loc.mcmumf.dev"
-      service: http://external-traccar.traccar.svc.cluster.local
+      service: http://external-traccar.traccar.svc.cluster.local:5055
       originRequest:
         originServerName: mcmumf.dev
     - hostname: "*.mcmumf.dev"
