@@ -7,5 +7,5 @@ helmCharts:
     repo: https://charts.zigbee2mqtt.io
     releaseName: zigbee2mqtt
     namespace: smart-home
-    version: 2.6.3
+    version: 2.7.0
     valuesFile: values.yaml
