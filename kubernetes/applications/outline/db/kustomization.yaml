@@ -7,5 +7,5 @@ helmCharts:
     repo: https://cloudnative-pg.github.io/charts
     releaseName: outline-cnpg
     namespace: outline
-    version: 0.3.1
+    version: 0.4.0
     valuesFile: values.yaml
