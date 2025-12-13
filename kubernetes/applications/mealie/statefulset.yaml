@@ -22,7 +22,7 @@ spec:
         fsGroup: 1000
       containers:
         - name: mealie
-          image: hkotel/mealie:v3.6.1
+          image: hkotel/mealie:v3.7.0
           resources:
             requests:
               memory: 2Gi
