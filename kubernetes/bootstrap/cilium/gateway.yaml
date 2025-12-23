@@ -6,7 +6,7 @@ spec:
   gatewayClassName: cilium
   addresses:
     - type: IPAddress
-      value: 192.168.5.19
+      value: 192.168.5.16
   listeners:
     - protocol: HTTPS
       port: 443
