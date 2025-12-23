@@ -2,6 +2,8 @@ apiVersion: gateway.networking.k8s.io/v1
 kind: Gateway
 metadata:
   name: cilium-gateway-https
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-production
 spec:
   gatewayClassName: cilium
   addresses:
@@ -11,6 +13,12 @@ spec:
     - protocol: HTTPS
       port: 443
       name: web-gw
+      hostname: "*.mcmumf.dev"
       allowedRoutes:
         namespaces:
           from: All
+      tls:
+        mode: Terminate
+        certificateRefs:
+          - name: "*.mcmumf.dev-tls" # ✅ Required.
+            kind: Secret
