@@ -2,8 +2,6 @@ apiVersion: gateway.networking.k8s.io/v1
 kind: Gateway
 metadata:
   name: cilium-gateway-https
-  labels:
-    io.cilium/lb-pool: main
 spec:
   gatewayClassName: cilium
   addresses:
@@ -15,4 +13,4 @@ spec:
       name: web-gw
       allowedRoutes:
         namespaces:
-          from: Same
+          from: All
