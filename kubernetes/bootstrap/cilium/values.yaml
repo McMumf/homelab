@@ -5,6 +5,8 @@ bgpControlPlane:
 
 gatewayAPI:
   enabled: true
+  gatewayClass:
+    create: "true"
 
 hubble:
   relay:
