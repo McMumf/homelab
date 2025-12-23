@@ -6,6 +6,7 @@ resources:
   - address-pool.yaml
   - announcement.yaml
   - gateway.yaml
+  - gateway-class.yaml
 
 helmCharts:
   - name: cilium
