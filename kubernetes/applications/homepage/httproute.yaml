@@ -5,7 +5,7 @@ metadata:
   namespace: apps
 spec:
   parentRefs:
-    - name: cilium-gateway-https
+    - name: cilium-gateway
       namespace: kube-system
       sectionName: web-gw
   hostnames:

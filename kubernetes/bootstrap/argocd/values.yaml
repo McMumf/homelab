@@ -9,8 +9,30 @@ configs:
   cm:
     kustomize.buildOptions: --enable-helm
 server:
-  ingress:
+  httproute:
     enabled: true
+    annotations:
+      gethomepage.dev/description: Cluster GitOps
+      gethomepage.dev/enabled: "true"
+      gethomepage.dev/group: Cluster Management
+      gethomepage.dev/icon: https://raw.githubusercontent.com/devicons/devicon/refs/heads/master/icons/argocd/argocd-original.svg
+      gethomepage.dev/name: ArgoCD
+    parentRefs:
+      - name: cilium-gateway
+        namespace: kube-system
+        sectionName: web-gw
+    hostnames:
+      - argocd.mcmumf.dev
+  grpcroute:
+    enabled: true
+    parentRefs:
+      - name: cilium-gateway
+        namespace: kube-system
+        sectionName: grpc-gw
+    hostnames:
+      - grpc.argocd.mcmumf.dev
+  ingress:
+    enabled: false
     annotations:
       nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
       nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
@@ -24,7 +46,7 @@ server:
     hostname: argocd.mcmumf.dev
     tls: true
   ingressGrpc:
-    enabled: true
+    enabled: false
     annotations:
       nginx.ingress.kubernetes.io/backend-protocol: "GRPC"
       nginx.ingress.kubernetes.io/ssl-redirect: "true"
