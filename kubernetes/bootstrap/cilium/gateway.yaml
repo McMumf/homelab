@@ -2,8 +2,13 @@ apiVersion: gateway.networking.k8s.io/v1
 kind: Gateway
 metadata:
   name: cilium-gateway-https
+  labels:
+    io.cilium/lb-pool: main
 spec:
   gatewayClassName: cilium
+  addresses:
+    - type: IPAddress
+      value: 192.168.5.19
   listeners:
     - protocol: HTTPS
       port: 443

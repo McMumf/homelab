@@ -10,3 +10,6 @@ spec:
       service:
         addresses:
           - LoadBalancerIP
+      attributes:
+        communities:
+          standard: ["64500:100"] # Optional: BGP community for traffic engineering
