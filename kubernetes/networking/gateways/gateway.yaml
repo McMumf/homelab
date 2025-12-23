@@ -20,5 +20,5 @@ spec:
       tls:
         mode: Terminate
         certificateRefs:
-          - name: "*.mcmumf.dev-tls" # ✅ Required.
+          - name: "mcmumf.dev-tls"
             kind: Secret

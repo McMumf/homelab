@@ -6,7 +6,6 @@ resources:
   - address-pool.yaml
   - bgp-advertisement.yaml
   - bgp-peering-policy.yaml
-  - gateway.yaml
 
 helmCharts:
   - name: cilium

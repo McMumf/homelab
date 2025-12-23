@@ -1,7 +1,7 @@
 apiVersion: gateway.networking.k8s.io/v1beta1
 kind: HTTPRoute
 metadata:
-  name: homepage
+  name: scanservjs
   namespace: apps
 spec:
   parentRefs:
@@ -9,12 +9,12 @@ spec:
       namespace: kube-system
       sectionName: web-gw
   hostnames:
-    - "homepage.mcmumf.dev"
+    - "scanner.mcmumf.dev"
   rules:
     - matches:
         - path:
             type: PathPrefix
             value: /
       backendRefs:
-        - name: homepage
+        - name: scanservjs
           port: 3000
