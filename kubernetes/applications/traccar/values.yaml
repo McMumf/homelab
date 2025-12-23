@@ -39,4 +39,4 @@ mysql:
   enabled: false
 
 externalService:
-  enabled: false
+  enabled: true
