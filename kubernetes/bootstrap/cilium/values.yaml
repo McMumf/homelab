@@ -1,5 +1,8 @@
 kubeProxyReplacement: true
 
+bgpControlPlane:
+  enabled: true
+
 gatewayAPI:
   enabled: true
 
@@ -11,16 +14,6 @@ hubble:
 
 ipam:
   mode: kubernetes
-
-l2NeighDiscovery:
-  enabled: true
-
-l2announcements:
-  enabled: true
-  leaseDuration: 10s
-  leaseRenewDeadline: 5s
-  leaseRetryPeriod: 1s
-  interfacePattern: "^(eno1|enp2s0|enp42s0)$"
 
 k8sClientRateLimit:
   burst: 20

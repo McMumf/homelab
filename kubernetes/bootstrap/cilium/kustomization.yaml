@@ -4,7 +4,8 @@ namespace: kube-system
 
 resources:
   - address-pool.yaml
-  - announcement.yaml
+  - bgp-advertisement.yaml
+  - bgp-peering-policy.yaml
   - gateway.yaml
 
 helmCharts:
