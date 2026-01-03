@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: hortusfox-mariadb-service
+  namespace: apps
+  labels:
+    app: hortusfox-mariadb
+spec:
+  ports:
+    - port: 3306
+      name: mariadb-port
+  clusterIP: None
+  selector:
+    app: hortusfox-mariadb

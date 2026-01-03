@@ -1,0 +1,61 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: hortusfox
+  namespace: apps
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hortusfox
+  template:
+    metadata:
+      labels:
+        app: hortusfox
+    spec:
+      containers:
+        - name: hortusfox
+          image: ghcr.io/danielbrendel/hortusfox-web:v5.7
+          ports:
+            - containerPort: 8080
+              name: hortusfox-port
+          env:
+            # Using Secrets
+            - name: APP_ADMIN_EMAIL
+              valueFrom:
+                secretKeyRef:
+                  name: hortusfox-secrets
+                  key: admin-email
+            - name: APP_ADMIN_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: hortusfox-secrets
+                  key: admin-password
+            - name: APP_TIMEZONE
+              value: "UTC"
+            - name: DB_HOST
+              value: "hortusfox-mariadb-service.apps.svc.cluster.local"
+            - name: DB_PORT
+              value: "3306"
+            - name: DB_DATABASE
+              value: "hortusfox"
+            - name: DB_USER
+              value: "hortusfox"
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: hortusfox-secrets
+                  key: mariadb-password
+            - name: DB_CHARSET
+              value: "utf8mb4"
+          volumeMounts:
+            - name: hortusfox-datadir
+              mountPath: /var/www/html/
+  volumeClaimTemplates:
+    - metadata:
+        name: hortusfox-datadir
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        resources:
+          requests:
+            storage: 16Gi

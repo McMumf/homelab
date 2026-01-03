@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: hortusfox-service
+  namespace: apps
+  labels:
+    app: hortusfox
+spec:
+  ports:
+    - port: 8080
+      name: hortusfox-port
+  clusterIP: None
+  selector:
+    app: hortusfox

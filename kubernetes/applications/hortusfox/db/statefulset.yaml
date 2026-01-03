@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: hortusfox-mariadb
+  namespace: apps
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hortusfox-mariadb
+  template:
+    metadata:
+      labels:
+        app: hortusfox-mariadb
+    spec:
+      automountServiceAccountToken: false
+      terminationGracePeriodSeconds: 10
+      securityContext:
+        runAsUser: 999
+        runAsGroup: 999
+        fsGroup: 999
+      containers:
+        - name: hortusfox-mariadb
+          image: mariadb:12.1.2-ubi10
+          ports:
+            - containerPort: 3306
+              name: mariadb-port
+          env:
+            - name: MARIADB_DATABASE
+              value: "hortusfox"
+            - name: MARIADB_USER
+              value: "hortusfox"
+            - name: MARIADB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: hortusfox-secrets
+                  key: mariadb-password
+            - name: MARIADB_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: hortusfox-secrets
+                  key: mariadb-root-password
+          volumeMounts:
+            - name: hortusfox-mariadb-datadir
+              mountPath: /var/lib/mysql
+  volumeClaimTemplates:
+    - metadata:
+        name: hortusfox-mariadb-datadir
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        resources:
+          requests:
+            storage: 8Gi
