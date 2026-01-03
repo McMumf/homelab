@@ -25,6 +25,7 @@ spec:
           ports:
             - containerPort: 3306
               name: mariadb-port
+              protocol: TCP
           env:
             - name: MARIADB_DATABASE
               value: "hortusfox"
@@ -41,11 +42,11 @@ spec:
                   name: hortusfox-secrets
                   key: mariadb-root-password
           volumeMounts:
-            - name: hortusfox-mariadb-datadir
+            - name: hortusfox-mariadb-data
               mountPath: /var/lib/mysql
   volumeClaimTemplates:
     - metadata:
-        name: hortusfox-mariadb-datadir
+        name: hortusfox-mariadb-data
       spec:
         accessModes: ["ReadWriteOnce"]
         resources:

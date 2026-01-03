@@ -17,7 +17,7 @@ spec:
         - name: hortusfox
           image: ghcr.io/danielbrendel/hortusfox-web:v5.7
           ports:
-            - containerPort: 8080
+            - containerPort: 80
               name: hortusfox-port
           env:
             # Using Secrets
@@ -32,14 +32,14 @@ spec:
                   name: hortusfox-secrets
                   key: admin-password
             - name: APP_TIMEZONE
-              value: "UTC"
+              value: "America/New_York"
             - name: DB_HOST
               value: "hortusfox-mariadb-service.apps.svc.cluster.local"
             - name: DB_PORT
               value: "3306"
             - name: DB_DATABASE
               value: "hortusfox"
-            - name: DB_USER
+            - name: DB_USERNAME
               value: "hortusfox"
             - name: DB_PASSWORD
               valueFrom:
@@ -49,11 +49,24 @@ spec:
             - name: DB_CHARSET
               value: "utf8mb4"
           volumeMounts:
-            - name: hortusfox-datadir
-              mountPath: /var/www/html/
+            - name: hortusfox-data
+              mountPath: /var/www/html/public/img
+              subPath: img
+            - name: hortusfox-data
+              mountPath: /var/www/html/app/logs
+              subPath: logs
+            - name: hortusfox-data
+              mountPath: /var/www/html/public/backup
+              subPath: backup
+            - name: hortusfox-data
+              mountPath: /var/www/html/public/themes
+              subPath: themes
+            - name: hortusfox-data
+              mountPath: /var/www/html/app/migrations
+              subPath: migrations
   volumeClaimTemplates:
     - metadata:
-        name: hortusfox-datadir
+        name: hortusfox-data
       spec:
         accessModes: ["ReadWriteOnce"]
         resources:

@@ -1,0 +1,30 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: hortusfox-ingress
+  namespace: apps
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-production
+    gethomepage.dev/description: Managing our Plants
+    gethomepage.dev/enabled: "true"
+    gethomepage.dev/group: Homelab
+    gethomepage.dev/icon: https://github.com/danielbrendel/hortusfox-web/raw/main/public/logo.png
+    gethomepage.dev/name: Hortusfox
+    gethomepage.dev/pod-selector: "app=hortusfoxl"
+spec:
+  ingressClassName: nginx
+  tls:
+    - hosts:
+        - plants.mcmumf.dev
+      secretName: plants.mcmumf.dev-tls
+  rules:
+    - host: plants.mcmumf.dev
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: hortusfox-svc
+                port:
+                  number: 8080

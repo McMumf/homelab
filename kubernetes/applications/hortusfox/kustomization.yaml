@@ -5,5 +5,6 @@ namespace: apps
 resources:
   - db/
   - external-secrets.yaml
+  - ingress.yaml
   - service.yaml
   - statefulset.yaml
