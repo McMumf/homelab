@@ -20,7 +20,8 @@ spec:
             - containerPort: 80
               name: hortusfox-port
           env:
-            # Using Secrets
+            - name: APP_SERVICE_URL
+              value: "https://plants.mcmumf.dev"
             - name: APP_ADMIN_EMAIL
               valueFrom:
                 secretKeyRef:
@@ -48,6 +49,29 @@ spec:
                   key: mariadb-password
             - name: DB_CHARSET
               value: "utf8mb4"
+            - name: SMTP_FROMNAME
+              value: "House Plants"
+            - name: SMTP_FROMADDRESS
+              value: "plants@mcmumf.dev"
+            - name: SMTP_HOST
+              valueFrom:
+                secretKeyRef:
+                  name: hortusfox-secrets
+                  key: smtp-host
+            - name: SMTP_PORT
+              value: "587"
+            - name: SMTP_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: hortusfox-secrets
+                  key: smtp-username
+            - name: SMTP_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: hortusfox-secrets
+                  key: smtp-password
+            - name: SMTP_ENCRYPTION
+              value: "tls"
           volumeMounts:
             - name: hortusfox-data
               mountPath: /var/www/html/public/img
