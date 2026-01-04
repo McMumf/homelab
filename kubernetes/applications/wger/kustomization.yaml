@@ -3,7 +3,7 @@ kind: Kustomization
 namespace: wger
 
 helmCharts:
-  - name: github-wger
+  - name: wger
     repo: https://wger-project.github.io/helm-charts
     releaseName: wger
     namespace: wger

@@ -6,6 +6,19 @@ app:
   persistence:
     enabled: true
     storageClass: "openebs"
+    accessModes: ["ReadWriteOnce"]
+  axes:
+    enabled: true
+    failureLimit: 10
+    # in minutes
+    cooloffTime: 30
+    # number of reverse proxies involved
+    ipwareProxyCount: 1
+    # order of magnitude from last proxy for the real ip
+    ipwareMetaPrecedenceOrder: "X_FORWARDED_FOR,REMOTE_ADDR"
+
+celery:
+  enabled: false
 
 ingress:
   enabled: true
@@ -19,4 +32,4 @@ ingress:
     gethomepage.dev/group: Homelab
     gethomepage.dev/icon: https://raw.githubusercontent.com/wger-project/wger/master/wger/core/static/images/logos/logo.png
     gethomepage.dev/name: wger
-    gethomepage.dev/pod-selector: "app=wger"
+    gethomepage.dev/pod-selector: "app=wger-app"
