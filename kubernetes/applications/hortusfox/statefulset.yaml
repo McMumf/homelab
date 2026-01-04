@@ -1,0 +1,98 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: hortusfox
+  namespace: apps
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hortusfox
+  template:
+    metadata:
+      labels:
+        app: hortusfox
+    spec:
+      containers:
+        - name: hortusfox
+          image: ghcr.io/danielbrendel/hortusfox-web:v5.7
+          ports:
+            - containerPort: 80
+              name: hortusfox-port
+          env:
+            - name: APP_SERVICE_URL
+              value: "https://plants.mcmumf.dev"
+            - name: APP_ADMIN_EMAIL
+              valueFrom:
+                secretKeyRef:
+                  name: hortusfox-secrets
+                  key: admin-email
+            - name: APP_ADMIN_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: hortusfox-secrets
+                  key: admin-password
+            - name: APP_TIMEZONE
+              value: "America/New_York"
+            - name: DB_HOST
+              value: "hortusfox-mariadb-service.apps.svc.cluster.local"
+            - name: DB_PORT
+              value: "3306"
+            - name: DB_DATABASE
+              value: "hortusfox"
+            - name: DB_USERNAME
+              value: "hortusfox"
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: hortusfox-secrets
+                  key: mariadb-password
+            - name: DB_CHARSET
+              value: "utf8mb4"
+            - name: SMTP_FROMNAME
+              value: "House Plants"
+            - name: SMTP_FROMADDRESS
+              value: "plants@mcmumf.dev"
+            - name: SMTP_HOST
+              valueFrom:
+                secretKeyRef:
+                  name: hortusfox-secrets
+                  key: smtp-host
+            - name: SMTP_PORT
+              value: "587"
+            - name: SMTP_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: hortusfox-secrets
+                  key: smtp-username
+            - name: SMTP_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: hortusfox-secrets
+                  key: smtp-password
+            - name: SMTP_ENCRYPTION
+              value: "tls"
+          volumeMounts:
+            - name: hortusfox-data
+              mountPath: /var/www/html/public/img
+              subPath: img
+            - name: hortusfox-data
+              mountPath: /var/www/html/app/logs
+              subPath: logs
+            - name: hortusfox-data
+              mountPath: /var/www/html/public/backup
+              subPath: backup
+            - name: hortusfox-data
+              mountPath: /var/www/html/public/themes
+              subPath: themes
+            - name: hortusfox-data
+              mountPath: /var/www/html/app/migrations
+              subPath: migrations
+  volumeClaimTemplates:
+    - metadata:
+        name: hortusfox-data
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        resources:
+          requests:
+            storage: 16Gi

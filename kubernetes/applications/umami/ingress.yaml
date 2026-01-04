@@ -8,7 +8,7 @@ metadata:
     gethomepage.dev/description: The modern analytics platform for effortless insights
     gethomepage.dev/enabled: "true"
     gethomepage.dev/group: Utilities
-    gethomepage.dev/icon: https://raw.githubusercontent.com/paperless-ngx/paperless-ngx/refs/heads/dev/src/paperless/static/paperless/img/favicon.ico
+    gethomepage.dev/icon: https://github.com/umami-software/umami/blob/master/public/favicon.ico
     gethomepage.dev/name: Umami
     gethomepage.dev/pod-selector: "app=umami"
 spec:
