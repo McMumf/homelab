@@ -5,12 +5,14 @@ metadata:
   namespace: apps
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt-production
+    nginx.ingress.kubernetes.io/proxy-body-size: "1g"
+    nginx.org/client-max-body-size: "1g"
     gethomepage.dev/description: Managing our Plants
     gethomepage.dev/enabled: "true"
     gethomepage.dev/group: Homelab
     gethomepage.dev/icon: https://github.com/danielbrendel/hortusfox-web/raw/main/public/logo.png
     gethomepage.dev/name: Hortusfox
-    gethomepage.dev/pod-selector: "app=hortusfoxl"
+    gethomepage.dev/pod-selector: "app=hortusfox"
 spec:
   ingressClassName: nginx
   tls:
