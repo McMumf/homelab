@@ -1,0 +1,22 @@
+app:
+  timezone: "America/New_York"
+  global:
+    image:
+      tag: 2.4-dev
+  persistence:
+    enabled: true
+    storageClass: "openebs"
+
+ingress:
+  enabled: true
+  ingressClassName: nginx
+  url: fitness.mcmumf.dev
+  tls: true
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-production
+    gethomepage.dev/description: Fitness Tracker
+    gethomepage.dev/enabled: "true"
+    gethomepage.dev/group: Homelab
+    gethomepage.dev/icon: https://raw.githubusercontent.com/wger-project/wger/master/wger/core/static/images/logos/logo.png
+    gethomepage.dev/name: wger
+    gethomepage.dev/pod-selector: "app=wger"
