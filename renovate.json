@@ -4,7 +4,7 @@
   "ignorePaths": ["legacy/**", "kubernetes/storage/garage"],
   "kubernetes": {
     "managerFilePatterns": ["/kubernetes/.+\\.yaml$/"]
-  }
+  },
   "packageRules": [
     {
       "matchUpdateTypes": ["patch"],
