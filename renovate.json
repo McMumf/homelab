@@ -5,4 +5,10 @@
   "kubernetes": {
     "managerFilePatterns": ["/kubernetes/.+\\.yaml$/"]
   }
+  "packageRules": [
+    {
+      "matchUpdateTypes": ["patch"],
+      "automerge": true
+    },
+  ],
 }
