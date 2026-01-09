@@ -53,7 +53,7 @@ customization:
             - siderolabs/util-linux-tools
 ```
 
-Shortcut link: [v1.11.5](https://factory.talos.dev/?arch=amd64&cmdline-set=true&extensions=-&extensions=siderolabs%2Fglibc&extensions=siderolabs%2Fi915&extensions=siderolabs%2Fintel-ucode&extensions=siderolabs%2Fiscsi-tools&extensions=siderolabs%2Fnut-client&extensions=siderolabs%2Futil-linux-tools&platform=metal&secureboot=true&target=metal&version=1.11.5)
+Shortcut link: [v1.12.1](https://factory.talos.dev/?arch=amd64&cmdline-set=true&extensions=-&extensions=siderolabs%2Fglibc&extensions=siderolabs%2Fi915&extensions=siderolabs%2Fintel-ucode&extensions=siderolabs%2Fiscsi-tools&extensions=siderolabs%2Fnut-client&extensions=siderolabs%2Futil-linux-tools&platform=metal&secureboot=true&target=metal&version=1.12.1)
 
 ## Updating w/ Secure Boot
 
@@ -87,4 +87,3 @@ Shortcut link: [v1.11.5](https://factory.talos.dev/?arch=amd64&cmdline-set=true&
   ...
 
   ```
-
