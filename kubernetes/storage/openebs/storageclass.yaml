@@ -9,28 +9,28 @@ parameters:
   repl: "3"
   allowVolumeExpansion: "true"
 allowVolumeExpansion: true
-reclaimPolicy: Delete
+reclaimPolicy: Retain
 provisioner: io.openebs.csi-mayastor
 # ---
-# # a single replica thin provisioned storage class that Kasten can use for its backups
-# apiVersion: storage.k8s.io/v1
-# kind: StorageClass
-# metadata:
-#   name: openebs-backup
-# parameters:
-#   protocol: "nvmf"
-#   repl: "1"
-#   allowVolumeExpansion: "true"
-#   thin: "true"
-# allowVolumeExpansion: true
-# provisioner: io.openebs.csi-mayastor
+# a single replica thin provisioned storage class that Kasten can use for its backups
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: openebs-backup
+parameters:
+  protocol: "nvmf"
+  repl: "1"
+  allowVolumeExpansion: "true"
+  thin: "true"
+allowVolumeExpansion: true
+provisioner: io.openebs.csi-mayastor
 # ---
-# kind: VolumeSnapshotClass
-# apiVersion: snapshot.storage.k8s.io/v1
-# metadata:
-#   name: csi-openebs-snapshotclass
-#   annotations:
-#     snapshot.storage.kubernetes.io/is-default-class: "true"
-#     k10.kasten.io/is-snapshot-class: "true"
-# driver: io.openebs.csi-mayastor
-# deletionPolicy: Delete
+kind: VolumeSnapshotClass
+apiVersion: snapshot.storage.k8s.io/v1
+metadata:
+  name: csi-openebs-snapshotclass
+  annotations:
+    snapshot.storage.kubernetes.io/is-default-class: "true"
+    k10.kasten.io/is-snapshot-class: "true"
+driver: io.openebs.csi-mayastor
+deletionPolicy: Delete

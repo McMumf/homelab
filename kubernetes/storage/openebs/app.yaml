@@ -8,7 +8,7 @@ spec:
   sources:
     # Helm Chart
     - repoURL: "https://openebs.github.io/openebs"
-      targetRevision: "4.3.2"
+      targetRevision: "4.4.0"
       chart: openebs
       helm:
         valueFiles:
