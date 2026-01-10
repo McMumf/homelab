@@ -7,8 +7,7 @@ resources:
   - apps-secret-store.yaml
   - infra-secret-store.yaml
   - media-secret-store.yaml
-  - networking-secret-store.yaml
-  - smart-home-secret-store.yaml
+  - network-secret-store.yaml
 
 helmCharts:
   - name: external-secrets
@@ -19,6 +18,3 @@ helmCharts:
     includeCRDs: true
     valuesInline:
       includeCRDs: true
-      image:
-        tag: v0.19.0-ubi
-
