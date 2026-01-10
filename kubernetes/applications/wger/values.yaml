@@ -16,6 +16,9 @@ app:
     ipwareProxyCount: 1
     # order of magnitude from last proxy for the real ip
     ipwareMetaPrecedenceOrder: "X_FORWARDED_FOR,REMOTE_ADDR"
+  environment:
+    - name: SITE_URL
+      value: "https://fitness.mcmumf.dev"
 
 celery:
   enabled: false
