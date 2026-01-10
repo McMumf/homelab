@@ -19,7 +19,7 @@ server:
       - host: &hostName vault.mcmumf.dev
         paths: []
     tls:
-      - secretName: vault-cert
+      - secretName: vault.mcmumf.dev-tls
         hosts:
           - *hostName
 
@@ -31,6 +31,10 @@ server:
     - name: unseal-key-volume
       mountPath: /vault/userconfig/unseal-key-2
       subPath: unseal-key-2
+      readOnly: true
+    - name: unseal-key-volume
+      mountPath: /vault/userconfig/unseal-key-3
+      subPath: unseal-key-3
       readOnly: true
 
   volumes:
@@ -44,6 +48,8 @@ server:
             path: unseal-key-1
           - key: unseal-key-2
             path: unseal-key-2
+          - key: unseal-key-3
+            path: unseal-key-3
 
   postStart:
     - /bin/sh
@@ -52,6 +58,7 @@ server:
       sleep 10;
       vault operator unseal $(cat /vault/userconfig/unseal-key-1) &&
       vault operator unseal $(cat /vault/userconfig/unseal-key-2) &&
+      vault operator unseal $(cat /vault/userconfig/unseal-key-3) &&
       echo "Unsealed vault" >> /proc/1/fd/1 ||
       echo "Could not unseal Vault automatically. Please do it manually" >> /proc/1/fd/1;
 
