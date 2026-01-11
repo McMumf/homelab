@@ -7,6 +7,8 @@ metadata:
     app: hassio
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt-production
+    nginx.ingress.kubernetes.io/proxy-body-size: "25m"
+    nginx.org/client-max-body-size: "25m"
     gethomepage.dev/enabled: "true"
     gethomepage.dev/group: Homelab
     gethomepage.dev/icon: https://raw.githubusercontent.com/home-assistant/frontend/refs/heads/dev/public/static/icons/favicon-512x512.png
