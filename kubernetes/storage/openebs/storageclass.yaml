@@ -11,7 +11,7 @@ parameters:
 allowVolumeExpansion: true
 reclaimPolicy: Retain
 provisioner: io.openebs.csi-mayastor
-# ---
+---
 # a single replica thin provisioned storage class that Kasten can use for its backups
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
@@ -24,7 +24,7 @@ parameters:
   thin: "true"
 allowVolumeExpansion: true
 provisioner: io.openebs.csi-mayastor
-# ---
+---
 kind: VolumeSnapshotClass
 apiVersion: snapshot.storage.k8s.io/v1
 metadata:

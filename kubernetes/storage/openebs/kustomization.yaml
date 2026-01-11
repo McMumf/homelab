@@ -8,11 +8,11 @@ resources:
   - storageclass.yaml
   - volumesnapshotclass.yaml
 
-helmCharts:
-  - name: openebs
-    repo: https://openebs.github.io/openebs
-    releaseName: openebs
-    namespace: openebs
-    version: 4.4.0
-    includeCRDs: true
-    valuesFile: values.yaml
+# helmCharts:
+#   - name: openebs
+#     repo: https://openebs.github.io/openebs
+#     releaseName: openebs
+#     namespace: openebs
+#     version: 4.4.0
+#     includeCRDs: true
+#     valuesFile: values.yaml
