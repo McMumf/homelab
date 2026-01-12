@@ -4,15 +4,16 @@ kind: CiliumBGPPeeringPolicy
 metadata:
   name: udm-pro-bgp
 spec:
+  nodeSelector:
+    matchLabels:
+      # Apply to all nodes - adjust if you want specific nodes only
+      kubernetes.io/os: linux
   virtualRouters:
-    - localASN: 64501
+    - localASN: 65200
       exportPodCIDR: false # Set to true if you want to advertise pod CIDRs
-      serviceSelector:
-        matchLabels:
-          io.cilium/lb-pool: main
       neighbors:
         - peerAddress: "192.168.5.1/32"
-          peerASN: 64500
+          peerASN: 65100
           eBGPMultihopTTL: 10
           connectRetryTimeSeconds: 120
           holdTimeSeconds: 90
@@ -20,3 +21,6 @@ spec:
           gracefulRestart:
             enabled: true
             restartTimeSeconds: 120
+          families:
+            - afi: ipv4
+              safi: unicast

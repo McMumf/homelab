@@ -3,9 +3,9 @@ kind: Kustomization
 namespace: kube-system
 
 resources:
-  - address-pool.yaml
   - bgp-advertisement.yaml
   - bgp-peering-policy.yaml
+  - bgp-pool.yaml
   - gateway.yaml
 
 helmCharts:

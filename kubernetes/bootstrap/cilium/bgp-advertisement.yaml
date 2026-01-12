@@ -1,9 +1,10 @@
 apiVersion: cilium.io/v2
 kind: CiliumBGPAdvertisement
 metadata:
-  name: loadbalancer-ips
+  name: loadbalancer-services
+  namespace: kube-system
   labels:
-    advertise: bgp
+    bgp.cilium.io/advertise: loadbalancer-services
 spec:
   advertisements:
     - advertisementType: "Service"
@@ -12,4 +13,4 @@ spec:
           - LoadBalancerIP
       attributes:
         communities:
-          standard: ["64500:100"] # Optional: BGP community for traffic engineering
+          standard: ["65100"] # Optional: BGP community for traffic engineering
