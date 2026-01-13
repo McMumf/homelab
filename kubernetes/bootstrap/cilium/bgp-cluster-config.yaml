@@ -8,10 +8,10 @@ spec:
     matchLabels:
       kubernetes.io/os: linux
   bgpInstances:
-    - name: "homelab"
+    - name: "homelab-k8s-65200"
       localASN: 65200
       peers:
-        - name: "udm-pro"
+        - name: "udm-pro-65100"
           peerAddress: "192.168.5.1"
           peerASN: 65100
           peerConfigRef:
