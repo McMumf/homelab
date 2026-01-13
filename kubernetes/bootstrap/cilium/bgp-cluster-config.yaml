@@ -12,7 +12,7 @@ spec:
       localASN: 65200
       peers:
         - name: "udm-pro"
-          peerAddress: "192.168.6.1"
+          peerAddress: "192.168.5.1"
           peerASN: 65100
           peerConfigRef:
             name: udm-pro-peer

@@ -4,7 +4,7 @@ metadata:
   name: test-lb
 spec:
   type: LoadBalancer
-  loadBalancerIP: 192.168.5.20
+  loadBalancerIP: 192.168.6.20
   ports:
     - port: 80
       targetPort: 80
