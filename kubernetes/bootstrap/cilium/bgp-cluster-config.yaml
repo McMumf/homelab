@@ -1,0 +1,18 @@
+apiVersion: cilium.io/v2
+kind: CiliumBGPClusterConfig
+metadata:
+  name: bgp-cluster
+  namespace: kube-system
+spec:
+  nodeSelector:
+    matchLabels:
+      kubernetes.io/os: linux
+  bgpInstances:
+    - name: "homelab"
+      localASN: 65200
+      peers:
+        - name: "udm-pro"
+          peerAddress: "192.168.6.1"
+          peerASN: 65100
+          peerConfigRef:
+            name: udm-pro-peer
