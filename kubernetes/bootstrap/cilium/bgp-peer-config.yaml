@@ -2,7 +2,6 @@ apiVersion: cilium.io/v2
 kind: CiliumBGPPeerConfig
 metadata:
   name: udm-pro-peer
-  namespace: kube-system
 spec:
   timers:
     holdTimeSeconds: 90

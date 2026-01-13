@@ -2,7 +2,6 @@ apiVersion: cilium.io/v2
 kind: CiliumBGPAdvertisement
 metadata:
   name: lb-services
-  namespace: kube-system
   labels:
     advertise: bgp
 spec:
