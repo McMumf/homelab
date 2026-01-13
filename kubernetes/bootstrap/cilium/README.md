@@ -6,7 +6,7 @@ Diagram the BGP connections.
 
 VLAN1 operates in `192.168.1.X`
 
-VLAN3 operates in `182.168.5.X`
+VLAN3 operates in `192.168.5.X`
 
 VLAN4 operates in `192.168.6.X`
 
