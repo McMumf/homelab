@@ -1,0 +1,12 @@
+apiVersion: "openebs.io/v1beta3"
+kind: DiskPool
+metadata:
+  name: apollo
+  namespace: openebs
+spec:
+  node: apollo
+  disks: ["uring:///dev/disk/by-id/wwn-0x500a07511ad63cec"]
+  encryptionConfig:
+    source:
+      secret:
+        name: pool-encr-secret

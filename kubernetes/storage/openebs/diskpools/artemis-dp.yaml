@@ -1,0 +1,12 @@
+apiVersion: "openebs.io/v1beta3"
+kind: DiskPool
+metadata:
+  name: artemis
+  namespace: openebs
+spec:
+  node: artemis
+  disks: ["uring:///dev/disk/by-id/wwn-0x500a07511ad6393d"]
+  encryptionConfig:
+    source:
+      secret:
+        name: pool-encr-secret
