@@ -4,9 +4,13 @@ bgpControlPlane:
   enabled: true
 
 gatewayAPI:
-  enabled: true
+  enabled: false
   gatewayClass:
     create: "true"
+
+ingressController:
+  enabled: true
+  loadbalancerMode: shared
 
 hubble:
   relay:
@@ -25,7 +29,7 @@ l2announcements:
   leaseDuration: 10s
   leaseRenewDeadline: 5s
   leaseRetryPeriod: 1s
-  interfacePattern: "^(eno1|enp2s0|enp42s0)$"
+  interfacePattern: "^(eno1|enp1s0|enp42s0)$"
 
 k8sClientRateLimit:
   burst: 20
