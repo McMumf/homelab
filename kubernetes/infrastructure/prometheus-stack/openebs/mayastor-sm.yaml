@@ -1,0 +1,13 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: mayastor-monitoring
+  namespace: openebs
+  labels:
+    app: metrics-exporter-io-engine
+spec:
+  selector:
+    matchLabels:
+      app: metrics-exporter-io-engine
+  endpoints:
+    - port: metrics

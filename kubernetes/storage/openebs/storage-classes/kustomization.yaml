@@ -6,4 +6,5 @@ resources:
   - csi-openebs-snapshot.yaml
   - openebs.yaml
   - openebs-backup.yaml
+  - openebs-hostpath.yaml
   - volumesnapshotclass.yaml

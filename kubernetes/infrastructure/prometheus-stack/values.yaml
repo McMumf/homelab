@@ -45,6 +45,8 @@ grafana:
         secretName: grafana.mcmumf.dev-tls
 
 prometheus:
+  prometheusSpec:
+    serviceMonitorSelectorNilUsesHelmValues: false
   ingress:
     enabled: true
     ingressClassName: nginx
@@ -69,13 +71,11 @@ prometheus:
         accessModes: ["ReadWriteOnce"]
         resources:
           requests:
-            storage: 2Gi
+            storage: 4Gi
 
 prometheus-node-exporter:
   ## Additional container arguments
   extraArgs:
     - --collector.filesystem.mount-points-exclude=^/(dev|proc|sys|run/containerd/.+|var/lib/docker/.+|var/lib/kubelet/.+)($|/)
-    - --collector.filesystem.fs-types-exclude=^(autofs|binfmt_misc|bpf|cgroup2?|configfs|debugfs|devpts|devtmpfs|fusectl|hugetlbfs|iso9660|mqueue|nsfs|overlay|proc|procfs|pstore|rpc_pipefs|securityfs|selinuxfs|squashfs|sysfs|tracefs|erofs)$
-    - --collector.filesystem.mount-points-exclude=^/(dev|proc|sys|var/lib/docker/.+)($|/)
-    - --collector.filesystem.fs-types-exclude=^(tmpfs|autofs|binfmt_misc|cgroup|configfs|debugfs|devpts|devtmpfs|fusectl|hugetlbfs|mqueue|overlay|proc|procfs|pstore|rpc_pipefs|securityfs|sysfs|tracefs)$
+    - --collector.filesystem.fs-types-exclude=^(autofs|binfmt_misc|bpf|cgroup|cgroup2?|configfs|debugfs|devpts|devtmpfs|fusectl|hugetlbfs|iso9660|mqueue|nsfs|overlay|proc|procfs|pstore|rpc_pipefs|securityfs|selinuxfs|squashfs|sysfs|tmpfs|tracefs|erofs)$
     - --collector.diskstats.device-exclude=^(ram|loop|fd|sr|(h|s|v|xv)d[a-z]+|nvme\d+n\d+p|nvme\d+c\d+n)\d+$
