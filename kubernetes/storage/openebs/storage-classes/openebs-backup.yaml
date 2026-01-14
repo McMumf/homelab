@@ -1,0 +1,13 @@
+# a single replica thin provisioned storage class that Kasten can use for its backups
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: openebs-backup
+parameters:
+  protocol: "nvmf"
+  repl: "1"
+  allowVolumeExpansion: "true"
+  thin: "true"
+  encrypted: "true"
+allowVolumeExpansion: true
+provisioner: io.openebs.csi-mayastor

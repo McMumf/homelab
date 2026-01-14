@@ -3,9 +3,9 @@ kind: Kustomization
 namespace: openebs
 
 resources:
-  - diskpools.yaml
+  - ./diskpools
   - namespace.yaml
-  - storageclass.yaml
+  - ./storage-classes
   - volumesnapshotclass.yaml
 
 # helmCharts:
