@@ -6,17 +6,9 @@ metadata:
 spec:
   project: default
   sources:
-    # Helm Chart
-    - repoURL: "https://prometheus-community.github.io/helm-charts"
-      targetRevision: "80.13.3"
-      chart: kube-prometheus-stack
-      helm:
-        valueFiles:
-          - $values/kubernetes/infrastructure/prometheus-stack/values.yaml
-    # Helm Values
     - repoURL: "https://github.com/McMumf/homelab"
       targetRevision: "main"
-      ref: values
+      path: kubernetes/infrastructure/prom-stack
   destination:
     server: https://kubernetes.default.svc
     namespace: monitoring
