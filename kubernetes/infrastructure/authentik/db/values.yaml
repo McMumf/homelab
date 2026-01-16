@@ -17,6 +17,9 @@ cluster:
   storage:
     size: 8Gi
     storageClass: openebs
+  walStorage:
+    storageClass: openebs
+    size: 8Gi
   postgresql:
     parameters:
       log_hostname: "off"
@@ -38,5 +41,6 @@ cluster:
     owner: authentik
     encoding: UTF8
 
-backups:
-  enabled: false
+backup:
+  volumeSnapshot:
+    className: csi-openebs-snapshotclass
