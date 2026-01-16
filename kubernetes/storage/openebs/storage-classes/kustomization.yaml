@@ -7,4 +7,3 @@ resources:
   - openebs.yaml
   - openebs-backup.yaml
   - openebs-hostpath.yaml
-  - volumesnapshotclass.yaml
