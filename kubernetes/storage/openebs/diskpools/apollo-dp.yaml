@@ -6,6 +6,9 @@ metadata:
 spec:
   node: apollo
   disks: ["uring:///dev/disk/by-id/wwn-0x500a07511ad63cec"]
+  topology:
+    labelled:
+      topology-key: main-storage
   encryptionConfig:
     source:
       secret:

@@ -6,6 +6,9 @@ metadata:
 spec:
   node: artemis
   disks: ["uring:///dev/disk/by-id/wwn-0x500a07511ad6393d"]
+  topology:
+    labelled:
+      topology-key: main-storage
   encryptionConfig:
     source:
       secret:
