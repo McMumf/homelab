@@ -12,17 +12,24 @@ cluster:
     limits:
       memory: 2Gi
     requests:
-      cpu: "1"
+      cpu: 1000m
       memory: 1Gi
+
   storage:
     size: 8Gi
     storageClass: openebs
+
+  walStorage:
+    storageClass: openebs
+    size: 8Gi
+
   postgresql:
     parameters:
       log_hostname: "off"
       log_timezone: "UTC"
       max_connections: "200"
       shared_buffers: "256MB"
+
   roles:
     - name: mealie
       ensure: present
@@ -38,31 +45,6 @@ cluster:
     owner: mealie
     encoding: UTF8
 
-backups:
-  enabled: false
-
-poolers:
-  - name: pgbouncer
-    type: rw
-    instances: 1
-    parameters:
-      max_client_conn: "100"
-      default_pool_size: "50"
-    template:
-      spec:
-        containers:
-          - name: pgbouncer
-            resources:
-              limits:
-                memory: 500Mi
-              requests:
-                cpu: 100m
-                memory: 100Mi
-        initContainers:
-          - name: bootstrap-controller
-            resources:
-              limits:
-                memory: 500Mi
-              requests:
-                cpu: 100m
-                memory: 100Mi
+backup:
+  volumeSnapshot:
+    className: csi-openebs-snapshotclass
