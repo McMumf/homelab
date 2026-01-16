@@ -10,18 +10,33 @@ global:
     enabled: true
     auth:
       existingSecret: authentik-secrets
+  env:
+    - name: AUTHENTIK_POSTGRESQL__HOST
+      valueFrom:
+        secretKeyRef:
+          name: authentik-cnpg-app
+          key: host
+    - name: AUTHENTIK_POSTGRESQL__USER
+      valueFrom:
+        secretKeyRef:
+          name: authentik-cnpg-app
+          key: user
+    - name: AUTHENTIK_POSTGRESQL__PASSWORD
+      valueFrom:
+        secretKeyRef:
+          name: authentik-cnpg-app
+          key: password
+    - name: AUTHENTIK_POSTGRESQL__NAME
+      value: authentik
+    - name: AUTHENTIK_EMAIL__FROM
+      value: "Homelab Auth"
   envFrom:
     - secretRef:
         name: authentik-secrets
 
 postgresql:
-  enabled: true
-  auth:
-    existingSecret: authentik-secrets
-  primary:
-    persistence:
-      enabled: true
-      storageClass: openebs
+  enabled: false
+
 redis:
   enabled: true
   global:
@@ -31,7 +46,7 @@ server:
   volumes:
     - name: tls-cert
       secret:
-        secretName: authentik-cert
+        secretName: auth.mcmumf.dev-tls
   volumeMounts:
     - name: tls-cert
       mountPath: /certs
@@ -52,13 +67,13 @@ server:
     tls:
       - hosts:
           - *authentikHost
-        secretName: authentik-cert
+        secretName: auth.mcmumf.dev-tls
 
 worker:
   volumes:
     - name: tls-cert
       secret:
-        secretName: authentik-cert
+        secretName: auth.mcmumf.dev-tls
   volumeMounts:
     - name: tls-cert
       mountPath: /certs

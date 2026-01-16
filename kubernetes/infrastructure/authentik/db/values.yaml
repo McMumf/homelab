@@ -1,0 +1,42 @@
+type: postgresql
+mode: standalone
+
+fullnameOverride: "authentik-cnpg"
+
+version:
+  postgresql: "17"
+
+cluster:
+  instances: 1
+  resources:
+    limits:
+      memory: 2Gi
+    requests:
+      cpu: 1000m
+      memory: 1Gi
+  storage:
+    size: 8Gi
+    storageClass: openebs
+  postgresql:
+    parameters:
+      log_hostname: "off"
+      log_timezone: "UTC"
+      max_connections: "200"
+      shared_buffers: "256MB"
+  roles:
+    - name: authentik
+      ensure: present
+      comment: authentik User
+      login: true
+      superuser: true
+      inRoles:
+        - pg_monitor
+        - pg_signal_backend
+
+  initdb:
+    database: authentik
+    owner: authentik
+    encoding: UTF8
+
+backups:
+  enabled: false
