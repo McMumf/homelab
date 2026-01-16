@@ -16,7 +16,7 @@ zigbee2mqtt:
     # -- Optional: MQTT base topic for Zigbee2MQTT MQTT messages (default: zigbee2mqtt)
     base_topic: zigbee2mqtt
   serial:
-    port: tcp://192.168.1.54:6638
+    port: tcp://192.168.5.54:6638
     adapter: ember
   # -- Optional: OTA update settings
   # See https://www.zigbee2mqtt.io/guide/usage/ota_updates.html for more info
