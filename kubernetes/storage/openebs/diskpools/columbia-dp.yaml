@@ -5,7 +5,7 @@ metadata:
   namespace: openebs
 spec:
   node: colubmia
-  disks: ["uring:///dev/disk/by-id/wwn-0x500a07511ad6393d"]
+  disks: ["uring:///dev/disk/by-id/wwn-0x5000c500bb2a9504"]
   topology:
     labelled:
       purpose: snapshot-storage
