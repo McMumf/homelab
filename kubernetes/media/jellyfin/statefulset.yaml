@@ -55,7 +55,7 @@ spec:
       volumes:
         - name: homelab-nfs
           nfs:
-            server: 192.168.69.70
+            server: nas.mcmumf.dev
             path: /volume1/library
   volumeClaimTemplates:
     - metadata:
