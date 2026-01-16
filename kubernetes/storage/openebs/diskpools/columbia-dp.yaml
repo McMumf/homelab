@@ -1,0 +1,15 @@
+apiVersion: "openebs.io/v1beta3"
+kind: DiskPool
+metadata:
+  name: colubmia
+  namespace: openebs
+spec:
+  node: colubmia
+  disks: ["uring:///dev/disk/by-id/wwn-0x500a07511ad6393d"]
+  topology:
+    labelled:
+      purpose: snapshot-storage
+  encryptionConfig:
+    source:
+      secret:
+        name: pool-encr-secret

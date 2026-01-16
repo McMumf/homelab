@@ -9,5 +9,7 @@ parameters:
   allowVolumeExpansion: "true"
   thin: "true"
   encrypted: "true"
+  poolAffinityTopologyLabel: |
+    purpose: snapshot-storage
 allowVolumeExpansion: true
 provisioner: io.openebs.csi-mayastor
