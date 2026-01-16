@@ -1,4 +1,4 @@
-# a single replica thin provisioned storage class that Kasten can use for its backups
+# a single replica thin provisioned storage class intended for backups
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:

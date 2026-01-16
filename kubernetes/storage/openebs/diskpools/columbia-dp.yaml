@@ -1,10 +1,10 @@
 apiVersion: "openebs.io/v1beta3"
 kind: DiskPool
 metadata:
-  name: colubmia
+  name: columbia
   namespace: openebs
 spec:
-  node: colubmia
+  node: columbia
   disks: ["uring:///dev/disk/by-id/wwn-0x5000c500bb2a9504"]
   topology:
     labelled:
