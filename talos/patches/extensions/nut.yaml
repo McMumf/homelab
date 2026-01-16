@@ -3,6 +3,6 @@ kind: ExtensionServiceConfig
 name: nut-client
 configFiles:
   - content: |-
-        MONITOR ups@192.168.69.70 1 monuser secret slave
-        SHUTDOWNCMD "/sbin/poweroff"
+      MONITOR ups@192.168.5.70 1 monuser secret slave
+      SHUTDOWNCMD "/sbin/poweroff"
     mountPath: /usr/local/etc/nut/upsmon.conf
