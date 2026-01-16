@@ -36,7 +36,14 @@ spec:
               protocol: TCP
           volumeMounts:
             - name: mosquitto-data
-              mountPath: /etc/mosquitto
+              mountPath: /mosquitto/config
+              subPath: config
+            - name: mosquitto-data
+              mountPath: /mosquitto/data
+              subPath: data
+            - name: mosquitto-data
+              mountPath: /mosquitto/log
+              subPath: log
             - name: mosquitto-config
               mountPath: "/mosquitto/config/mosquitto.conf"
               subPath: mosquitto.conf
@@ -56,4 +63,4 @@ spec:
         storageClassName: "openebs"
         resources:
           requests:
-            storage: 32Gi
+            storage: 8Gi

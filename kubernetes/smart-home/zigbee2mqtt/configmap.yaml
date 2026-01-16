@@ -18,7 +18,7 @@ data:
     # Zigbee Adapter path
     serial:
     # Location of SLZB-06M
-      port: tcp://192.168.1.54:6638
+      port: tcp://192.168.5.54:6638
       adapter: ember
     # Disable green led?
       disable_led: false
