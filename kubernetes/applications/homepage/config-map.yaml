@@ -36,6 +36,10 @@ data:
             href: https://nas.mcmumf.dev
             icon: mdi-nas
             description: Network Attached Storage
+        - ZigbeeAdapter:
+            href: http://192.168.5.54
+            icon: https://smlight.tech/product/images/smartlight_logo.png
+            description: Zigbee Adapter
 
   widgets.yaml: |
     - datetime:
