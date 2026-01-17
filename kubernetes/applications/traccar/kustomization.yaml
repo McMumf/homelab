@@ -4,8 +4,8 @@ namespace: traccar
 
 resources:
   - ./db
-  - namespace.yaml
-  - ingress.yaml
+  - gateway.yaml
+  - http-route.yaml
 
 helmCharts:
   - name: traccar

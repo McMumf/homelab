@@ -1,0 +1,30 @@
+apiVersion: gateway.networking.k8s.io/v1
+kind: Gateway
+metadata:
+  name: traccar-gateway
+  namespace: traccar
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+spec:
+  gatewayClassName: cilium
+  listeners:
+    - allowedRoutes:
+        namespaces:
+          from: All
+      hostname: loc.mcmumf.dev
+      name: https
+      port: 443
+      protocol: HTTPS
+      tls:
+        certificateRefs:
+          - group: ""
+            kind: Secret
+            name: traccar-gateway-tls-secret
+        mode: Terminate
+    - allowedRoutes:
+        namespaces:
+          from: All
+      hostname: loc.mcmumf.dev
+      name: http
+      port: 80
+      protocol: HTTP

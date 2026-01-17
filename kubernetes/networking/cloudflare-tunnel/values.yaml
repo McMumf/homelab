@@ -2,12 +2,18 @@ cloudflare:
   tunnelName: "k8s-tunnel"
   # Secret defines the tunnelId, tunnelName, accountNumber, and tunnel secret
   secretName: tunnel-credentials
+  enableWarp: true
   # Define ingress rules for the tunnel. See
   # https://developers.cloudflare.com/cloudflare-one/connections/connect-apps/configuration/configuration-file/ingress
-  enableWarp: true
   ingress:
     - hostname: "loc.mcmumf.dev"
-      service: https://cilium-gateway-traccar-gateway.traccar.svc.cluster.local:443
+      service: http://cilium-gateway-traccar-gateway.traccar.svc.cluster.local:80
+      originRequest:
+        originServerName: mcmumf.dev
+    - hostname: "jellyfin.mcmumf.dev"
+      service: http://cilium-gateway-traccar-gateway.kube-system.svc.cluster.local:80
+      originRequest:
+        originServerName: mcmumf.dev
     - hostname: "*.mcmumf.dev"
       service: http://ingress-nginx-controller.ingress-nginx.svc.cluster.local:80
       originRequest:

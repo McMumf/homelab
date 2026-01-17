@@ -4,7 +4,7 @@ bgpControlPlane:
   enabled: true
 
 gatewayAPI:
-  enabled: false
+  enabled: true
   gatewayClass:
     create: "true"
 
