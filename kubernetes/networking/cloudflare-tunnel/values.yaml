@@ -4,13 +4,10 @@ cloudflare:
   secretName: tunnel-credentials
   # Define ingress rules for the tunnel. See
   # https://developers.cloudflare.com/cloudflare-one/connections/connect-apps/configuration/configuration-file/ingress
-  originRequest:
-    http2Origin: true # Attempts to use HTTP/2.0
+  enableWarp: true
   ingress:
     - hostname: "loc.mcmumf.dev"
       service: http://cilium-ingress.kube-system.svc.cluster.local:80
-      originRequest:
-        originServerName: mcmumf.dev
     - hostname: "*.mcmumf.dev"
       service: http://ingress-nginx-controller.ingress-nginx.svc.cluster.local:80
       originRequest:
