@@ -1,12 +1,10 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  annotations:
-    kompose.cmd: kompose convert -f docker-compose.yaml
-    kompose.version: 1.35.0 (HEAD)
   labels:
     app: immich-server
   name: immich-server
+  namespace: immich
 spec:
   replicas: 1
   selector:
@@ -23,6 +21,8 @@ spec:
       containers:
         - name: immich-server
           image: ghcr.io/immich-app/immich-server:v2.4.1
+          securityContext:
+            allowPrivilegeEscalation: false
           env:
             - name: "DB_PASSWORD"
               valueFrom:

@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: immich-machine-learning
-  namespace: apps
+  namespace: immich
 spec:
   selector:
     matchLabels:
@@ -19,6 +19,11 @@ spec:
       containers:
         - name: immich-machine-learning
           image: ghcr.io/immich-app/immich-machine-learning:v2.4.1
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
           env:
             - name: TRANSFORMERS_CACHE
               value: "/cache"

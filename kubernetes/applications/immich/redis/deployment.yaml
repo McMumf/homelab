@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: immich-redis
-  namespace: apps
+  namespace: immich
   labels:
     app: immich-redis
 spec:
@@ -19,6 +19,8 @@ spec:
       containers:
         - name: redis
           image: redis:8.4-alpine
+          securityContext:
+            allowPrivilegeEscalation: false
           resources:
             limits:
               cpu: 500m

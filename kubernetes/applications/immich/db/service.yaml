@@ -4,7 +4,7 @@ metadata:
   labels:
     app: immich-postgres
   name: immich-postgres
-  namespace: apps
+  namespace: immich
 spec:
   ports:
     - name: "5432"
