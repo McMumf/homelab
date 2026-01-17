@@ -3,6 +3,13 @@ kind: HTTPRoute
 metadata:
   name: http-app-test
   namespace: traccar
+  annotations:
+    gethomepage.dev/description: Find where people are
+    gethomepage.dev/enabled: "true"
+    gethomepage.dev/group: Homelab
+    gethomepage.dev/icon: https://raw.githubusercontent.com/Koenkk/zigbee2mqtt/refs/heads/master/images/logo.png
+    gethomepage.dev/name: Traccar
+    gethomepage.dev/pod-selector: "app=traccar"
 spec:
   parentRefs:
     - name: traccar-gateway

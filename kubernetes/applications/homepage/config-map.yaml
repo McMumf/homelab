@@ -8,6 +8,8 @@ metadata:
 data:
   kubernetes.yaml: |
     mode: cluster
+    gateway: true
+    ingress: true
   settings.yaml: |
     title: McMumf's Homelab
     background:
