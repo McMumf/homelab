@@ -12,6 +12,13 @@ ingressController:
   enabled: true
   loadbalancerMode: shared
 
+# Supports ingress
+nodePort:
+  enabled: true
+
+# Supports ingress, enabled by default and I want to be explicit
+l7Proxy: true
+
 hubble:
   relay:
     enabled: true
