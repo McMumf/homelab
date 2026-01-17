@@ -10,6 +10,8 @@ metadata:
     gethomepage.dev/icon: https://raw.githubusercontent.com/traccar/traccar-web/refs/heads/master/public/logo.svg
     gethomepage.dev/name: Traccar
     gethomepage.dev/pod-selector: "app=traccar"
+  labels:
+    app: traccar
 spec:
   parentRefs:
     - name: traccar-gateway

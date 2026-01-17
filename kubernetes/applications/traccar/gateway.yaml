@@ -5,6 +5,8 @@ metadata:
   namespace: traccar
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt-prod
+  labels:
+    app: traccar
 spec:
   gatewayClassName: cilium
   listeners:
