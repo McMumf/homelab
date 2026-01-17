@@ -1,0 +1,50 @@
+type: postgresql
+mode: standalone
+
+fullnameOverride: "jellystat-cnpg"
+
+version:
+  postgresql: "17"
+
+cluster:
+  instances: 1
+  resources:
+    limits:
+      memory: 2Gi
+    requests:
+      cpu: 1000m
+      memory: 1Gi
+
+  storage:
+    size: 8Gi
+    storageClass: openebs
+
+  walStorage:
+    storageClass: openebs
+    size: 8Gi
+
+  postgresql:
+    parameters:
+      log_hostname: "off"
+      log_timezone: "UTC"
+      max_connections: "200"
+      shared_buffers: "256MB"
+
+  roles:
+    - name: jellystat
+      ensure: present
+      comment: Jellystat User
+      login: true
+      superuser: true
+      inRoles:
+        - pg_monitor
+        - pg_signal_backend
+
+  initdb:
+    database: jellystat
+    owner: jellystat
+    encoding: UTF8
+
+backup:
+  volumeSnapshot:
+    className: csi-openebs-snapshotclass

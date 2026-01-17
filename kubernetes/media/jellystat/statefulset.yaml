@@ -24,28 +24,31 @@ spec:
             requests:
               cpu: 1000m
               memory: 1Gi
-              ephemeral-storage: 32Gi
+              ephemeral-storage: 8Gi
             limits:
               cpu: 2000m
               memory: 1Gi
-              ephemeral-storage: 32Gi
+              ephemeral-storage: 8Gi
           env:
             - name: POSTGRES_USER
               valueFrom:
                 secretKeyRef:
-                  name: cnpg-operator-cnpg-media-app
+                  name: jellystat-cnpg-app
                   key: username
             - name: POSTGRES_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: cnpg-operator-cnpg-media-app
+                  name: jellystat-cnpg-app
                   key: password
             - name: POSTGRES_IP
-              value: "cnpg-operator-cnpg-media-rw.media"
+              value: "jellystat-cnpg-rw.media"
             - name: POSTGRES_PORT
               value: "5432"
             - name: POSTGRES_DB
-              value: "app"
+              valueFrom:
+                secretKeyRef:
+                  name: jellystat-cnpg-app
+                  key: dbname
             - name: JWT_SECRET
               valueFrom:
                 secretKeyRef:
