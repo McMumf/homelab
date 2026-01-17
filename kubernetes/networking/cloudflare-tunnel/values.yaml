@@ -7,7 +7,7 @@ cloudflare:
   enableWarp: true
   ingress:
     - hostname: "loc.mcmumf.dev"
-      service: http://cilium-ingress.kube-system.svc.cluster.local:80
+      service: https://cilium-gateway-traccar-gateway.traccar.svc.cluster.local:443
     - hostname: "*.mcmumf.dev"
       service: http://ingress-nginx-controller.ingress-nginx.svc.cluster.local:80
       originRequest:
