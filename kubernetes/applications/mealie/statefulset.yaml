@@ -25,12 +25,12 @@ spec:
           image: hkotel/mealie:v3.9.2
           resources:
             requests:
-              memory: 256Mi
-              cpu: 100m
+              memory: 512Mi
+              cpu: 500m
               ephemeral-storage: 4Gi
             limits:
-              memory: 2Gi
-              cpu: 1000m
+              memory: 4Gi
+              cpu: 1500m
               ephemeral-storage: 4Gi
           env:
             # General Configs
