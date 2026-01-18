@@ -16,10 +16,15 @@ spec:
     spec:
       automountServiceAccountToken: false
       containers:
-        # Container
         - name: pocket-id
           image: ghcr.io/pocket-id/pocket-id:v2
-          # Resources
+          securityContext:
+            allowPrivilegeEscalation: false
+            seccompProfile:
+              type: RuntimeDefault
+            capabilities:
+              drop:
+                - ALL
           resources:
             requests:
               cpu: 500m
@@ -34,26 +39,21 @@ spec:
               value: "https://pocket-id.mcmumf.dev"
             - name: TRUST_PROXY
               value: "true"
-          # Ports
           ports:
-            - name: jellyfin-http
+            - name: pocket-id
               containerPort: 1411
               protocol: TCP
-          # Probes
-          livenessProbe:
-            httpGet:
-              path: /health
-              port: jellyfin-http
           readinessProbe:
-            httpGet:
-              path: /
-              port: jellyfin-http
-            initialDelaySeconds: 5
-            periodSeconds: 5
+            exec:
+              command:
+                - /app/pocket-id
+                - healthcheck
+            initialDelaySeconds: 10
+            periodSeconds: 90
+            failureThreshold: 2
+            timeoutSeconds: 5
           volumeMounts:
-            - name: jellyfin-data
-              mountPath: pocket-id-data
-            - name: homelab-nfs
+            - name: pocket-id-data
               mountPath: /app/data
   volumeClaimTemplates:
     - metadata:

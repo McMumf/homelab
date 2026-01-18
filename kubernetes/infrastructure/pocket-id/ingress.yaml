@@ -19,6 +19,6 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: jellystat
+                name: pocket-id
                 port:
                   number: 3000
