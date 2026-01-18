@@ -21,4 +21,4 @@ spec:
               service:
                 name: pocket-id
                 port:
-                  number: 3000
+                  number: 1411
