@@ -15,10 +15,15 @@ spec:
         app: pocket-id
     spec:
       automountServiceAccountToken: false
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
       containers:
         - name: pocket-id
           image: ghcr.io/pocket-id/pocket-id:v2
           securityContext:
+            runAsNonRoot: true
             allowPrivilegeEscalation: false
             seccompProfile:
               type: RuntimeDefault
@@ -31,7 +36,7 @@ spec:
               memory: 1Gi
               ephemeral-storage: 4Gi
             limits:
-              cpu: 100m
+              cpu: 500m
               memory: 1Gi
               ephemeral-storage: 4Gi
           env:
@@ -39,19 +44,63 @@ spec:
               value: "https://pocket-id.mcmumf.dev"
             - name: TRUST_PROXY
               value: "true"
+            - name: ANALYTICS_DISABLED
+              value: "true"
+            - name: UI_CONFIG_DISABLED
+              value: "true"
+            - name: DB_CONNECTION_STRING
+              valueFrom:
+                secretKeyRef:
+                  name: pocket-id-cnpg-app
+                  key: uri
+            - name: ENCRYPTION_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: pocket-id-secrets
+                  key: encryption-key
+            - name: SMTP_HOST
+              valueFrom:
+                secretKeyRef:
+                  name: pocket-id-secrets
+                  key: smtp-host
+            - name: SMTP_PORT
+              value: "587"
+            - name: SMTP_FROM
+              value: "homelab@mcmumf.dev"
+            - name: SMTP_USER
+              valueFrom:
+                secretKeyRef:
+                  name: pocket-id-secrets
+                  key: smtp-user
+            - name: SMTP_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: pocket-id-secrets
+                  key: smtp-password
+            - name: SMTP_TLS
+              value: "starttls"
+            - name: EMAIL_VERIFICATION_ENABLED
+              value: "true"
+            - name: EMAIL_LOGIN_NOTIFICATION_ENABLED
+              value: "true"
+            - name: EMAIL_ONE_TIME_ACCESS_AS_ADMIN_ENABLED
+              value: "true"
           ports:
-            - name: pocket-id
+            - name: http
               containerPort: 1411
               protocol: TCP
           readinessProbe:
-            exec:
-              command:
-                - /app/pocket-id
-                - healthcheck
-            initialDelaySeconds: 10
-            periodSeconds: 90
-            failureThreshold: 2
-            timeoutSeconds: 5
+            initialDelaySeconds: 60
+            httpGet:
+              # -- Healthcheck endpoint
+              path: /health
+              port: http
+          livenessProbe:
+            initialDelaySeconds: 60
+            httpGet:
+              # -- Healthcheck endpoint
+              path: /health
+              port: http
           volumeMounts:
             - name: pocket-id-data
               mountPath: /app/data

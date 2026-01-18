@@ -9,5 +9,5 @@ spec:
   selector:
     app: pocket-id
   ports:
-    - name: pocket-id
+    - name: http
       port: 1411
