@@ -25,13 +25,13 @@ spec:
           image: hkotel/mealie:v3.9.2
           resources:
             requests:
+              memory: 256Mi
+              cpu: 100m
+              ephemeral-storage: 4Gi
+            limits:
               memory: 2Gi
               cpu: 1000m
-              ephemeral-storage: 8Gi
-            limits:
-              memory: 8Gi
-              cpu: 2000m
-              ephemeral-storage: 8Gi
+              ephemeral-storage: 4Gi
           env:
             # General Configs
             - name: PUID
