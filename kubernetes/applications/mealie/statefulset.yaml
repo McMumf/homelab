@@ -25,12 +25,12 @@ spec:
           image: ghcr.io/mealie-recipes/mealie:v3.9.2
           resources:
             requests:
-              memory: 1Gi
-              cpu: 1000m
+              memory: 256Mi
+              cpu: 500m
               ephemeral-storage: 4Gi
             limits:
-              memory: 4Gi
-              cpu: 2000m
+              memory: 2Gi
+              cpu: 1000m
               ephemeral-storage: 4Gi
           env:
             # General Configs
@@ -46,8 +46,6 @@ spec:
               value: "UTC"
             - name: ALLOW_SIGNUP
               value: "False"
-            - name: LOG_LEVEL
-              value: "debug"
             # OIDC Configs
             - name: ALLOW_PASSWORD_LOGIN
               value: "false"
