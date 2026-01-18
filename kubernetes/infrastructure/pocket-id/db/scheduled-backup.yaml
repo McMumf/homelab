@@ -1,10 +1,10 @@
 apiVersion: postgresql.cnpg.io/v1
 kind: ScheduledBackup
 metadata:
-  name: jellystat-backup
+  name: pocket-id-backup
 spec:
-  schedule: "0 0 6 * * *" # At 0600 every day
+  schedule: "0 0 1 * * *" # At 0100 every day
   method: volumeSnapshot
   backupOwnerReference: cluster
   cluster:
-    name: jellystat-cnpg
+    name: pocket-id-cnpg

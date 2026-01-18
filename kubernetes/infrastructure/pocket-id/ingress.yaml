@@ -1,0 +1,24 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: pocket-id
+  namespace: pocket-id
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-production
+spec:
+  ingressClassName: cilium
+  tls:
+    - hosts:
+        - pocket-id.mcmumf.dev
+      secretName: pocket-id.mcmumf.dev-tls
+  rules:
+    - host: pocket-id.mcmumf.dev
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: jellystat
+                port:
+                  number: 3000

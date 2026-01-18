@@ -1,0 +1,66 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: pocket-id
+  namespace: pocket-id
+spec:
+  serviceName: "pocket-id"
+  replicas: 1
+  selector:
+    matchLabels:
+      app: pocket-id
+  template:
+    metadata:
+      labels:
+        app: pocket-id
+    spec:
+      automountServiceAccountToken: false
+      containers:
+        # Container
+        - name: pocket-id
+          image: ghcr.io/pocket-id/pocket-id:v2
+          # Resources
+          resources:
+            requests:
+              cpu: 500m
+              memory: 1Gi
+              ephemeral-storage: 4Gi
+            limits:
+              cpu: 100m
+              memory: 1Gi
+              ephemeral-storage: 4Gi
+          env:
+            - name: APP_URL
+              value: "https://pocket-id.mcmumf.dev"
+            - name: TRUST_PROXY
+              value: "true"
+          # Ports
+          ports:
+            - name: jellyfin-http
+              containerPort: 1411
+              protocol: TCP
+          # Probes
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: jellyfin-http
+          readinessProbe:
+            httpGet:
+              path: /
+              port: jellyfin-http
+            initialDelaySeconds: 5
+            periodSeconds: 5
+          volumeMounts:
+            - name: jellyfin-data
+              mountPath: pocket-id-data
+            - name: homelab-nfs
+              mountPath: /app/data
+  volumeClaimTemplates:
+    - metadata:
+        name: pocket-id-data
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        storageClassName: "openebs"
+        resources:
+          requests:
+            storage: 4Gi
