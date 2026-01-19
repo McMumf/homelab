@@ -10,7 +10,7 @@ helmCharts:
   - name: intel-device-plugins-operator
     repo: https://intel.github.io/helm-charts/
     version: 0.34.1
-    releaseName: intel-device-plugins-gpu
+    releaseName: device-plugin-operator
     namespace: inteldeviceplugins-system
     includeCRDs: true
   - name: intel-device-plugins-gpu
@@ -18,7 +18,6 @@ helmCharts:
     version: 0.34.1
     releaseName: intel-device-plugins-gpu
     namespace: inteldeviceplugins-system
-    includeCRDs: true
     valuesInline:
       nodeSelector:
         gpu.intel.com/family: "A_Series"
