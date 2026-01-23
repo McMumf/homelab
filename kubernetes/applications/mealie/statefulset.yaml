@@ -52,7 +52,7 @@ spec:
             - name: OIDC_AUTH_ENABLED
               value: "True"
             - name: OIDC_SIGNUP_ENABLED
-              value: "false"
+              value: "true"
             - name: OIDC_CONFIGURATION_URL
               value: "https://auth.mcmumf.dev/application/o/mealie/.well-known/openid-configuration"
             - name: OIDC_CLIENT_ID
