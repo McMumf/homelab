@@ -2,7 +2,7 @@ app:
   timezone: "America/New_York"
   global:
     image:
-      tag: 2.4-dev
+      tag: 2.4
   persistence:
     enabled: true
     storageClass: "openebs"
