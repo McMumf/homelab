@@ -6,7 +6,7 @@ metadata:
   annotations:
     gethomepage.dev/description: Find where people are
     gethomepage.dev/enabled: "true"
-    gethomepage.dev/group: Homelab
+    gethomepage.dev/group: Utilities
     gethomepage.dev/icon: https://raw.githubusercontent.com/traccar/traccar-web/refs/heads/master/public/logo.svg
     gethomepage.dev/name: Traccar
     gethomepage.dev/pod-selector: "app.kubernetes.io/name=traccar"
