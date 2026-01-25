@@ -10,10 +10,6 @@ cloudflare:
       service: http://cilium-gateway-traccar-gateway.traccar.svc.cluster.local:80
       originRequest:
         originServerName: mcmumf.dev
-    - hostname: "jellyfin.mcmumf.dev"
-      service: http://cilium-gateway-traccar-gateway.kube-system.svc.cluster.local:80
-      originRequest:
-        originServerName: mcmumf.dev
     - hostname: "*.mcmumf.dev"
       service: http://ingress-nginx-controller.ingress-nginx.svc.cluster.local:80
       originRequest:
