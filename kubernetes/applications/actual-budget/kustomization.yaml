@@ -3,6 +3,7 @@ kind: Kustomization
 namespace: actualbudget
 
 resources:
+  - external-secrets.yaml
   - ingress.yaml
   - namespace.yaml
   - service.yaml

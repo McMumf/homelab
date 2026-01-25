@@ -18,7 +18,7 @@ spec:
       containers:
         # Container
         - name: actual-server
-          image: docker.io/actualbudget/actual-server:sha-6bf1197-alpine
+          image: docker.io/actualbudget/actual-server:sha-d768cfa-alpine
           securityContext:
             allowPrivilegeEscalation: false
             seccompProfile:
@@ -48,14 +48,22 @@ spec:
               value: "256"
             - name: trustedProxies
               value: "[10.0.0.0/8, 192.168.0.0/16]"
-            # - name: "ACTUAL_OPENID_AUTHORIZATION_ENDPOINT"
-            #   value: "https://example.com/auth"
-            # - name: "ACTUAL_OPENID_CLIENT_ID"
-            #   value: "https://example.com/token"
-            # - name: "ACTUAL_OPENID_CLIENT_SECRET"
-            #   value: ""
-            # - name: "ACTUAL_OPENID_SERVER_HOSTNAME"
-            #   value: ""
+            - name: ACTUAL_OPENID_DISCOVERY_URL
+              value: "https://auth.mcmumf.dev/application/o/actualbudget/"
+            - name: ACTUAL_OPENID_CLIENT_ID
+              valueFrom:
+                secretKeyRef:
+                  name: actual-budget-secrets
+                  key: client-id
+            - name: "ACTUAL_OPENID_CLIENT_SECRET"
+              valueFrom:
+                secretKeyRef:
+                  name: actual-budget-secrets
+                  key: client-secret
+            - name: "ACTUAL_OPENID_SERVER_HOSTNAME"
+              value: "https://actual.mcmumf.dev"
+            - name: ACTUAL_TOKEN_EXPIRATION
+              value: openid-provider
           # Volume Mounts
           volumeMounts:
             - name: actual-server-data
