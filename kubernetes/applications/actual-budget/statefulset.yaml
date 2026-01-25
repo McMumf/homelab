@@ -1,0 +1,79 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: actual-server
+  namespace: actualbudget
+spec:
+  serviceName: "actual-server"
+  replicas: 1
+  selector:
+    matchLabels:
+      app: actual-server
+  template:
+    metadata:
+      labels:
+        app: actual-server
+    spec:
+      automountServiceAccountToken: false
+      containers:
+        # Container
+        - name: actual-server
+          image: docker.io/actualbudget/actual-server:sha-d768cfa-alpine
+          securityContext:
+            allowPrivilegeEscalation: false
+            seccompProfile:
+              type: RuntimeDefault
+            capabilities:
+              drop:
+                - ALL
+          # Resources
+          resources:
+            requests:
+              cpu: 1000m
+              memory: 1Gi
+              ephemeral-storage: 8Gi
+            limits:
+              cpu: 2000m
+              memory: 1Gi
+              ephemeral-storage: 8Gi
+          # Ports
+          ports:
+            - name: actual-server
+              containerPort: 5006
+              protocol: TCP
+          env:
+            - name: ACTUAL_UPLOAD_SYNC_ENCRYPTED_FILE_SYNC_SIZE_LIMIT_MB
+              value: "256"
+            - name: ACTUAL_UPLOAD_FILE_SIZE_LIMIT_MB
+              value: "256"
+            - name: trustedProxies
+              value: "[10.0.0.0/8, 192.168.0.0/16]"
+            - name: ACTUAL_OPENID_DISCOVERY_URL
+              value: "https://auth.mcmumf.dev/application/o/actualbudget/"
+            - name: ACTUAL_OPENID_CLIENT_ID
+              valueFrom:
+                secretKeyRef:
+                  name: actual-budget-secrets
+                  key: client-id
+            - name: "ACTUAL_OPENID_CLIENT_SECRET"
+              valueFrom:
+                secretKeyRef:
+                  name: actual-budget-secrets
+                  key: client-secret
+            - name: "ACTUAL_OPENID_SERVER_HOSTNAME"
+              value: "https://actual.mcmumf.dev"
+            - name: ACTUAL_TOKEN_EXPIRATION
+              value: openid-provider
+          # Volume Mounts
+          volumeMounts:
+            - name: actual-server-data
+              mountPath: /data
+  volumeClaimTemplates:
+    - metadata:
+        name: actual-server-data
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        storageClassName: "openebs"
+        resources:
+          requests:
+            storage: 8Gi
