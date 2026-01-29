@@ -18,7 +18,7 @@ spec:
       terminationGracePeriodSeconds: 10
       containers:
         - name: traccar-timescaledb
-          image: timescale/timescaledb:2.24.0-pg17
+          image: timescale/timescaledb:2.25.0-pg17
           resources:
             limits:
               cpu: 2
