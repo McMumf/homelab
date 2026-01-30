@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bentopdf
+  namespace: apps
+spec:
+  selector:
+    matchLabels:
+      app: bentopdf
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: bentopdf
+    spec:
+      automountServiceAccountToken: false
+      terminationGracePeriodSeconds: 10
+      containers:
+        - name: bentopdf
+          image: ghcr.io/alam00000/bentopdf-simple:sha-eb60bbe
+          securityContext:
+            runAsNonRoot: true
+            allowPrivilegeEscalation: false
+            seccompProfile:
+              type: RuntimeDefault
+            capabilities:
+              drop:
+                - ALL
+          resources:
+            limits:
+              cpu: 2000m
+              ephemeral-storage: 8Gi
+              memory: 2Gi
+            requests:
+              cpu: 500m
+              ephemeral-storage: 8Gi
+              memory: 2Gi
+          ports:
+            - containerPort: 8080
+              name: tcp
