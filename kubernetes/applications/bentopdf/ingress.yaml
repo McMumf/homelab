@@ -1,0 +1,30 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: bentopdf-ingress
+  namespace: apps
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-production
+    gethomepage.dev/description: A Privacy First PDF Toolkit
+    gethomepage.dev/enabled: "true"
+    gethomepage.dev/group: Utilities
+    gethomepage.dev/icon: https://raw.githubusercontent.com/alam00000/bentopdf/main/public/images/favicon-no-bg.svg
+    gethomepage.dev/name: BentoPDF
+    gethomepage.dev/pod-selector: "app=bentopdf"
+spec:
+  ingressClassName: cilium
+  tls:
+    - hosts:
+        - pdf.mcmumf.dev
+      secretName: pdf.mcmumf.dev-tls
+  rules:
+    - host: pdf.mcmumf.dev
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: bentopdf-svc
+                port:
+                  number: 8080
