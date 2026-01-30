@@ -16,4 +16,4 @@ cloudflare:
         originServerName: mcmumf.dev
 
 image:
-  tag: "2025.11.1"
+  tag: "2026.1.2"
