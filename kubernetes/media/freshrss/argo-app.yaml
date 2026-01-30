@@ -1,17 +1,17 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: fasten
+  name: freshrss
   namespace: argocd
 spec:
   project: default
   sources:
-    - repoURL: 'https://github.com/McMumf/homelab'
-      targetRevision: 'talos'
-      path: kubernetes/applications/fasten
+    - repoURL: "https://github.com/McMumf/homelab"
+      targetRevision: "main"
+      path: kubernetes/media/freshrss
   destination:
     server: https://kubernetes.default.svc
-    namespace: apps
+    namespace: media
   syncPolicy:
     automated:
       prune: true

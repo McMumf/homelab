@@ -2,13 +2,13 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: freshrss-ingress
-  namespace: apps
+  namespace: media
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt-production
     gethomepage.dev/name: FreshRSS
     gethomepage.dev/description: An RSS Reader
     gethomepage.dev/enabled: "true"
-    gethomepage.dev/group: Homelab
+    gethomepage.dev/group: Media
     gethomepage.dev/icon: https://raw.githubusercontent.com/FreshRSS/FreshRSS/refs/heads/edge/p/themes/icons/favicon-256.png
     gethomepage.dev/pod-selector: "app=freshrss-app"
   labels:

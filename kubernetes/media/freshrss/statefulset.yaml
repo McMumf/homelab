@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: freshrss
-  namespace: apps
+  namespace: media
 spec:
   selector:
     matchLabels:
@@ -17,16 +17,23 @@ spec:
       automountServiceAccountToken: false
       containers:
         - name: freshrss
-          image: freshrss/freshrss:1.28.0
+          image: freshrss/freshrss:1.28.1
           imagePullPolicy: Always
+          securityContext:
+            allowPrivilegeEscalation: false
+            seccompProfile:
+              type: RuntimeDefault
+            capabilities:
+              drop:
+                - ALL
           ports:
             - containerPort: 80
               name: freshrss-web
           resources:
             limits:
-              cpu: 2000m
+              cpu: "1"
               ephemeral-storage: 8Gi
-              memory: 4Gi
+              memory: 1Gi
             requests:
               cpu: 500m
               ephemeral-storage: 8Gi
@@ -37,27 +44,25 @@ spec:
             - name: PGID
               value: "1000"
             - name: "TZ"
-              value: "Etc/UTC"
+              value: "America/New_York"
             - name: "TRUSTED_PROXY"
               value: "192.168.5.0/22"
-            # - name: BASE_URL
-            #   value: https://rss.mcmumf.dev
-            # - name: CRON_MIN
-            #   value: "*/15"
+            - name: BASE_URL
+              value: https://rss.mcmumf.dev
+            - name: CRON_MIN
+              value: "*/15"
             # DB
             - name: DB_HOST
               valueFrom:
                 secretKeyRef:
                   name: freshrss-cnpg-app
                   key: host
-            - name: DB_BASE
-              value: freshrss
             - name: DB_PASSWORD
               valueFrom:
                 secretKeyRef:
                   name: freshrss-cnpg-app
                   key: password
-            - name: DB_USER
+            - name: FRESHRSS_DB_USER
               valueFrom:
                 secretKeyRef:
                   name: freshrss-cnpg-app
@@ -91,6 +96,10 @@ spec:
           volumeMounts:
             - name: freshrss-data
               mountPath: /var/www/FreshRSS/data
+              subPath: data
+            - name: freshrss-data
+              mountPath: /var/www/FreshRSS/extensions
+              subPath: extensions
   volumeClaimTemplates:
     - metadata:
         name: freshrss-data
@@ -99,4 +108,4 @@ spec:
         storageClassName: "openebs"
         resources:
           requests:
-            storage: 1Gi
+            storage: 8Gi

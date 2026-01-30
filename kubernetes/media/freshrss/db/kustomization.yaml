@@ -1,0 +1,14 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: media
+
+resources:
+  - scheduled-backup.yaml
+
+helmCharts:
+  - name: cluster
+    repo: https://cloudnative-pg.github.io/charts
+    releaseName: freshrss-cnpg
+    namespace: media
+    version: 0.5.0
+    valuesFile: values.yaml
