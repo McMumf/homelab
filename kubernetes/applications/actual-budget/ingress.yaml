@@ -5,6 +5,12 @@ metadata:
   namespace: actualbudget
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt-production
+    gethomepage.dev/description: Budgeting
+    gethomepage.dev/enabled: "true"
+    gethomepage.dev/group: Homelab
+    gethomepage.dev/icon: https://raw.githubusercontent.com/actualbudget/actual/refs/heads/master/packages/docs/static/img/favicon.webp
+    gethomepage.dev/name: Actual Budget
+    gethomepage.dev/pod-selector: "app=actual-server"
 spec:
   ingressClassName: cilium
   tls:

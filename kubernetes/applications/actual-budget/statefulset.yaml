@@ -18,7 +18,7 @@ spec:
       containers:
         # Container
         - name: actual-server
-          image: docker.io/actualbudget/actual-server:sha-d768cfa-alpine
+          image: docker.io/actualbudget/actual-server:26.2.0-alpine
           securityContext:
             allowPrivilegeEscalation: false
             seccompProfile:
