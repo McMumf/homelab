@@ -20,7 +20,7 @@ spec:
       automountServiceAccountToken: false
       containers:
         - name: immich-server
-          image: ghcr.io/immich-app/immich-server:v2.5.2
+          image: ghcr.io/immich-app/immich-server:v2.5.3
           securityContext:
             allowPrivilegeEscalation: false
           env:
