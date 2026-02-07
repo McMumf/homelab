@@ -13,7 +13,7 @@ metadata:
     nginx.ingress.kubernetes.io/proxy-send-timeout: "6000"
     gethomepage.dev/description: Photo and video management
     gethomepage.dev/enabled: "true"
-    gethomepage.dev/group: Homelab
+    gethomepage.dev/group: Media
     gethomepage.dev/icon: https://raw.githubusercontent.com/immich-app/immich/refs/heads/main/design/immich-logo.svg
     gethomepage.dev/name: Immich
     gethomepage.dev/pod-selector: "app=immich-server"

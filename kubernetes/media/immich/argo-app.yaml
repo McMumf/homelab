@@ -8,7 +8,7 @@ spec:
   sources:
     - repoURL: "https://github.com/McMumf/homelab"
       targetRevision: "main"
-      path: kubernetes/applications/immich
+      path: kubernetes/media/immich
   destination:
     server: https://kubernetes.default.svc
     namespace: immich
