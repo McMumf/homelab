@@ -20,8 +20,12 @@ spec:
           image: ghcr.io/paperless-ngx/paperless-ngx:2.20
           securityContext:
             allowPrivilegeEscalation: false
+            runAsNonRoot: false
             seccompProfile:
               type: RuntimeDefault
+            capabilities:
+              drop:
+                - ALL
           resources:
             limits:
               cpu: 1500m
@@ -72,9 +76,13 @@ spec:
         - name: broker
           image: docker.io/library/redis:8.4
           securityContext:
+            runAsNonRoot: true
             allowPrivilegeEscalation: false
             seccompProfile:
               type: RuntimeDefault
+            capabilities:
+              drop:
+                - ALL
           resources:
             limits:
               cpu: 1000m
