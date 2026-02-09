@@ -9,6 +9,6 @@ helmCharts:
     repo: https://prometheus-community.github.io/helm-charts
     releaseName: prom-stack
     namespace: monitoring
-    version: 81.5.0
+    version: 81.5.1
     valuesFile: values.yaml
     includeCRDs: true
