@@ -9,7 +9,7 @@ metadata:
     nginx.org/client-max-body-size: "10g"
     gethomepage.dev/description: Scan, index and archive all your physical documents
     gethomepage.dev/enabled: "true"
-    gethomepage.dev/group: Utilities
+    gethomepage.dev/group: Media
     gethomepage.dev/icon: https://raw.githubusercontent.com/paperless-ngx/paperless-ngx/refs/heads/dev/src/paperless/static/paperless/img/favicon.ico
     gethomepage.dev/name: Paperless
     gethomepage.dev/pod-selector: "app=paperless-ngx"

@@ -8,7 +8,7 @@ spec:
   sources:
     - repoURL: "https://github.com/McMumf/homelab"
       targetRevision: "main"
-      path: kubernetes/applications/paperless
+      path: kubernetes/media/paperless
   destination:
     server: https://kubernetes.default.svc
     namespace: apps
