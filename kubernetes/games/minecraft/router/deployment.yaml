@@ -17,7 +17,7 @@ spec:
       serviceAccountName: mc-router
       containers:
         - name: mc-router
-          image: itzg/mc-router:1.39.1
+          image: itzg/mc-router:1.40.0
           args:
             - "--api-binding"
             - ":8080"
