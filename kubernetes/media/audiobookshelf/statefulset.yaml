@@ -1,0 +1,77 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: audiobookshelf
+  namespace: apps
+spec:
+  serviceName: "audiobookshelf"
+  replicas: 1
+  selector:
+    matchLabels:
+      app: audiobookshelf
+  template:
+    metadata:
+      labels:
+        app: audiobookshelf
+    spec:
+      automountServiceAccountToken: false
+      securityContext:
+        runAsUser: 10500
+        runAsGroup: 10500
+        fsGroup: 10500
+        seccompProfile:
+          type: RuntimeDefault
+      containers:
+        - name: audiobookshelf
+          image: ghcr.io/advplyr/audiobookshelf:2.32.1
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+          resources:
+            limits:
+              cpu: 1000m
+              memory: 4Gi
+              ephemeral-storage: 4Gi
+            requests:
+              cpu: 250m
+              memory: 1Gi
+              ephemeral-storage: 2Gi
+          ports:
+            - name: audiobookshelf-web
+              containerPort: 13378
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /healthcheck
+              port: http
+            initialDelaySeconds: 15
+            periodSeconds: 30
+          readinessProbe:
+            httpGet:
+              path: /healthcheck
+              port: http
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          env:
+            - name: "TZ"
+              value: "America/New_York"
+            - name: JWT_SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: audiobookshelf-secrets
+                  key: jwt-secret-key
+          volumeMounts:
+            - name: audiobookshelf-metadata
+              mountPath: /metadata
+
+  volumeClaimTemplates:
+    - metadata:
+        name: audiobookshelf-metadata
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        storageClassName: "openebs"
+        resources:
+          requests:
+            storage: 32Gi

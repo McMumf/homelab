@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: audiobookshelf
+  namespace: apps
+  labels:
+    app: audiobookshelf
+spec:
+  selector:
+    app: audiobookshelf
+  ports:
+    - port: 13378
+      name: audiobookshelf
