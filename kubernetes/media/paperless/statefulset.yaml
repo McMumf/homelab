@@ -70,7 +70,7 @@ spec:
             - name: paperless-export
               mountPath: /usr/src/paperless/export
         - name: broker
-          image: docker.io/library/redis:8.4
+          image: docker.io/library/redis:8.6
           securityContext:
             allowPrivilegeEscalation: false
             seccompProfile:
