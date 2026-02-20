@@ -3,9 +3,6 @@ kind: Kustomization
 namespace: linkwarden
 
 resources:
-  - db/
-  - meilisearch/
   - external-secrets.yaml
-  - ingress.yaml
   - service.yaml
   - statefulset.yaml

@@ -1,6 +1,6 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
-namespace: apps
+namespace: linkwarden
 
 resources:
   - scheduled-backup.yaml
@@ -9,6 +9,6 @@ helmCharts:
   - name: cluster
     repo: https://cloudnative-pg.github.io/charts
     releaseName: linkwarden-cnpg
-    namespace: apps
+    namespace: linkwarden
     version: 0.5.0
     valuesFile: values.yaml
