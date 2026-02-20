@@ -1,0 +1,78 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: linkwarden
+  namespace: linkwarden
+spec:
+  selector:
+    matchLabels:
+      app: linkwarden-app
+  serviceName: "linkwarden"
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: linkwarden-app
+    spec:
+      automountServiceAccountToken: false
+      terminationGracePeriodSeconds: 10
+      securityContext:
+        seccompProfile:
+          type: RuntimeDefault
+      containers:
+        - name: linkwarden
+          image: ghcr.io/linkwarden/linkwarden:v2.13.5
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - "ALL"
+          resources:
+            requests:
+              memory: 256Mi
+              cpu: 500m
+              ephemeral-storage: 4Gi
+            limits:
+              memory: 2Gi
+              cpu: 1000m
+              ephemeral-storage: 4Gi
+          env:
+            - name: DATABASE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: linkwarden-cnpg-app
+                  key: uri
+            - name: NEXT_PUBLIC_CREDENTIALS_ENABLED
+              value: "false"
+            # Authentik Config
+            - name: NEXT_PUBLIC_AUTHENTIK_ENABLED
+              value: "true"
+            - name: AUTHENTIK_CUSTOM_NAME
+              value: "authentik"
+            - name: AUTHENTIK_ISSUER
+              value: "https://auth.mcmumf.dev/application/o/linkwarden"
+            - name: AUTHENTIK_CLIENT_ID
+              valueFrom:
+                secretKeyRef:
+                  name: linkwarden-secrets
+                  key: client-id
+            - name: AUTHENTIK_CLIENT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: linkwarden-secrets
+                  key: client-secret
+          ports:
+            - containerPort: 3000
+              name: web
+          volumeMounts:
+            - name: linkwarden-data
+              mountPath: /data/data
+  volumeClaimTemplates:
+    - metadata:
+        name: linkwarden-data
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        storageClassName: "openebs"
+        resources:
+          requests:
+            storage: 8Gi
