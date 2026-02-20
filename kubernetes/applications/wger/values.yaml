@@ -35,4 +35,4 @@ ingress:
     gethomepage.dev/group: Homelab
     gethomepage.dev/icon: https://raw.githubusercontent.com/wger-project/wger/master/wger/core/static/images/logos/logo.png
     gethomepage.dev/name: wger
-    gethomepage.dev/pod-selector: "app=wger-app"
+    gethomepage.dev/pod-selector: "app.kubernetes.io/name=wger-app"
