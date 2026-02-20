@@ -1,0 +1,32 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: linkwarden-ingress
+  namespace: linkwarden
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-production
+    gethomepage.dev/description: Our own knowledge base
+    gethomepage.dev/enabled: "true"
+    gethomepage.dev/group: Homelab
+    gethomepage.dev/icon: https://raw.githubusercontent.com/linkwarden/linkwarden/refs/heads/main/assets/logo.png
+    gethomepage.dev/name: Linkwarden
+    gethomepage.dev/pod-selector: "app=linkwarden-app"
+  labels:
+    app: linkwarden-app
+spec:
+  ingressClassName: cilium
+  tls:
+    - hosts:
+        - links.mcmumf.dev
+      secretName: links.mcmumf.dev-tls
+  rules:
+    - host: links.mcmumf.dev
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: linkwarden-svc
+                port:
+                  number: 3000
