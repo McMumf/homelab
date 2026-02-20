@@ -7,7 +7,9 @@ metadata:
     app: linkwarden-app
 spec:
   ports:
-    - port: 3000
-      name: web
+    - name: http
+      port: 3000
+      targetPort: 3000
+      protocol: TCP
   selector:
     app: linkwarden-app

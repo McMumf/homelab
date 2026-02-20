@@ -22,11 +22,6 @@ spec:
       containers:
         - name: linkwarden
           image: ghcr.io/linkwarden/linkwarden:v2.13.5
-          securityContext:
-            allowPrivilegeEscalation: false
-            capabilities:
-              drop:
-                - "ALL"
           resources:
             requests:
               memory: 256Mi
@@ -44,7 +39,22 @@ spec:
                   key: uri
             - name: NEXT_PUBLIC_CREDENTIALS_ENABLED
               value: "false"
+            - name: NEXTAUTH_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: linkwarden-secrets
+                  key: nextauth-secret
+            # MeiliSearch
+            - name: "MEILI_HOST"
+              value: "http://meilisearch:7700"
+            - name: MEILI_MASTER_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: meilisearch-secrets
+                  key: MEILI_MASTER_KEY
             # Authentik Config
+            - name: NEXTAUTH_URL
+              value: "https://links.mcmumf.dev/api/v1/auth"
             - name: NEXT_PUBLIC_AUTHENTIK_ENABLED
               value: "true"
             - name: AUTHENTIK_CUSTOM_NAME
@@ -62,8 +72,10 @@ spec:
                   name: linkwarden-secrets
                   key: client-secret
           ports:
-            - containerPort: 3000
-              name: web
+            - name: http
+              containerPort: 3000
+              protocol: TCP
+
           volumeMounts:
             - name: linkwarden-data
               mountPath: /data/data

@@ -4,5 +4,11 @@ namespace: linkwarden
 
 resources:
   - external-secrets.yaml
-  - service.yaml
-  - statefulset.yaml
+
+helmCharts:
+  - name: meilisearch
+    repo: https://meilisearch.github.io/meilisearch-kubernetes
+    releaseName: meilisearch
+    namespace: linkwarden
+    version: 0.25.1
+    valuesFile: values.yaml

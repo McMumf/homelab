@@ -6,6 +6,7 @@ resources:
   - db/
   - meilisearch/
   - external-secrets.yaml
-  - ingress.yaml
+  - gateway.yaml
+  - http-route.yaml
   - service.yaml
   - statefulset.yaml
