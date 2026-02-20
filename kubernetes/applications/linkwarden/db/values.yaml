@@ -1,0 +1,50 @@
+type: postgresql
+mode: standalone
+
+fullnameOverride: "linkwarden-cnpg"
+
+version:
+  postgresql: "18"
+
+cluster:
+  instances: 1
+  resources:
+    limits:
+      memory: 2Gi
+    requests:
+      cpu: "1"
+      memory: 1Gi
+
+  storage:
+    size: 8Gi
+    storageClass: openebs
+
+  walStorage:
+    storageClass: openebs
+    size: 8Gi
+
+  postgresql:
+    parameters:
+      log_hostname: "off"
+      log_timezone: "UTC"
+      max_connections: "200"
+      shared_buffers: "256MB"
+
+  roles:
+    - name: linkwarden
+      ensure: present
+      comment: Linkwarden User
+      login: true
+      superuser: true
+      inRoles:
+        - pg_monitor
+        - pg_signal_backend
+
+  initdb:
+    database: linkwarden
+    owner: linkwarden
+    encoding: UTF8
+
+backup:
+  volumeSnapshot:
+    className: csi-openebs-snapshotclass
