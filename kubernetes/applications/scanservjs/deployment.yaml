@@ -30,8 +30,8 @@ spec:
               memory: 1Gi
           env:
             - name: SANED_NET_HOSTS
-              value: "192.168.1.242"
+              value: "192.168.2.13"
             - name: PIXMA_HOSTS
-              value: "192.168.1.242"
+              value: "192.168.2.13"
           ports:
             - containerPort: 8080
