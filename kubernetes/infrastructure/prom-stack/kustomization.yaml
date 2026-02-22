@@ -3,6 +3,7 @@ kind: Kustomization
 
 resources:
   - ./openebs
+  - external-secrets.yaml
 
 helmCharts:
   - name: kube-prometheus-stack

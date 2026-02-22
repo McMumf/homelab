@@ -25,15 +25,32 @@ grafana:
       viewers_can_edit: false
     auth:
       disable_login_form: false
+      signout_redirect_url: https://auth.mcmumf.dev/application/o/grafana/end-session/
+      oauth_auto_login: true
+    auth.generic_oauth:
+      name: authentik
+      enabled: true
+      client_id: "$__file{/etc/secrets/auth_generic_oauth/client_id}"
+      client_secret: "$__file{/etc/secrets/auth_generic_oauth/client_secret}"
+      scopes: "openid profile email"
+      auth_url: "https://auth.mcmumf.dev/application/o/authorize/"
+      token_url: "https://auth.mcmumf.dev/application/o/token/"
+      api_url: "https://auth.mcmumf.dev/application/o/userinfo/"
     auth.anonymous:
       enabled: false
       org_role: Viewer
+  extraSecretMounts:
+    - name: auth-generic-oauth-secret-mount
+      secretName: grafana-secrets
+      defaultMode: 0440
+      mountPath: /etc/secrets/auth_generic_oauth
+      readOnly: true
   plugins:
     - grafana-polystat-panel
     - snuids-trafficlights-panel
   ingress:
     enabled: true
-    ingressClassName: nginx
+    ingressClassName: cilium
     annotations:
       cert-manager.io/cluster-issuer: letsencrypt-production
     hosts:
