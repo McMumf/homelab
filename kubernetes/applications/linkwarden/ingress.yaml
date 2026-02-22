@@ -1,0 +1,26 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: linkwarden
+  namespace: linkwarden
+  annotations:
+    gethomepage.dev/description: Collect, read, annotate, and fully preserve what matters, all in one place
+    gethomepage.dev/enabled: "true"
+    gethomepage.dev/group: Homelab
+    gethomepage.dev/icon: https://raw.githubusercontent.com/linkwarden/linkwarden/refs/heads/main/assets/logo.png
+    gethomepage.dev/name: Linkwarden
+    gethomepage.dev/pod-selector: "app.kubernetes.io/name=linkwarden"
+spec:
+  ingressClassName: cilium
+  # Cloudflare and Cilium do some weird things with https enabled...need to look into TLS passthrough???
+  rules:
+    - host: links.mcmumf.dev
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: linkwarden-svc
+                port:
+                  number: 3000
