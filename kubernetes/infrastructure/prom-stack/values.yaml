@@ -24,9 +24,8 @@ grafana:
     users:
       viewers_can_edit: false
     auth:
-      disable_login_form: false
       signout_redirect_url: https://auth.mcmumf.dev/application/o/grafana/end-session/
-      oauth_auto_login: false
+      oauth_auto_login: true
     auth.generic_oauth:
       name: authentik
       enabled: true

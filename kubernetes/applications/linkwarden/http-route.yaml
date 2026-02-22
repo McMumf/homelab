@@ -3,13 +3,6 @@ kind: HTTPRoute
 metadata:
   name: linkwarden-http-route
   namespace: linkwarden
-  annotations:
-    gethomepage.dev/description: Collect, read, annotate, and fully preserve what matters, all in one place
-    gethomepage.dev/enabled: "true"
-    gethomepage.dev/group: Homelab
-    gethomepage.dev/icon: https://raw.githubusercontent.com/linkwarden/linkwarden/refs/heads/main/assets/logo.png
-    gethomepage.dev/name: Linkwarden
-    gethomepage.dev/pod-selector: "app.kubernetes.io/name=linkwarden"
   labels:
     app.kubernetes.io/instance: linkwarden
     app.kubernetes.io/name: linkwarden
