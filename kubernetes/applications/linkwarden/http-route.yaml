@@ -9,7 +9,7 @@ metadata:
     gethomepage.dev/group: Homelab
     gethomepage.dev/icon: https://raw.githubusercontent.com/linkwarden/linkwarden/refs/heads/main/assets/logo.png
     gethomepage.dev/name: Linkwarden
-    gethomepage.dev/pod-selector: "app=linkwarden-app"
+    gethomepage.dev/pod-selector: "app.kubernetes.io/name=linkwarden"
   labels:
     app: linkwarden-app
 spec:

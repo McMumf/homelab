@@ -52,14 +52,20 @@ grafana:
     enabled: true
     ingressClassName: cilium
     annotations:
-      cert-manager.io/cluster-issuer: letsencrypt-production
+      #   cert-manager.io/cluster-issuer: letsencrypt-production
+      gethomepage.dev/description: Metric dashboards
+      gethomepage.dev/enabled: "true"
+      gethomepage.dev/group: Cluster management
+      gethomepage.dev/icon: https://raw.githubusercontent.com/grafana/grafana/9de77ce22748ca41444da717f777c12da3a7f666/public/img/grafana_icon.svg
+      gethomepage.dev/name: Grafana
+      gethomepage.dev/pod-selector: "app.kubernetes.io/name=grafana"
     hosts:
       - grafana.mcmumf.dev
     path: /
-    tls:
-      - hosts:
-          - grafana.mcmumf.dev
-        secretName: grafana.mcmumf.dev-tls
+    # tls:
+    #   - hosts:
+    #       - grafana.mcmumf.dev
+    #     secretName: grafana.mcmumf.dev-tls
 
 prometheus:
   prometheusSpec:

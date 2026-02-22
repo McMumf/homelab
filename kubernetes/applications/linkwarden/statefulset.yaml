@@ -3,16 +3,21 @@ kind: StatefulSet
 metadata:
   name: linkwarden
   namespace: linkwarden
+  labels:
+    app.kubernetes.io/instance: linkwarden
+    app.kubernetes.io/name: linkwarden
 spec:
   selector:
     matchLabels:
-      app: linkwarden-app
+      app.kubernetes.io/instance: linkwarden
+      app.kubernetes.io/name: linkwarden
   serviceName: "linkwarden"
   replicas: 1
   template:
     metadata:
       labels:
-        app: linkwarden-app
+        app.kubernetes.io/instance: linkwarden
+        app.kubernetes.io/name: linkwarden
     spec:
       automountServiceAccountToken: false
       terminationGracePeriodSeconds: 10
