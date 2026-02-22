@@ -11,15 +11,15 @@ metadata:
     gethomepage.dev/group: Cluster Management
     gethomepage.dev/icon: homepage.png
     gethomepage.dev/name: Homepage
-    cert-manager.io/cluster-issuer: letsencrypt-production
+    # cert-manager.io/cluster-issuer: letsencrypt-production
 spec:
-  ingressClassName: nginx
-  tls:
-    - hosts:
-        - &host homepage.mcmumf.dev
-      secretName: homepage.mcmumf.dev-tls
+  ingressClassName: cilium
+  # tls:
+  #   - hosts:
+  #       - &host homepage.mcmumf.dev
+  #     secretName: homepage.mcmumf.dev-tls
   rules:
-    - host: *host
+    - host: homepage.mcmumf.dev
       http:
         paths:
           - path: "/"

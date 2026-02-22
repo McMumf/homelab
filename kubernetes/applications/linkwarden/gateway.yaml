@@ -6,7 +6,7 @@ metadata:
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt-production
   labels:
-    app: linkwarden-app
+    app.kubernetes.io/name: linkwarden
 spec:
   gatewayClassName: cilium
   listeners:
