@@ -80,7 +80,6 @@ spec:
             - name: http
               containerPort: 3000
               protocol: TCP
-
           volumeMounts:
             - name: linkwarden-data
               mountPath: /data/data
