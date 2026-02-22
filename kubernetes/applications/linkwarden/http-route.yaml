@@ -11,7 +11,8 @@ metadata:
     gethomepage.dev/name: Linkwarden
     gethomepage.dev/pod-selector: "app.kubernetes.io/name=linkwarden"
   labels:
-    app: linkwarden-app
+    app.kubernetes.io/instance: linkwarden
+    app.kubernetes.io/name: linkwarden
 spec:
   parentRefs:
     - name: linkwarden-gateway
