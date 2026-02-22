@@ -21,6 +21,8 @@ alertmanager:
 grafana:
   enabled: true
   grafana.ini:
+    server:
+      root_url: "https://grafana.mcmumf.dev"
     users:
       viewers_can_edit: false
     auth:
