@@ -6,11 +6,11 @@ metadata:
   labels:
     app: immich-server
   annotations:
-    cert-manager.io/cluster-issuer: letsencrypt-production
+    # cert-manager.io/cluster-issuer: letsencrypt-production
     # proxy-body-size is set to 0 to remove the body limit on file uploads
-    nginx.ingress.kubernetes.io/proxy-body-size: "0"
-    nginx.ingress.kubernetes.io/proxy-read-timeout: "6000"
-    nginx.ingress.kubernetes.io/proxy-send-timeout: "6000"
+    # nginx.ingress.kubernetes.io/proxy-body-size: "0"
+    # nginx.ingress.kubernetes.io/proxy-read-timeout: "6000"
+    # nginx.ingress.kubernetes.io/proxy-send-timeout: "6000"
     gethomepage.dev/description: Photo and video management
     gethomepage.dev/enabled: "true"
     gethomepage.dev/group: Media
@@ -18,13 +18,13 @@ metadata:
     gethomepage.dev/name: Immich
     gethomepage.dev/pod-selector: "app=immich-server"
 spec:
-  ingressClassName: nginx
-  tls:
-    - hosts:
-        - &hostName photos.mcmumf.dev
-      secretName: immich-tls-cert
+  ingressClassName: cilium
+  # tls:
+  #   - hosts:
+  #       - &hostName photos.mcmumf.dev
+  #     secretName: immich-tls-cert
   rules:
-    - host: *hostName
+    - host: photos.mcmumf.dev
       http:
         paths:
           - path: /

@@ -3,14 +3,8 @@ kind: Ingress
 metadata:
   name: jellystat
   namespace: media
-  annotations:
-    cert-manager.io/cluster-issuer: letsencrypt-production
 spec:
   ingressClassName: cilium
-  tls:
-    - hosts:
-        - jellystat.mcmumf.dev
-      secretName: jellystat.mcmumf.dev-tls
   rules:
     - host: jellystat.mcmumf.dev
       http:
