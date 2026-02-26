@@ -1,0 +1,172 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: immich-kiosk-config-tpl
+  namespace: immich
+  labels:
+    app: immich-kiosk
+data:
+  config.yaml: |
+    # yaml-language-server: $schema=https://raw.githubusercontent.com/damongolding/immich-kiosk/main/config.schema.json
+
+    immich_api_key: {{ .immichApiKey | toString }}
+    immich_url: "https://photos.mcmumf.dev"
+
+    ## Clock
+    show_time: true
+    time_format: 24 # 12 or 24
+    show_date: true
+    date_format: YYYY-MM-DD
+    clock_source: client
+
+    ## Kiosk behaviour
+    duration: 45 # The duration a slide will be displayed (seconds).
+    disable_screensaver: false # Ask the browser to request a lock that prevents device screens from dimming or locking.
+    optimize_images: false # Whether Kiosk should resize images to match your browser screen dimensions for better performance.
+    use_gpu: true # Enable GPU acceleration for improved performance.
+    burn_in_interval: 0 # The interval between burn-in protection cycles (minutes, 0 = disabled).
+    burn_in_duration: 30 # The duration of each burn-in protection cycle (seconds).
+    burn_in_opacity: 70 # The opacity the UI will dip to, as a percentage.
+
+    ## Asset sources
+    show_archived: false # Allow assets marked as archived to be displayed.
+
+    ## ID(s) of person or people to display
+    people:
+      - "43bdff30-98fe-4532-891d-8c9dc49c7172"
+      - "015063c2-4a6d-4376-880c-407e095ed621"
+    require_all_people: true # When true, only show images containing all specified people together
+    #excluded_people:
+    #  - "PERSON_ID"
+
+    ## ID(s) of album or albums to display
+    albums:
+      - "f4ebf943-9826-48f7-af1c-5563ae978cad"
+      - "1729919f-0915-4411-b4cb-1c885ab2a73c"
+      - "508036df-151a-456d-b344-c76a8f3b6ebb"
+    album_order: random # random | newest | oldest
+    # Album IDs to exclude from being shown. Albums in this list will be filtered from
+    # appearing in the frame even if they are included in the 'album' list.
+    #excluded_albums:
+    #  - "ALBUM_ID"
+
+    ## Date range or ranges to display
+    #dates:
+    #  - "YYYY-MM-DD_to_YYYY-MM-DD"
+
+    ## Value(s) of tag(s) to display
+    tags:
+      - "TAG_VALUE"
+    excluded_tags:
+      - "TAG_VALUE"
+
+    excluded_partners:
+      - "PARTNER_ID"
+
+    memories: false # show memories
+
+    ## Filters
+    # date_filter: last-30-days # only applies to people and random assets
+
+    ## UI
+    show_clear_cache_button: false # Show a menu button to clear the Kiosk server cache
+    show_progress_bar: false # display a progress bar
+    disable_ui: false # this is just a shortcut for all ui elements (show_time, show_date, show_image_time, show_image_date)
+    frameless: false # remove border around image and rounded corners.
+    frame_padding: 0 # padding (px) around the edge of Kiosk; accepts integer or array [top, right, bottom, left]
+    hide_cursor: false # Hide cursor/mouse via CSS.
+    font_size: 100 # the base font size as a percentage. OMIT the % character
+    background_blur: true # display a blurred version of image as background
+    background_blur_amount: 10 # amount of blur to apply to background image (sigma)
+    theme: fade # which theme to use. fade or solid
+    layout: single # which layout to use. single | splitview | splitview-landscape | portrait | landscape
+
+    ## Sleep mode
+    sleep_start: 21 # sleep mode start time
+    sleep_end: 06 # sleep mode end time
+    sleep_dim_screen: true # dim screen when sleep mode is active (only works with Fully Kiosk Browser)
+    #sleep_icon: false
+
+    ## Transition options
+    transition: none # cross-fade, fade or none
+    fade_transition_duration: 1 # in seconds
+    cross_fade_transition_duration: 1 # in seconds
+
+    ## Image display settings
+    image_fit: contain # none | contain | cover
+    image_effect: none # none | zoom | smart-zoom
+    image_effect_amount: 120
+    use_original_image: false # use the original file.
+
+    ## Video
+    show_videos: false
+    live_photos: true
+    live_photo_loop_delay: 0
+
+    ## Image METADATA
+    show_owner: false # show the owner of the image
+    show_album_name: false
+    show_person_name: false
+    show_person_age: false
+    show_image_time: false
+    image_time_format: 24 # 12 or 24
+    show_image_date: false
+    image_date_format: YYYY-MM-DD
+    show_image_description: false
+    show_image_camera: false
+    show_image_exif: false
+    show_image_location: false
+    show_image_qr: false
+    hide_countries:
+      - "country to hide"
+    show_image_id: false
+    show_more_info: true
+    show_more_info_image_link: true
+    show_more_info_qr_code: true
+
+    like_button_action: favorite # album, favorite or both [album, favorite]
+    hide_button_action: tag # tag, archive, or both [tag, archive]
+
+    ## Weather feature - you’ll need an API key from OpenWeatherMap
+    weather:
+      - name: Chesterbrook, US
+        lat: 40.07
+        lon: -74.75
+        api: "{{ .weatherApiKey | toString }}"
+        unit: metric
+        lang: en
+        forecast: true
+        default: true
+
+    ## Add iframes into Kiosk - you can use local files or remote URLs
+    #iframe:
+    # - https://iframe.immichkiosk.app/pokemon
+    # - ./iframes/pokemon.html
+
+    ## Immich API keys for specific users
+    # immich_users_api_keys:
+    #   user1: ""
+    # show_user: false # show user name
+
+    ## Offline mode
+    # offline_mode:
+    #   enabled: false
+    #   number_of_assets: 100
+    #   max_size: 0
+    #   parallel_downloads: 4
+    #   expiration_hours: 0
+
+    ## Options that can NOT be changed via url params
+    kiosk:
+      port: 3000
+      behind_proxy: true
+      disable_url_queries: true
+      disable_config_endpoint: true
+      enable_url_builder: false
+      watch_config: true
+      fetched_assets_size: 1000
+      http_timeout: 20
+      password: ""
+      cache: true # cache select api calls
+      prefetch: true # fetch assets in the background
+      asset_weighting: true # use weighting when picking assets

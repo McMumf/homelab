@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: immich-kiosk
+  namespace: argocd
+spec:
+  project: default
+  sources:
+    - repoURL: "https://github.com/McMumf/homelab"
+      targetRevision: "main"
+      path: kubernetes/media/immich-kiosk
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: immich
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

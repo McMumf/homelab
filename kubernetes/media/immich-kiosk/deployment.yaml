@@ -1,0 +1,61 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: immich-kiosk
+  namespace: immich
+spec:
+  selector:
+    matchLabels:
+      app: immich-kiosk
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: immich-kiosk
+    spec:
+      automountServiceAccountToken: false
+      terminationGracePeriodSeconds: 10
+      securityContext:
+        seccompProfile:
+          type: RuntimeDefault
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+      containers:
+        - name: immich-kiosk
+          image: ghcr.io/damongolding/immich-kiosk:0.32.1
+          securityContext:
+            runAsNonRoot: true
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+          resources:
+            requests:
+              memory: 512Mi
+              cpu: 500m
+              ephemeral-storage: 4Gi
+            limits:
+              memory: 512Mi
+              cpu: 1000m
+              ephemeral-storage: 4Gi
+          env:
+            - name: LANG
+              value: "en_US"
+            - name: TZ
+              value: "America/New_York"
+            - name: KIOSK_LOG_LEVEL
+              value: "verbose"
+          ports:
+            - containerPort: 3000
+              name: http
+          volumeMounts:
+            - name: config-file
+              mountPath: "/config"
+      volumes:
+        - name: config-file
+          secret:
+            secretName: immich-kiosk-secret
+            items:
+              - key: config.yaml
+                path: config.yaml
