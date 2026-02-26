@@ -129,14 +129,15 @@ data:
 
     ## Weather feature - you’ll need an API key from OpenWeatherMap
     weather:
-      - name: Chesterbrook, US
-        lat: 40.07
-        lon: -74.75
-        api: "{{ .weatherApiKey | toString }}"
-        unit: metric
-        lang: en
-        forecast: true
-        default: true
+      locations:
+        - name: Chesterbrook, US
+          lat: 40.07
+          lon: -74.75
+          api: "{{ .weatherApiKey | toString }}"
+          unit: metric
+          lang: en
+          forecast: true
+          default: true
 
     ## Add iframes into Kiosk - you can use local files or remote URLs
     #iframe:
