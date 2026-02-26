@@ -32,13 +32,13 @@ spec:
                 - ALL
           resources:
             requests:
-              memory: 32Mi
-              cpu: 10m
-              ephemeral-storage: 4Gi
-            limits:
-              memory: 128Mi
+              memory: 256Mi
               cpu: 100m
-              ephemeral-storage: 4Gi
+              ephemeral-storage: 8Gi
+            limits:
+              memory: 1Gi
+              cpu: 500m
+              ephemeral-storage: 8Gi
           env:
             - name: LANG
               value: "en_US"
