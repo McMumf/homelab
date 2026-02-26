@@ -32,12 +32,12 @@ spec:
                 - ALL
           resources:
             requests:
-              memory: 512Mi
-              cpu: 500m
+              memory: 32Mi
+              cpu: 10m
               ephemeral-storage: 4Gi
             limits:
-              memory: 512Mi
-              cpu: 1000m
+              memory: 128Mi
+              cpu: 100m
               ephemeral-storage: 4Gi
           env:
             - name: LANG
