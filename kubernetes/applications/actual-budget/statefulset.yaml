@@ -15,17 +15,23 @@ spec:
         app: actual-server
     spec:
       automountServiceAccountToken: false
+      securityContext:
+        fsGroup: 1001
+        fsGroupChangePolicy: "OnRootMismatch"
       containers:
         # Container
         - name: actual-server
-          image: docker.io/actualbudget/actual-server:26.2.1-alpine
+          image: docker.io/actualbudget/actual-server:26.3.0-alpine
           securityContext:
             allowPrivilegeEscalation: false
-            seccompProfile:
-              type: RuntimeDefault
             capabilities:
               drop:
                 - ALL
+            readOnlyRootFilesystem: false
+            runAsNonRoot: true
+            privileged: false
+            runAsUser: 1001
+            runAsGroup: 1001
           # Resources
           resources:
             requests:
@@ -36,34 +42,50 @@ spec:
               cpu: 2000m
               memory: 1Gi
               ephemeral-storage: 8Gi
+          livenessProbe:
+            httpGet:
+              path: /
+              port: http
+          readinessProbe:
+            httpGet:
+              path: /
+              port: http
           # Ports
           ports:
-            - name: actual-server
+            - name: http
               containerPort: 5006
               protocol: TCP
           env:
+            - name: ACTUAL_PORT
+              value: "5006"
+            - name: ACTUAL_DATA_DIR
+              value: "/data"
+            - name: ACTUAL_SERVER_FILES
+              value: "/data/server-files"
+            - name: ACTUAL_USER_FILES
+              value: "/data/user-files"
+            - name: ACTUAL_UPLOAD_FILE_SYNC_SIZE_LIMIT_MB
+              value: "20"
             - name: ACTUAL_UPLOAD_SYNC_ENCRYPTED_FILE_SYNC_SIZE_LIMIT_MB
-              value: "256"
+              value: "50"
             - name: ACTUAL_UPLOAD_FILE_SIZE_LIMIT_MB
-              value: "256"
-            - name: trustedProxies
-              value: "[10.0.0.0/8, 192.168.0.0/16]"
+              value: "20"
             - name: ACTUAL_OPENID_DISCOVERY_URL
-              value: "https://auth.mcmumf.dev/application/o/actualbudget/"
+              value: "https://auth.mcmumf.dev/application/o/actual-budget/.well-known/openid-configuration"
             - name: ACTUAL_OPENID_CLIENT_ID
               valueFrom:
                 secretKeyRef:
                   name: actual-budget-secrets
                   key: client-id
-            - name: "ACTUAL_OPENID_CLIENT_SECRET"
+            - name: ACTUAL_OPENID_CLIENT_SECRET
               valueFrom:
                 secretKeyRef:
                   name: actual-budget-secrets
                   key: client-secret
-            - name: "ACTUAL_OPENID_SERVER_HOSTNAME"
+            - name: ACTUAL_OPENID_SERVER_HOSTNAME
               value: "https://actual.mcmumf.dev"
             - name: ACTUAL_TOKEN_EXPIRATION
-              value: openid-provider
+              value: "openid-provider"
           # Volume Mounts
           volumeMounts:
             - name: actual-server-data
