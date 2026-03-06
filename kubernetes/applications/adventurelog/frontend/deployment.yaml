@@ -1,0 +1,60 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: adventurelog-frontend
+  namespace: adventure
+  labels:
+    app: adventure-frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: adventure-frontend
+  template:
+    metadata:
+      name: adventure-frontend
+      labels:
+        app: adventure-frontend
+    spec:
+      securityContext:
+        seccompProfile:
+          type: RuntimeDefault
+      containers:
+        - name: adventure-frontend
+          image: ghcr.io/seanmorley15/adventurelog-frontend:v0.12.0
+          imagePullPolicy: IfNotPresent
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+          ports:
+            - containerPort: 3000
+          env:
+            - name: PUBLIC_SERVER_URL
+              value: "https://trips-server.mcmumf.dev"
+            - name: ORIGIN
+              value: "https://trips.mcmumf.dev"
+            - name: BODY_SIZE_LIMIT
+              value: "Infinity"
+      initContainers:
+        - name: wait-for-server
+          image: busybox:1.37.0
+          command:
+            - sh
+            - -c
+            - |
+              echo "Waiting for backend..."
+              until nc -z adventurelog-backend 8000; do
+                echo "Backend Not ready, sleeping..."
+                sleep 2
+              done
+              echo "Backend ready!"
+          resources:
+            requests:
+              cpu: 10m
+              memory: 16Mi
+            limits:
+              cpu: 50m
+              memory: 32Mi
+      restartPolicy: Always

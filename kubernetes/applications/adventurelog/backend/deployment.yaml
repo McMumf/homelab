@@ -1,0 +1,95 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: adventurelog-backend
+  namespace: adventure
+  labels:
+    app: adventure-backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: adventure-backend
+  template:
+    metadata:
+      name: adventure-backend
+      labels:
+        app: adventure-backend
+    spec:
+      volumes:
+        - name: adventure-journal
+          persistentVolumeClaim:
+            claimName: adventure-journal-pvc
+      securityContext:
+        seccompProfile:
+          type: RuntimeDefault
+      containers:
+        - name: adventure-backend
+          image: ghcr.io/seanmorley15/adventurelog-backend:v0.12.0
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8000
+          volumeMounts:
+            - name: adventure-journal
+              mountPath: /code/media
+          env:
+            - name: PGHOST
+              value: "adventure-db-svc"
+            - name: PGDATABASE
+              value: "database"
+            - name: PGUSER
+              value: "adventure"
+            - name: PGPASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: adventurelog-secret
+                  key: adventure-postgres-password
+            - name: SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: adventurelog-secret
+                  key: adventure-postgres-password
+            - name: PUBLIC_URL
+              value: "https://trips-server.mcmumf.dev" # Match the outward port, used for the creation of image urls
+            - name: FRONTEND_URL
+              value: "https://trips.mcmumf.dev:443"
+            - name: CSRF_TRUSTED_ORIGINS
+              value: "https://trips.mcmumf.dev, https://trips-server.mcmumf.dev,http://localhost:8000,http://localhost:3000"
+            - name: DJANGO_ADMIN_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: adventurelog-secret
+                  key: admin-username
+            - name: DJANGO_ADMIN_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: adventurelog-secret
+                  key: admin-password
+            - name: DJANGO_ADMIN_EMAIL
+              valueFrom:
+                secretKeyRef:
+                  name: adventurelog-secret
+                  key: admin-email
+            - name: DEBUG
+              value: "True"
+      initContainers:
+        - name: wait-for-db
+          image: busybox:1.37.0
+          command:
+            - sh
+            - -c
+            - |
+              echo "Waiting for db..."
+              until nc -z adventure-db-svc 5432; do
+                echo "DB Not ready, sleeping..."
+                sleep 2
+              done
+              echo "DB ready!"
+          resources:
+            requests:
+              cpu: 10m
+              memory: 16Mi
+            limits:
+              cpu: 50m
+              memory: 32Mi
+      restartPolicy: Always

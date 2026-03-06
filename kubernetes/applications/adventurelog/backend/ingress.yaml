@@ -1,0 +1,26 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: adventurelog-backend
+  namespace: adventure
+  labels:
+    name: adventure-backend
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-production
+spec:
+  ingressClassName: cilium
+  tls:
+    - hosts:
+        - &host trips-server.mcmumf.dev
+      secretName: trips-server.mcmumf.dev-tls
+  rules:
+    - host: *host
+      http:
+        paths:
+          - path: "/"
+            pathType: Prefix
+            backend:
+              service:
+                name: server
+                port:
+                  number: 8000

@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: adventure-db-svc
+  namespace: adventure
+spec:
+  selector:
+    app: adventure
+  ports:
+    - name: db
+      protocol: TCP
+      port: 5432
+      targetPort: 5432

@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: adventurelog-db
+  namespace: adventure
+  labels:
+    app: adventure
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: adventure
+  template:
+    metadata:
+      name: adventure
+      labels:
+        app: adventure
+    spec:
+      volumes:
+        - name: adventure-journal-db
+          persistentVolumeClaim:
+            claimName: adventure-journal-db-pvc
+      securityContext:
+        seccompProfile:
+          type: RuntimeDefault
+      containers:
+        - name: adventure-db
+          image: postgis/postgis:15-3.3
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 5432
+          volumeMounts:
+            - name: adventure-journal-db
+              mountPath: /var/lib/postgresql/data
+          env:
+            - name: POSTGRES_DB
+              value: database
+            - name: PGDATA
+              value: /var/lib/postgresql/data/pgdata/subdir
+            - name: POSTGRES_USER
+              value: adventure
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: adventurelog-secret
+                  key: adventure-postgres-password
+      restartPolicy: Always
