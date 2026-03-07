@@ -6,12 +6,12 @@ metadata:
 spec:
   project: default
   sources:
-    - repoURL: 'https://github.com/McMumf/homelab'
-      targetRevision: 'main'
-      path: kubernetes/applications/actual-budget
+    - repoURL: "https://github.com/McMumf/homelab"
+      targetRevision: "main"
+      path: kubernetes/applications/actualbudget
   destination:
     server: https://kubernetes.default.svc
-    namespace: apps
+    namespace: actualbudget
   syncPolicy:
     automated:
       prune: true

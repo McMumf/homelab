@@ -1,0 +1,36 @@
+image:
+  tag: "26.3.0"
+
+login:
+  method: openid
+  openid:
+    providerName: "Authentik"
+    discoveryUrl: "https://auth.mcmumf.dev/application/o/actual-budget/.well-known/openid-configuration"
+    existingSecret:
+      name: actualbudget-secrets
+      clientIdKey: client-id
+      clientSecretKey: client-secret
+
+ingress:
+  enabled: true
+  className: cilium
+  annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt-production"
+    gethomepage.dev/description: Manage your finances
+    gethomepage.dev/enabled: "true"
+    gethomepage.dev/group: Homelab
+    gethomepage.dev/icon: https://raw.githubusercontent.com/actualbudget/actual/refs/heads/master/packages/docs/static/img/favicon.webp
+    gethomepage.dev/name: Actual Budget
+    gethomepage.dev/pod-selector: "app.kubernetes.io/name=actualbudget"
+  hosts:
+    - host: actualbudget.mcmumf.dev
+      paths:
+        - path: /
+          pathType: Prefix
+  tls:
+    - secretName: actualbudget.mcmumf.dev-tls
+      hosts:
+        - actualbudget.mcmumf.dev
+
+persistence:
+  enabled: true
