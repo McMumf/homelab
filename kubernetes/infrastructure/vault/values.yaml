@@ -6,7 +6,7 @@ injector:
 server:
   ingress:
     enabled: true
-    ingressClassName: "nginx"
+    ingressClassName: "cilium"
     activeService: true
     annotations:
       cert-manager.io/cluster-issuer: letsencrypt-production
