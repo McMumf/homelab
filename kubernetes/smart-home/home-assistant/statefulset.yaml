@@ -57,7 +57,7 @@ spec:
             - name: hassio
               mountPath: /config
         - name: code-server
-          image: codercom/code-server:4.109.5
+          image: codercom/code-server:4.110.0
           imagePullPolicy: IfNotPresent
           args:
             - --auth
