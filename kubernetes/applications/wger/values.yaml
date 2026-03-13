@@ -30,6 +30,7 @@ ingress:
   tls: true
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt-production
+    ingress.cilium.io/tls-passthrough: enabled
     gethomepage.dev/description: Fitness Tracker
     gethomepage.dev/enabled: "true"
     gethomepage.dev/group: Homelab

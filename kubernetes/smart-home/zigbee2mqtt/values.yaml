@@ -60,8 +60,6 @@ ingress:
   # Additional annotations for the ingress. ExternalDNS, and CertManager are tipically integrated here
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt-production
-    ingress.cilium.io/tls-passthrough: enabled
-    ingress.cilium.io/force-https: disabled
     gethomepage.dev/description: Manage zigbee devices
     gethomepage.dev/enabled: "true"
     gethomepage.dev/group: Smart Home
