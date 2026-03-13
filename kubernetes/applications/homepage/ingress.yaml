@@ -6,11 +6,7 @@ metadata:
   labels:
     app.kubernetes.io/name: homepage
   annotations:
-    gethomepage.dev/description: Dynamically Detected Homepage
-    gethomepage.dev/enabled: "true"
-    gethomepage.dev/group: Cluster Management
-    gethomepage.dev/icon: homepage.png
-    gethomepage.dev/name: Homepage
+    ingress.cilium.io/tls-passthrough: enabled
     cert-manager.io/cluster-issuer: letsencrypt-production
 spec:
   ingressClassName: cilium
