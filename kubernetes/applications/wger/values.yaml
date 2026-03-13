@@ -21,7 +21,7 @@ app:
       value: "https://fitness.mcmumf.dev"
 
 celery:
-  enabled: false
+  enabled: true
 
 ingress:
   enabled: true
