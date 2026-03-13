@@ -12,10 +12,7 @@ server:
   ingress:
     enabled: true
     annotations:
-      # nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
-      # nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
       ingress.cilium.io/tls-passthrough: enabled
-      ingress.cilium.io/force-https: enabled
       cert-manager.io/cluster-issuer: letsencrypt-production
       gethomepage.dev/description: Cluster GitOps
       gethomepage.dev/enabled: "true"

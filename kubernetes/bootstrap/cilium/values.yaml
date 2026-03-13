@@ -10,6 +10,7 @@ gatewayAPI:
 
 ingressController:
   enabled: true
+  enforceHttps: true
   loadbalancerMode: shared
 
 # Supports ingress

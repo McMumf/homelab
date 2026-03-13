@@ -5,7 +5,6 @@ metadata:
   namespace: apps
   annotations:
     ingress.cilium.io/request-timeout: "30"
-    ingress.cilium.io/force-https: enabled
     cert-manager.io/cluster-issuer: letsencrypt-production
     gethomepage.dev/description: Web interface for the printer's scanner
     gethomepage.dev/enabled: "true"
