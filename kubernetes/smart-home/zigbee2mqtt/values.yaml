@@ -52,7 +52,7 @@ ingress:
   # -- When enabled a new Ingress will be created
   enabled: true
   # -- The ingress class name for the ingress
-  ingressClassName: nginx
+  ingressClassName: cilium
   # -- Additional labels for the ingres
   labels: {}
   # -- Ingress implementation specific (potentially) for most use cases Prefix should be ok
