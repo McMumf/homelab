@@ -7,5 +7,5 @@ helmCharts:
     repo: https://wger-project.github.io/helm-charts
     releaseName: wger
     namespace: wger
-    version: 0.2.4
+    version: 0.2.5
     valuesFile: values.yaml

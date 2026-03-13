@@ -25,7 +25,7 @@ celery:
 
 ingress:
   enabled: true
-  ingressClassName: nginx
+  ingressClassName: cilium
   url: fitness.mcmumf.dev
   tls: true
   annotations:
