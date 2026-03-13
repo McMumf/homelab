@@ -27,7 +27,7 @@ ingress:
   enabled: true
   ingressClassName: cilium
   url: fitness.mcmumf.dev
-  tls: true
+  tls: false
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt-production
     ingress.cilium.io/tls-passthrough: enabled
