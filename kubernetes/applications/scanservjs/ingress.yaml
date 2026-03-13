@@ -12,7 +12,7 @@ metadata:
     gethomepage.dev/name: scanserv
     gethomepage.dev/pod-selector: "app=scanservjs"
 spec:
-  ingressClassName: nginx
+  ingressClassName: cilium
   tls:
     - hosts:
         - &host scanner.mcmumf.dev
