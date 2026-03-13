@@ -19,6 +19,8 @@ app:
   environment:
     - name: SITE_URL
       value: "https://fitness.mcmumf.dev"
+    - name: GUNICORN_CMD_ARGS
+      value: '--timeout 240 --workers 2 --worker-class gthread --threads 3 --forwarded-allow-ips * --proxy-protocol True --access-logformat=''%(h)s %(l)s %({client-ip}i)s %(l)s %({x-real-ip}i)s %(l)s %({x-forwarded-for}i)s %(l)s %(t)s "%(r)s" %(s)s %(b)s "%(f)s" "%(a)s"'' --access-logfile - --error-logfile -'
 
 celery:
   enabled: true
@@ -36,3 +38,23 @@ ingress:
     gethomepage.dev/icon: https://raw.githubusercontent.com/wger-project/wger/master/wger/core/static/images/logos/logo.png
     gethomepage.dev/name: wger
     gethomepage.dev/pod-selector: "app.kubernetes.io/name=wger-app"
+
+redis:
+  enabled: true
+  auth:
+    enabled: true
+  # Additional environment variables (Redis server and Sentinel)
+  env:
+    - name: REDIS_PASSWORD
+      valueFrom:
+        secretKeyRef:
+          name: redis
+          key: redis-password
+  # Arguments for the container entrypoint process (Redis server)
+  args:
+    - "--requirepass $(REDIS_PASSWORD)"
+  storage:
+    persistentVolumeClaimName: wger-redis
+    className: openebs
+  service:
+    serverPort: 6379
