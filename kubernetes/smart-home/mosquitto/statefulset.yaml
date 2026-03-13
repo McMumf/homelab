@@ -15,6 +15,9 @@ spec:
         app: mosquitto
     spec:
       automountServiceAccountToken: false
+      securityContext:
+        seccompProfile:
+          type: RuntimeDefault
       containers:
         - name: mosquitto
           image: eclipse-mosquitto:2.0.22
@@ -30,13 +33,22 @@ spec:
           env:
             - name: TZ
               value: "America/New_York"
+            - name: MOSQUITTO__PERSISTENCE__PERSISTENCE
+
           ports:
             - name: mqtt
               containerPort: 1883
               protocol: TCP
           volumeMounts:
             - name: mosquitto-data
-              mountPath: /etc/mosquitto
+              mountPath: /mosquitto/config
+              subPath: config
+            - name: mosquitto-data
+              mountPath: /mosquitto/data
+              subPath: data
+            - name: mosquitto-data
+              mountPath: /mosquitto/log
+              subPath: log
             - name: mosquitto-config
               mountPath: "/mosquitto/config/mosquitto.conf"
               subPath: mosquitto.conf
@@ -56,4 +68,4 @@ spec:
         storageClassName: "openebs"
         resources:
           requests:
-            storage: 32Gi
+            storage: 8Gi

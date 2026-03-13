@@ -8,6 +8,18 @@ gatewayAPI:
   gatewayClass:
     create: "true"
 
+ingressController:
+  enabled: true
+  enforceHttps: true
+  loadbalancerMode: shared
+
+# Supports ingress
+nodePort:
+  enabled: true
+
+# Supports ingress, enabled by default and I want to be explicit
+l7Proxy: true
+
 hubble:
   relay:
     enabled: true
@@ -25,7 +37,7 @@ l2announcements:
   leaseDuration: 10s
   leaseRenewDeadline: 5s
   leaseRetryPeriod: 1s
-  interfacePattern: "^(eno1|enp2s0|enp42s0)$"
+  interfacePattern: "^(eno1|enp1s0|enp42s0)$"
 
 k8sClientRateLimit:
   burst: 20

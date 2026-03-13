@@ -21,7 +21,7 @@ env:
         key: pg-password
 
 ingress:
-  enabled: true
+  enabled: false
   extraAnnotations: {}
   annotations:
     kubernetes.io/ingress.class: nginx

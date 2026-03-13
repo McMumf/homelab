@@ -18,17 +18,17 @@ spec:
       containers:
         # Container
         - name: jellyfin
-          image: jellyfin/jellyfin:10.11.5
+          image: jellyfin/jellyfin:10.11.6
           # Resources
           resources:
             requests:
               gpu.intel.com/i915: "1"
-              cpu: 1000m
+              cpu: '1'
               memory: 1Gi
               ephemeral-storage: 256Gi
             limits:
               gpu.intel.com/i915: "1"
-              cpu: 2000m
+              cpu: '6'
               memory: 4Gi
               ephemeral-storage: 256Gi
           # Ports
@@ -55,7 +55,7 @@ spec:
       volumes:
         - name: homelab-nfs
           nfs:
-            server: 192.168.69.70
+            server: nas.mcmumf.dev
             path: /volume1/library
   volumeClaimTemplates:
     - metadata:

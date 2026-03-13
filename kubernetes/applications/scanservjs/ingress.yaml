@@ -4,6 +4,7 @@ metadata:
   name: scanservjs-ingress
   namespace: apps
   annotations:
+    ingress.cilium.io/request-timeout: "30"
     cert-manager.io/cluster-issuer: letsencrypt-production
     gethomepage.dev/description: Web interface for the printer's scanner
     gethomepage.dev/enabled: "true"
@@ -12,7 +13,7 @@ metadata:
     gethomepage.dev/name: scanserv
     gethomepage.dev/pod-selector: "app=scanservjs"
 spec:
-  ingressClassName: nginx
+  ingressClassName: cilium
   tls:
     - hosts:
         - &host scanner.mcmumf.dev

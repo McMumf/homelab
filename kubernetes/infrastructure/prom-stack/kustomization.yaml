@@ -1,0 +1,15 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  - ./openebs
+  - external-secrets.yaml
+
+helmCharts:
+  - name: kube-prometheus-stack
+    repo: https://prometheus-community.github.io/helm-charts
+    releaseName: prom-stack
+    namespace: monitoring
+    version: 82.10.3
+    valuesFile: values.yaml
+    includeCRDs: true

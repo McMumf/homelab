@@ -16,7 +16,7 @@ zigbee2mqtt:
     # -- Optional: MQTT base topic for Zigbee2MQTT MQTT messages (default: zigbee2mqtt)
     base_topic: zigbee2mqtt
   serial:
-    port: tcp://192.168.1.54:6638
+    port: tcp://192.168.5.54:6638
     adapter: ember
   # -- Optional: OTA update settings
   # See https://www.zigbee2mqtt.io/guide/usage/ota_updates.html for more info
@@ -62,7 +62,7 @@ ingress:
     cert-manager.io/cluster-issuer: letsencrypt-production
     gethomepage.dev/description: Manage zigbee devices
     gethomepage.dev/enabled: "true"
-    gethomepage.dev/group: Operations
+    gethomepage.dev/group: Smart Home
     gethomepage.dev/icon: https://raw.githubusercontent.com/Koenkk/zigbee2mqtt/refs/heads/master/images/logo.png
     gethomepage.dev/name: Zigbee2MQTT
     gethomepage.dev/pod-selector: "app=zigbee2mqtt"

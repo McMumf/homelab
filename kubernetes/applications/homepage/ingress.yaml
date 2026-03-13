@@ -13,7 +13,7 @@ metadata:
     gethomepage.dev/name: Homepage
     cert-manager.io/cluster-issuer: letsencrypt-production
 spec:
-  ingressClassName: nginx
+  ingressClassName: cilium
   tls:
     - hosts:
         - &host homepage.mcmumf.dev

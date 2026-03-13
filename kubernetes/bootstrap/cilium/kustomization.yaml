@@ -3,14 +3,13 @@ kind: Kustomization
 namespace: kube-system
 
 resources:
-  - address-pool.yaml
-  - announcement.yaml
-  - gateway.yaml
+  - ./l2advertisements
+  # - gateway.yaml
 
 helmCharts:
   - name: cilium
     repo: https://helm.cilium.io
     releaseName: cilium
     namespace: kube-system
-    version: 1.18.5
+    version: 1.19.1
     valuesFile: values.yaml

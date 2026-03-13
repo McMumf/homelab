@@ -4,5 +4,14 @@
   "ignorePaths": ["legacy/**", "kubernetes/storage/garage"],
   "kubernetes": {
     "managerFilePatterns": ["/kubernetes/.+\\.yaml$/"]
-  }
+  },
+  "argocd": {
+    "managerFilePatterns": ["/\\app.yaml$/"]
+  },
+  "packageRules": [
+    {
+      "matchUpdateTypes": ["patch"],
+      "automerge": true
+    }
+  ]
 }

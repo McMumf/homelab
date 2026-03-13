@@ -11,7 +11,7 @@ metadata:
     nginx.ingress.kubernetes.io/client-max-body-size: "20m"
     gethomepage.dev/description: Manage zigbee devices
     gethomepage.dev/enabled: "true"
-    gethomepage.dev/group: Homelab
+    gethomepage.dev/group: Media
     gethomepage.dev/icon: https://raw.githubusercontent.com/jellyfin/jellyfin-ux/refs/heads/master/branding/SVG/icon-transparent.svg
     gethomepage.dev/name: Jellyfin
     gethomepage.dev/pod-selector: "app=jellyfin"

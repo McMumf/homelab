@@ -1,4 +1,23 @@
-tty: true
+image:
+  tag: 0.43.0
 
+collectors:
+  kubernetes:
+    enabled: true
+
+driver:
+  enabled: true
+  kind: modern_ebpf
+  modernEbpf:
+    leastPrivilege: true
+
+falcosidekick:
+  enabled: true
+  webui:
+    enabled: true
+
+# Don't need OpenShift's Security Context Constraints
 scc:
   create: false
+
+tty: true

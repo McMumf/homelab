@@ -1,0 +1,105 @@
+## Override the deployment namespace
+##
+namespaceOverride: "monitoring"
+
+crds:
+  enabled: true
+
+alertmanager:
+  ingress:
+    enabled: true
+    annotations:
+      cert-manager.io/cluster-issuer: letsencrypt-production
+    hosts:
+      - alertmanager.mcmumf.dev
+    paths:
+    tls:
+      - hosts:
+          - alertmanager.mcmumf.dev
+        secretName: alertmanager.mcmumf.dev-tls
+
+grafana:
+  enabled: true
+  grafana.ini:
+    server:
+      root_url: "https://grafana.mcmumf.dev"
+    users:
+      viewers_can_edit: false
+    auth:
+      signout_redirect_url: https://auth.mcmumf.dev/application/o/grafana/end-session/
+      oauth_auto_login: true
+    auth.generic_oauth:
+      name: authentik
+      enabled: true
+      client_id: "$__file{/etc/secrets/auth_generic_oauth/client_id}"
+      client_secret: "$__file{/etc/secrets/auth_generic_oauth/client_secret}"
+      scopes: "openid profile email"
+      auth_url: "https://auth.mcmumf.dev/application/o/authorize/"
+      token_url: "https://auth.mcmumf.dev/application/o/token/"
+      api_url: "https://auth.mcmumf.dev/application/o/userinfo/"
+    auth.anonymous:
+      enabled: false
+      org_role: Viewer
+  extraSecretMounts:
+    - name: auth-generic-oauth-secret-mount
+      secretName: grafana-secrets
+      defaultMode: 0440
+      mountPath: /etc/secrets/auth_generic_oauth
+      readOnly: true
+  plugins:
+    - grafana-polystat-panel
+    - snuids-trafficlights-panel
+  ingress:
+    enabled: true
+    ingressClassName: cilium
+    annotations:
+      #   cert-manager.io/cluster-issuer: letsencrypt-production
+      gethomepage.dev/description: Metric dashboards
+      gethomepage.dev/enabled: "true"
+      gethomepage.dev/group: Cluster Management
+      gethomepage.dev/icon: https://raw.githubusercontent.com/grafana/grafana/9de77ce22748ca41444da717f777c12da3a7f666/public/img/grafana_icon.svg
+      gethomepage.dev/name: Grafana
+      gethomepage.dev/pod-selector: "app.kubernetes.io/name=grafana"
+    hosts:
+      - grafana.mcmumf.dev
+    path: /
+    # tls:
+    #   - hosts:
+    #       - grafana.mcmumf.dev
+    #     secretName: grafana.mcmumf.dev-tls
+
+prometheus:
+  prometheusSpec:
+    serviceMonitorSelectorNilUsesHelmValues: false
+  ingress:
+    enabled: true
+    ingressClassName: nginx
+    annotations:
+      cert-manager.io/cluster-issuer: letsencrypt-production
+    hosts:
+      - prometheus.mcmumf.dev
+    paths:
+      - /
+    tls:
+      - hosts:
+          - prometheus.mcmumf.dev
+        secretName: prometheus.mcmumf.dev-tls
+
+  storageSpec:
+    volumeClaimTemplate:
+      metadata:
+        name: openebs-prometheus-pv
+      spec:
+        # This storageClass is backed by openebs localpv-provisioner.
+        storageClassName: openebs-hostpath
+        accessModes: ["ReadWriteOnce"]
+        resources:
+          requests:
+            storage: 4Gi
+
+prometheus-node-exporter:
+  ## Additional container arguments
+  extraArgs:
+    - --collector.filesystem.mount-points-exclude=^/(dev|proc|sys|run/containerd/.+|var/lib/docker/.+|var/lib/kubelet/.+)($|/)
+    - --collector.filesystem.fs-types-exclude=^(autofs|binfmt_misc|bpf|cgroup|cgroup2?|configfs|debugfs|devpts|devtmpfs|fusectl|hugetlbfs|iso9660|mqueue|nsfs|overlay|proc|procfs|pstore|rpc_pipefs|securityfs|selinuxfs|squashfs|sysfs|tmpfs|tracefs|erofs)$
+    - --collector.diskstats.device-exclude=^(ram|loop|fd|sr|(h|s|v|xv)d[a-z]+|nvme\d+n\d+p|nvme\d+c\d+n)\d+$
