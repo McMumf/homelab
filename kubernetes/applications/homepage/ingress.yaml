@@ -6,7 +6,6 @@ metadata:
   labels:
     app.kubernetes.io/name: homepage
   annotations:
-    ingress.cilium.io/tls-passthrough: enabled
     cert-manager.io/cluster-issuer: letsencrypt-production
 spec:
   ingressClassName: cilium
