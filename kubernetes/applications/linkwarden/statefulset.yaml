@@ -29,11 +29,11 @@ spec:
           image: ghcr.io/linkwarden/linkwarden:v2.13.5
           resources:
             requests:
-              memory: 256Mi
+              memory: 1Gi
               cpu: 500m
               ephemeral-storage: 4Gi
             limits:
-              memory: 2Gi
+              memory: 4Gi
               cpu: 1000m
               ephemeral-storage: 4Gi
           env:
