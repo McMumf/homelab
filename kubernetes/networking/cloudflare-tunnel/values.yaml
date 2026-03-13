@@ -18,6 +18,8 @@ cloudflare:
       service: http://cilium-ingress.kube-system.svc.cluster.local:80
     - hostname: "jellystat.mcmumf.dev"
       service: http://cilium-ingress.kube-system.svc.cluster.local:80
+    - hostname: "fitness.mcmumf.dev"
+      service: http://cilium-ingress.kube-system.svc.cluster.local:80
     - hostname: "*.mcmumf.dev"
       service: http://ingress-nginx-controller.ingress-nginx.svc.cluster.local:80
       originRequest:
