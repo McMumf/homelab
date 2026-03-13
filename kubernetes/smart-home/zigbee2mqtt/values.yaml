@@ -71,9 +71,7 @@ ingress:
     - host: z2m.mcmumf.dev
       paths:
         - path: /
-          pathType: ImplementationSpecific
-        - path: /api
-          pathType: ImplementationSpecific
+          pathType: Prefix
   # -- configuration for tls service (ig any)
   tls:
     - secretName: z2m.mcmumf.dev-tls
