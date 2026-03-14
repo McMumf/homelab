@@ -1,31 +1,69 @@
 apiVersion: apps/v1
-kind: StatefulSet
+kind: Deployment
 metadata:
   name: outline
   namespace: outline
+  labels:
+    app.kubernetes.io/name: outline
+    app.kubernetes.io/instance: outline
 spec:
-  serviceName: outline
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: "25%"
+      maxUnavailable: "25%"
   selector:
     matchLabels:
-      app: outline-app
-  replicas: 1
+      app.kubernetes.io/name: outline
+      app.kubernetes.io/instance: outline
   template:
     metadata:
       labels:
-        app: outline-app
+        app.kubernetes.io/name: outline
+        app.kubernetes.io/instance: outline
     spec:
-      automountServiceAccountToken: false
       securityContext:
         runAsUser: 1001
         runAsGroup: 1001
         fsGroup: 1001
+        fsGroupChangePolicy: "OnRootMismatch"
+        seccompProfile:
+          type: RuntimeDefault
+      serviceAccountName: outline-svc-acct
       containers:
         - name: outline
           image: outlinewiki/outline:1.5.0
           imagePullPolicy: Always
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+            readOnlyRootFilesystem: false
+            runAsNonRoot: true
+            privileged: false
+            runAsUser: 1001
+            runAsGroup: 1001
           ports:
-            - containerPort: 3000
-              name: web
+            - name: http
+              containerPort: 3000
+          livenessProbe:
+            httpGet:
+              path: /_health
+              port: http
+            initialDelaySeconds: 10
+            periodSeconds: 30
+            timeoutSeconds: 3
+            failureThreshold: 5
+          readinessProbe:
+            httpGet:
+              path: /_health
+              port: http
+            initialDelaySeconds: 10
+            periodSeconds: 30
+            timeoutSeconds: 3
+            failureThreshold: 5
           resources:
             limits:
               cpu: 2000m
@@ -36,6 +74,8 @@ spec:
               ephemeral-storage: 8Gi
               memory: 1Gi
           env:
+            - name: NODE_ENV
+              value: production
             - name: SECRET_KEY
               valueFrom:
                 secretKeyRef:
@@ -48,15 +88,21 @@ spec:
                   key: utils-secret
             - name: PORT
               value: "3000"
-            - name: COLLABORATION_URL
-              value: ""
+            - name: DEFAULT_LANGUAGE
+              value: "en_US"
             - name: URL
               value: "https://notes.mcmumf.dev"
+            - name: TELEMETRY
+              value: "false"
+            - name: FORCE_HTTPS
+              value: "true"
+            - name: WEB_CONCURRENCY
+              value: "1"
             - name: DATABASE_URL
               valueFrom:
                 secretKeyRef:
-                  name: outline-secrets
-                  key: db-connection
+                  name: outline-cnpg-app
+                  key: uri
             - name: REDIS_URL
               value: "redis://outline-redis:6379"
             - name: SMTP_HOST
@@ -77,38 +123,15 @@ spec:
                   name: outline-secrets
                   key: smtp-token
             - name: SMTP_FROM_EMAIL
-              valueFrom:
-                secretKeyRef:
-                  name: outline-secrets
-                  key: smtp-username
+              value: "homelab@mcmumf.dev"
             - name: SMTP_TLS_CIPHERS
               value: "TLSv1.2"
             - name: SMTP_SECURE
-              value: "false"
+              value: "true"
             - name: FILE_STORAGE_UPLOAD_MAX_SIZE
               value: "26214400"
-            - name: AWS_ACCESS_KEY_ID
-              valueFrom:
-                secretKeyRef:
-                  name: outline-secrets
-                  key: aws-access-id
-            - name: AWS_SECRET_ACCESS_KEY
-              valueFrom:
-                secretKeyRef:
-                  name: outline-secrets
-                  key: aws-access-id
             - name: FILE_STORAGE
               value: "local"
-            # - name: AWS_REGION
-            #   value: "garage"
-            # - name: AWS_S3_UPLOAD_BUCKET_URL
-            #   value: "https://s3.mcmumf.dev"
-            # - name: AWS_S3_UPLOAD_BUCKET_NAME
-            #   value: "outline-bucket"
-            # - name: AWS_S3_FORCE_PATH_STYLE
-            #   value: "true"
-            # - name: AWS_S3_ACL
-            #   value: "private"
             - name: OIDC_CLIENT_ID
               valueFrom:
                 secretKeyRef:
@@ -133,17 +156,10 @@ spec:
               value: "authentik"
             - name: OIDC_SCOPES
               value: "openid profile email"
-            - name: FORCE_HTTPS
-              value: "true"
           volumeMounts:
             - name: outline-data
               mountPath: /var/lib/outline/data
-  volumeClaimTemplates:
-    - metadata:
-        name: outline-data
-      spec:
-        accessModes: ["ReadWriteOnce"]
-        storageClassName: "openebs"
-        resources:
-          requests:
-            storage: 32Gi
+      volumes:
+        - name: outline-data
+          persistentVolumeClaim:
+            claimName: outline-data

@@ -4,12 +4,15 @@ metadata:
   name: outline-redis
   namespace: outline
   labels:
-    app: outline-redis
+    app.kubernetes.io/name: outline-redis
+    app.kubernetes.io/instance: outline-redis
 spec:
   type: ClusterIP
-  selector:
-    app: outline-redis
   ports:
-    - protocol: TCP
+    - name: redis
+      protocol: TCP
       port: 6379
       targetPort: 6379
+  selector:
+    app.kubernetes.io/name: outline-redis
+    app.kubernetes.io/instance: outline-redis

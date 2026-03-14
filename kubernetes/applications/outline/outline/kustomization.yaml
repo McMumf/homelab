@@ -3,7 +3,8 @@ kind: Kustomization
 namespace: outline
 
 resources:
-  - ./db
-  - ./outline
-  - ./redis
-  - external-secrets.yaml
+  - deployment.yaml
+  - ingress.yaml
+  - pvc.yaml
+  - service.yaml
+  - serviceaccount.yaml

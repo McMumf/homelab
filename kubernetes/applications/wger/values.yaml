@@ -3,6 +3,9 @@ app:
   global:
     image:
       tag: 2.4
+    securityContext:
+      seccompProfile:
+        type: RuntimeDefault
   persistence:
     enabled: true
     storageClass: "openebs"
@@ -38,6 +41,37 @@ ingress:
     gethomepage.dev/icon: https://raw.githubusercontent.com/wger-project/wger/master/wger/core/static/images/logos/logo.png
     gethomepage.dev/name: wger
     gethomepage.dev/pod-selector: "app.kubernetes.io/name=wger-app"
+    gethomepage.dev/href: "https://fitness.mcmumf.dev"
+postgres:
+  # Note: keep these variables present as the wger chart uses them for the deployment
+  # the superuser and user settings will be saved into a secret
+  enabled: true
+  # changes to the superuser and userDatabase passwords will update
+  # the secret where they are save in
+  # the user from the user database will be turned into a superuser
+  # some database migration in django requires this
+  # otherwise it was not able to create the database
+  extraScripts: wger-pg-init
+  service:
+    port: 5432
+  resources:
+    limits:
+      cpu: 500m
+      memory: 512Mi
+    requests:
+      cpu: 100m
+      memory: 128Mi
+  ## Storage parameters
+  storage:
+    ##  Set persistentVolumenClaimName to reference an existing PVC
+    persistentVolumeClaimName:
+    ## Alternative set requestedSize to define a size for a dynmaically created PVC
+    requestedSize: 8Gi
+    ## the storage class name
+    className: openebs
+  podSecurityContext:
+    seccompProfile:
+      type: RuntimeDefault
 
 redis:
   enabled: true
@@ -54,7 +88,9 @@ redis:
   args:
     - "--requirepass $(REDIS_PASSWORD)"
   storage:
-    persistentVolumeClaimName: wger-redis
     className: openebs
   service:
     serverPort: 6379
+  podSecurityContext:
+    seccompProfile:
+      type: RuntimeDefault
