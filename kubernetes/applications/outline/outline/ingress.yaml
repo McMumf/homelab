@@ -4,6 +4,8 @@ metadata:
   name: outline-ingress
   namespace: outline
   annotations:
+    # ingress.cilium.io/tls-passthrough: enabled
+    # cert-manager.io/cluster-issuer: letsencrypt-production
     gethomepage.dev/description: Our own knowledge base
     gethomepage.dev/enabled: "true"
     gethomepage.dev/group: Homelab
@@ -27,3 +29,7 @@ spec:
                 name: outline-svc
                 port:
                   number: 3000
+  # tls:
+  #   - hosts:
+  #       - notes.mcmumf.dev
+  #     secretName: notes.mcmumf.dev-tls

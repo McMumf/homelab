@@ -6,4 +6,3 @@ resources:
   - ./db
   - ./outline
   - ./redis
-  - external-secrets.yaml
