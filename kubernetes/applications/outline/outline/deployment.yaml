@@ -162,8 +162,8 @@ spec:
             - name: outline-data
               mountPath: /var/lib/outline/data
       initContainers:
-        - name: init-redis
-          image: busybox:1.37
+        - name: wait-for-redis
+          image: redis@sha256:b8ec5360d674ca64d095e968d899f31384898f7b0799acde26e63e73653ee039
           securityContext:
             allowPrivilegeEscalation: false
             capabilities:
@@ -172,13 +172,17 @@ spec:
             readOnlyRootFilesystem: false
             runAsNonRoot: true
           command:
-            [
-              "sh",
-              "-c",
-              "until nslookup outline-redis-headless.outline; do echo waiting for outline-redis-headless; sleep 2; done",
-            ]
-        - name: init-db
-          image: busybox:1.37
+            - sh
+            - -c
+            - |
+              echo "Checking Redis connection..."
+              until redis-cli -h outline-redis-headless -p 6379 ping | grep -q PONG; do
+                echo "Redis not ready - waiting..."
+                sleep 2
+              done
+              echo "Redis is ready!"
+        - name: wait-for-db
+          image: ghcr.io/cloudnative-pg/postgresql:18
           securityContext:
             allowPrivilegeEscalation: false
             capabilities:
@@ -187,11 +191,21 @@ spec:
             readOnlyRootFilesystem: false
             runAsNonRoot: true
           command:
-            [
-              "sh",
-              "-c",
-              "until nslookup outline-cnpg-rw.outline; do echo waiting for outline-cnpg-app; sleep 2; done",
-            ]
+            - sh
+            - -c
+            - |
+              echo "Checking PostgreSQL connection..."
+              until pg_isready -h outline-cnpg-rw -p 5432 -U outline; do
+                echo "PostgreSQL not ready - waiting..."
+                sleep 3
+              done
+              echo "PostgreSQL is ready!"
+          env:
+            - name: PGPASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: outline-cnpg-app
+                  key: password
       volumes:
         - name: outline-data
           persistentVolumeClaim:
