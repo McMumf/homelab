@@ -124,6 +124,10 @@ spec:
               value: "homelab@mcmumf.dev"
             - name: SMTP_REPLY_EMAIL
               value: "homelab@mcmumf.dev"
+            - name: SMTP_TLS_CIPHERS
+              value: "TLSv1.3"
+            - name: SMTP_SECURE
+              value: "false"
             - name: FILE_STORAGE_UPLOAD_MAX_SIZE
               value: "26214400"
             - name: FILE_STORAGE
