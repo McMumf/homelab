@@ -163,7 +163,7 @@ spec:
               mountPath: /var/lib/outline/data
       initContainers:
         - name: init-redis
-          image: busybox:1.28
+          image: busybox:1.37
           securityContext:
             allowPrivilegeEscalation: false
             capabilities:
@@ -178,7 +178,7 @@ spec:
               "until nslookup outline-redis-headless.outline; do echo waiting for outline-redis-headless; sleep 2; done",
             ]
         - name: init-db
-          image: busybox:1.28
+          image: busybox:1.37
           securityContext:
             allowPrivilegeEscalation: false
             capabilities:
