@@ -10,5 +10,5 @@ helmCharts:
     repo: https://meilisearch.github.io/meilisearch-kubernetes
     releaseName: meilisearch
     namespace: linkwarden
-    version: 0.27.0
+    version: 0.28.0
     valuesFile: values.yaml
