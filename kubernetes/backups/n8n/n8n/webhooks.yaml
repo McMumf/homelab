@@ -103,7 +103,7 @@ spec:
                 name: n8n-queue-configmap
             - secretRef:
                 name: n8n-encryption-key-secret-v2
-          image: n8nio/n8n:2.12.3
+          image: n8nio/n8n:2.13.2
           imagePullPolicy: IfNotPresent
           livenessProbe:
             httpGet:
