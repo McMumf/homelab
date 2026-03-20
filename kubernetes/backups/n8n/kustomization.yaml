@@ -4,7 +4,6 @@ namespace: n8n
 
 resources:
   - external-secrets.yaml
-#   - db/
 
 helmCharts:
   - name: n8n
