@@ -163,7 +163,7 @@ spec:
               mountPath: /var/lib/outline/data
       initContainers:
         - name: wait-for-redis
-          image: registry-1.docker.io/bitnami/redis@sha256:b8ec5360d674ca64d095e968d899f31384898f7b0799acde26e63e73653ee039
+          image: registry-1.docker.io/bitnami/redis@sha256:6581783f7339ca1534b9da4c026362d556fce19f7462ab4cd8ad3f68bc7dbd80
           securityContext:
             allowPrivilegeEscalation: false
             capabilities:
