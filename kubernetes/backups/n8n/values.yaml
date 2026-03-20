@@ -48,6 +48,14 @@ webhook:
 ingress:
   enabled: true
   className: cilium
+  annotations:
+    gethomepage.dev/description: workflow automation platform
+    gethomepage.dev/enabled: "true"
+    gethomepage.dev/group: Utilities
+    gethomepage.dev/icon: https://raw.githubusercontent.com/n8n-io/n8n-docs/refs/heads/main/docs/_images/n8n-docs-icon.svg
+    gethomepage.dev/name: n8n
+    gethomepage.dev/pod-selector: "app.kubernetes.io/name=n8n"
+    gethomepage.dev/href: "https://n8n.mcmumf.dev"
   hosts:
     - host: n8n.mcmumf.dev
       paths:
@@ -57,22 +65,18 @@ ingress:
 postgresql:
   enabled: true
   architecture: standalone
-
   auth:
     user: n8n
     database: n8n
     existingSecret: n8n-postgresql
-
   primary:
     service:
       ports:
         postgresql: 5432
-
     persistence:
       enabled: true
       storageClass: openebs
       size: 20Gi
-
     resources:
       requests:
         cpu: 100m
