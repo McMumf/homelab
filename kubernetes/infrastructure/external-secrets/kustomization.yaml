@@ -5,6 +5,7 @@ namespace: external-secrets
 
 resources:
   - apps-secret-store.yaml
+  - backups-secret-store.yaml
   - infra-secret-store.yaml
   - media-secret-store.yaml
   - network-secret-store.yaml
