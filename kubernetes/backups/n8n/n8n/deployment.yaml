@@ -1,0 +1,141 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app.kubernetes.io/component: main
+    app.kubernetes.io/instance: n8n
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: n8n
+    app.kubernetes.io/part-of: n8n
+    app.kubernetes.io/version: 2.11.4
+    helm.sh/chart: n8n-1.16.31
+  name: n8n
+  namespace: n8n
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: n8n
+      app.kubernetes.io/name: n8n
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/component: main
+        app.kubernetes.io/instance: n8n
+        app.kubernetes.io/name: n8n
+        app.kubernetes.io/part-of: n8n
+    spec:
+      containers:
+        - env:
+            - name: N8N_HIRING_BANNER_ENABLED
+              value: "false"
+            - name: NODE_ENV
+              value: production
+            - name: N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS
+              value: "true"
+            - name: N8N_PORT
+              value: "5678"
+            - name: N8N_DEFAULT_LOCALE
+              value: en
+            - name: GENERIC_TIMEZONE
+              value: America/New_York
+            - name: N8N_GRACEFUL_SHUTDOWN_TIMEOUT
+              value: "30"
+            - name: N8N_EDITOR_BASE_URL
+              value: https://n8n.mcmumf.dev
+            - name: DB_POSTGRESDB_USER
+              valueFrom:
+                secretKeyRef:
+                  key: username
+                  name: n8n-cnpg-app
+            - name: DB_POSTGRESDB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  key: password
+                  name: n8n-cnpg-app
+            - name: QUEUE_BULL_REDIS_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  key: redis-username
+                  name: n8n-redis-secrets
+            - name: QUEUE_BULL_REDIS_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  key: redis-password
+                  name: n8n-redis-secrets
+            - name: WEBHOOK_URL
+              value: https://n8n.mcmumf.dev
+          envFrom:
+            - configMapRef:
+                name: n8n-database-configmap
+            - configMapRef:
+                name: n8n-logging-configmap
+            - configMapRef:
+                name: n8n-diagnostics-configmap
+            - configMapRef:
+                name: n8n-version-notifications-configmap
+            - configMapRef:
+                name: n8n-public-api-configmap
+            - configMapRef:
+                name: n8n-queue-configmap
+            - configMapRef:
+                name: n8n-workflow-history-configmap
+            - configMapRef:
+                name: n8n-task-broker-configmap
+            - configMapRef:
+                name: n8n-metrics-configmap
+            - configMapRef:
+                name: n8n-binary-data-configmap
+            - secretRef:
+                name: n8n-encryption-key-secret-v2
+          image: n8nio/n8n:2.12.3
+          imagePullPolicy: IfNotPresent
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /healthz
+              port: http
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            timeoutSeconds: 5
+          name: n8n-main
+          ports:
+            - containerPort: 5678
+              name: http
+              protocol: TCP
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /healthz/readiness
+              port: http
+            initialDelaySeconds: 5
+            periodSeconds: 5
+            timeoutSeconds: 3
+          resources: {}
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+            privileged: false
+            readOnlyRootFilesystem: false
+            runAsGroup: 1000
+            runAsNonRoot: true
+            runAsUser: 1000
+          volumeMounts:
+            - mountPath: /home/node/.n8n
+              name: n8n-binary-data
+              readOnly: false
+      securityContext:
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
+      serviceAccountName: n8n
+      volumes:
+        - name: n8n-binary-data
+          persistentVolumeClaim:
+            claimName: n8n-binary-data

@@ -1,0 +1,114 @@
+image:
+  tag: 2.12.3
+
+binaryData:
+  mode: "filesystem"
+  localStoragePath: "/home/node/.n8n/binary-data"
+
+main:
+  livenessProbe:
+    httpGet:
+      path: /healthz
+      port: http
+    initialDelaySeconds: 30
+    periodSeconds: 10
+    timeoutSeconds: 5
+    failureThreshold: 3
+  readinessProbe:
+    httpGet:
+      path: /healthz/readiness
+      port: http
+    initialDelaySeconds: 5
+    periodSeconds: 5
+    timeoutSeconds: 3
+    failureThreshold: 3
+  persistence:
+    enabled: true
+    volumeName: "n8n-binary-data"
+    mountPath: "/home/node/.n8n"
+    size: 10Gi
+    accessMode: ReadWriteOnce
+    storageClass: openebs
+    annotations:
+      helm.sh/resource-policy: keep
+
+db:
+  type: postgresdb
+  logging:
+    enabled: true
+    options: error
+    maxQueryExecutionTime: 1000
+
+worker:
+  mode: queue
+
+webhook:
+  mode: queue
+
+ingress:
+  enabled: true
+  className: cilium
+  hosts:
+    - host: n8n.mcmumf.dev
+      paths:
+        - path: /
+          pathType: Prefix
+
+postgresql:
+  enabled: true
+  architecture: standalone
+
+  auth:
+    user: n8n
+    database: n8n
+    existingSecret: n8n-postgresql
+
+  primary:
+    service:
+      ports:
+        postgresql: 5432
+
+    persistence:
+      enabled: true
+      storageClass: openebs
+      size: 20Gi
+
+    resources:
+      requests:
+        cpu: 100m
+        memory: 256Mi
+      limits:
+        cpu: 1000m
+        memory: 1Gi
+
+serviceMonitor:
+  enabled: true
+  namespace: monitoring
+  interval: 15s
+  timeout: 10s
+  labels:
+    release: prometheus
+    team: platform
+  targetLabels:
+    - app.kubernetes.io/name
+    - app.kubernetes.io/instance
+  metricRelabelings:
+    - sourceLabels: [prometheus_replica]
+      regex: (.*)
+      targetLabel: another_prometheus_replica
+      action: replace
+  include:
+    defaultMetrics: true
+    cacheMetrics: true
+    messageEventBusMetrics: true
+    workflowIdLabel: true
+    nodeTypeLabel: true
+    credentialTypeLabel: true
+    apiEndpoints: true
+    apiPathLabel: true
+    apiMethodLabel: true
+    apiStatusCodeLabel: true
+    queueMetrics: true
+
+redis:
+  enabled: true

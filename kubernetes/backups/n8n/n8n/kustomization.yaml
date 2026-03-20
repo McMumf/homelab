@@ -1,0 +1,12 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: n8n
+
+resources:
+  - deployment.yaml
+  - ingress.yaml
+  - mcp.yaml
+  - pvc.yaml
+  - service.yaml
+  - webhooks.yaml
+  - worker.yaml

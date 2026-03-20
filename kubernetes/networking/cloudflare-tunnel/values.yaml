@@ -22,6 +22,8 @@ cloudflare:
       service: http://cilium-ingress.kube-system.svc.cluster.local:80
     - hostname: "notes.mcmumf.dev"
       service: http://cilium-ingress.kube-system.svc.cluster.local:80
+    - hostname: "n8n.mcmumf.dev"
+      service: http://cilium-ingress.kube-system.svc.cluster.local:80
     - hostname: "*.mcmumf.dev"
       service: http://ingress-nginx-controller.ingress-nginx.svc.cluster.local:80
       originRequest:
