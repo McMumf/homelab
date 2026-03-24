@@ -19,6 +19,13 @@ spec:
           ports:
             - containerPort: 80
               name: hortusfox-port
+          resources:
+            requests:
+              cpu: 100m
+              memory: 128Mi
+            limits:
+              cpu: 200m
+              memory: 256Mi
           env:
             - name: APP_SERVICE_URL
               value: "https://plants.mcmumf.dev"
