@@ -1,0 +1,54 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fairtrail
+  namespace: travel
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: fairtrail
+  template:
+    metadata:
+      labels:
+        app: fairtrail
+    spec:
+      automountServiceAccountToken: false
+      securityContext:
+        seccompProfile:
+          type: RuntimeDefault
+      containers:
+        - name: fairtrail
+          image: ghcr.io/affromero/fairtrail:0.3.10
+          securityContext:
+            privileged: false
+            capabilities:
+              drop:
+                - "ALL"
+          resources:
+            requests:
+              cpu: 250m
+              ephemeral-storage: 1Gi
+              memory: 256Mi
+            limits:
+              cpu: 500m
+              ephemeral-storage: 2Gi
+              memory: 1Gi
+          env:
+            - name: SELF_HOSTED
+              value: "true"
+            - name: NODE_ENV
+              value: "production"
+            - name: CHROME_PATH
+              value: "/usr/bin/chromium-browser"
+            - name: DATABASE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: fairtrail-cnpg-app
+                  key: uri
+            - name: REDIS_URL
+              value: "redis://redis.travel:6379"
+          port:
+            - name: http
+              containerPort: 3003
+              protocol: TCP

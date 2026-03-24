@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: fairtrail
+  namespace: travel
+  labels:
+    app: fairtrail
+spec:
+  selector:
+    app: fairtrail
+  type: ClusterIP
+  ports:
+    - protocol: TCP
+      port: 3003
+      targetPort: 3003
