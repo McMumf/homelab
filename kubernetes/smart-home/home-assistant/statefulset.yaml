@@ -35,11 +35,11 @@ spec:
           resources:
             requests:
               memory: 512Mi
-              cpu: 100m
+              cpu: 500m
               ephemeral-storage: &ephemeralHaStorage 8Gi
             limits:
               memory: 2Gi
-              cpu: 500m
+              cpu: 1000m
               ephemeral-storage: *ephemeralHaStorage
           ports:
             - name: http
