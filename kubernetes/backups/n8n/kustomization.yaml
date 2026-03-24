@@ -3,7 +3,8 @@ kind: Kustomization
 namespace: n8n
 
 resources:
-  - external-secrets.yaml
+  - external-secrets-encryption.yaml
+  - external-secrets-pg.yaml
 
 helmCharts:
   - name: n8n
