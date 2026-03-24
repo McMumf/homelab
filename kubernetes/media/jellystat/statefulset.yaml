@@ -22,11 +22,11 @@ spec:
           # Resources
           resources:
             requests:
-              cpu: 1000m
+              cpu: 50m
               memory: 1Gi
               ephemeral-storage: 8Gi
             limits:
-              cpu: 2000m
+              cpu: 100m
               memory: 1Gi
               ephemeral-storage: 8Gi
           env:

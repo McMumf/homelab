@@ -34,12 +34,12 @@ spec:
                 - NET_BROADCAST
           resources:
             requests:
-              memory: 128Mi
+              memory: 512Mi
               cpu: 100m
               ephemeral-storage: &ephemeralHaStorage 8Gi
             limits:
               memory: 2Gi
-              cpu: 1000m
+              cpu: 500m
               ephemeral-storage: *ephemeralHaStorage
           ports:
             - name: http
@@ -75,11 +75,11 @@ spec:
           resources:
             requests:
               memory: 1Gi
-              cpu: 2000m
+              cpu: 500m
               ephemeral-storage: &ephemeralHaCodeStorage 8Gi
             limits:
               memory: 1Gi
-              cpu: 2000m
+              cpu: 500m
               ephemeral-storage: *ephemeralHaStorage
           ports:
             - name: code-http
