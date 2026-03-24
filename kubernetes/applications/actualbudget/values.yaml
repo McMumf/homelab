@@ -1,6 +1,14 @@
 image:
   tag: "26.3.0"
 
+resources:
+  limits:
+    cpu: 100m
+    memory: 256Mi
+  requests:
+    cpu: 100m
+    memory: 128Mi
+
 login:
   method: openid
   openid:
