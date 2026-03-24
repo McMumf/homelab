@@ -2,6 +2,14 @@ image:
   flavor: debian
   pullPolicy: Always
 
+resources:
+  requests:
+    cpu: 100m
+    memory: 512Mi
+  limits:
+    cpu: 200m
+    memory: 1Gi
+
 env:
   - name: "CONFIG_USE_ENVIRONMENT_VARIABLES"
     value: "true"

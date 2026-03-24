@@ -26,11 +26,11 @@ spec:
           resources:
             requests:
               memory: 256Mi
-              cpu: 500m
+              cpu: 100m
               ephemeral-storage: 4Gi
             limits:
-              memory: 2Gi
-              cpu: 1000m
+              memory: 1Gi
+              cpu: 500m
               ephemeral-storage: 4Gi
           env:
             # General Configs

@@ -21,13 +21,13 @@ spec:
           image: timescale/timescaledb:2.25.2-pg17
           resources:
             limits:
-              cpu: 2
-              ephemeral-storage: 8Gi
-              memory: 2Gi
+              cpu: 500m
+              ephemeral-storage: 4Gi
+              memory: 512Mi
             requests:
-              cpu: 1
-              ephemeral-storage: 8Gi
-              memory: 1Gi
+              cpu: 500m
+              ephemeral-storage: 4Gi
+              memory: 512Mi
           args:
             - postgres
             - -c
