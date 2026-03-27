@@ -35,7 +35,7 @@ spec:
               ephemeral-storage: 8Gi
               memory: 512Mi
             requests:
-              cpu: 10m
+              cpu: 100m
               ephemeral-storage: 8Gi
               memory: 128Mi
           env:
