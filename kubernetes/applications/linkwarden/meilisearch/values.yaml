@@ -1,8 +1,16 @@
 image:
   repository: getmeili/meilisearch
-  tag: v1.39.0
+  tag: v1.40.0
 environment:
   MEILI_NO_ANALYTICS: true
   MEILI_ENV: production
 auth:
   existingMasterKeySecret: "meilisearch-secrets"
+
+resources:
+  limits:
+    cpu: 200m
+    memory: 256Mi
+  requests:
+    cpu: 100m
+    memory: 128Mi

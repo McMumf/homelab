@@ -31,13 +31,13 @@ spec:
               name: freshrss-web
           resources:
             limits:
-              cpu: "1"
+              cpu: 100m
               ephemeral-storage: 8Gi
-              memory: 1Gi
+              memory: 512Mi
             requests:
-              cpu: 500m
+              cpu: 100m
               ephemeral-storage: 8Gi
-              memory: 1Gi
+              memory: 128Mi
           env:
             - name: PUID
               value: "1000"

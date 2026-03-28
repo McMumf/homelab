@@ -1,6 +1,10 @@
 image:
   tag: 2.12.3
 
+existingEncryptionKeySecret: "n8n-encryption"
+
+timezone: "America/New_York"
+
 binaryData:
   mode: "filesystem"
   localStoragePath: "/home/node/.n8n/binary-data"

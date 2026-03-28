@@ -3,12 +3,13 @@ kind: Kustomization
 namespace: n8n
 
 resources:
-  - external-secrets.yaml
+  - external-secrets-encryption.yaml
+  - external-secrets-pg.yaml
 
 helmCharts:
   - name: n8n
     repo: https://community-charts.github.io/helm-charts
     releaseName: n8n
-    namespace: outline
-    version: 1.16.31
+    namespace: n8n
+    version: 1.16.33
     valuesFile: values.yaml
