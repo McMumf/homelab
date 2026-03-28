@@ -1,0 +1,29 @@
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: http-app-test
+  namespace: travel
+  annotations:
+    gethomepage.dev/description: Track flight prices over time
+    gethomepage.dev/enabled: "true"
+    gethomepage.dev/group: Travel
+    gethomepage.dev/icon: https://raw.githubusercontent.com/affromero/fairtrail/f5328f27c8c575357cf9d2838c52ae3d31d3bd40/apps/web/src/app/icon.svg
+    gethomepage.dev/name: Fairtrail
+    gethomepage.dev/pod-selector: "app.kubernetes.io/name=fairtrail"
+    gethomepage.dev/href: "https://airfare.mcmumf.dev"
+  labels:
+    app.kubernetes.io/name: fairtrail
+    homelab.category: travel
+spec:
+  parentRefs:
+    - name: travel-gateway
+  hostnames:
+    - "airfare.mcmumf.dev"
+  rules:
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /
+      backendRefs:
+        - name: traccar
+          port: 80

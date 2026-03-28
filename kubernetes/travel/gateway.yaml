@@ -1,0 +1,32 @@
+apiVersion: gateway.networking.k8s.io/v1
+kind: Gateway
+metadata:
+  name: travel-gateway
+  namespace: travel
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-production
+  labels:
+    homelab.category: travel
+spec:
+  gatewayClassName: cilium
+  listeners:
+    - allowedRoutes:
+        namespaces:
+          from: All
+      hostname: airfare.mcmumf.dev
+      name: https
+      port: 443
+      protocol: HTTPS
+      tls:
+        certificateRefs:
+          - group: ""
+            kind: Secret
+            name: airfare.mcmumf.dev-tls
+        mode: Terminate
+    - allowedRoutes:
+        namespaces:
+          from: All
+      hostname: airfare.mcmumf.dev
+      name: http
+      port: 80
+      protocol: HTTP

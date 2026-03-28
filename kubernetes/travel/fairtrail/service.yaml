@@ -4,10 +4,11 @@ metadata:
   name: fairtrail
   namespace: travel
   labels:
-    app: fairtrail
+    app.kubernetes.io/name: fairtrail
+    homelab.category: travel
 spec:
   selector:
-    app: fairtrail
+    app.kubernetes.io/name: fairtrail
   type: ClusterIP
   ports:
     - protocol: TCP

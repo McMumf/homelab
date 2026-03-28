@@ -3,15 +3,18 @@ kind: Deployment
 metadata:
   name: fairtrail
   namespace: travel
+  labels:
+    homelab.category: travel
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: fairtrail
+      app.kubernetes.io/name: fairtrail
   template:
     metadata:
       labels:
-        app: fairtrail
+        app.kubernetes.io/name: fairtrail
+        homelab.category: travel
     spec:
       automountServiceAccountToken: false
       securityContext:
