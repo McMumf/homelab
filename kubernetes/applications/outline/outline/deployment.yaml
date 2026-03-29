@@ -163,7 +163,7 @@ spec:
               mountPath: /var/lib/outline/data
       initContainers:
         - name: wait-for-redis
-          image: registry-1.docker.io/bitnami/redis@sha256:98cf67395e80506c7bc21b889107980365558ef30d59059ac6d76aab2678bf7e
+          image: busybox:1.37
           securityContext:
             allowPrivilegeEscalation: false
             capabilities:
@@ -175,12 +175,9 @@ spec:
             - sh
             - -c
             - |
-              echo "Checking Redis connection..."
-              until redis-cli -h outline-redis-headless -p 6379 ping | grep -q PONG; do
-                echo "Redis not ready - waiting..."
+              until nc -z outline-redis-master 6379; do
                 sleep 2
               done
-              echo "Redis is ready!"
         - name: wait-for-db
           image: ghcr.io/cloudnative-pg/postgresql:18
           securityContext:

@@ -31,7 +31,6 @@ spec:
               name: freshrss-web
           resources:
             limits:
-              cpu: 100m
               ephemeral-storage: 8Gi
               memory: 512Mi
             requests:
