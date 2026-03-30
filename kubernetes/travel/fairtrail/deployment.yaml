@@ -44,6 +44,21 @@ spec:
               value: "production"
             - name: CHROME_PATH
               value: "/usr/bin/chromium-browser"
+            - name: ADMIN_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: fairtrail-secrets
+                  key: admin-password
+            - name: ADMIN_SESSION_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: fairtrail-secrets
+                  key: admin-session-secret
+            - name: CRON_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: fairtrail-secrets
+                  key: cron-secret
             - name: DATABASE_URL
               valueFrom:
                 secretKeyRef:
@@ -51,7 +66,7 @@ spec:
                   key: uri
             - name: REDIS_URL
               value: "redis://redis.travel:6379"
-          port:
+          ports:
             - name: http
               containerPort: 3003
               protocol: TCP

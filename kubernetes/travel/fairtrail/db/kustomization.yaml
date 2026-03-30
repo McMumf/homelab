@@ -9,6 +9,6 @@ helmCharts:
   - name: cluster
     repo: https://cloudnative-pg.github.io/charts
     releaseName: fairtrail-cnpg
-    namespace: apps
+    namespace: travel
     version: 0.6.0
     valuesFile: values.yaml
