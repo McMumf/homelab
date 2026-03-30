@@ -34,7 +34,6 @@ spec:
               ephemeral-storage: 8Gi
             limits:
               memory: 2Gi
-              cpu: 200m
               ephemeral-storage: 8Gi
           env:
             - name: DATABASE_URL
