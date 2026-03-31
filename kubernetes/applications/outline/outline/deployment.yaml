@@ -45,6 +45,14 @@ spec:
             privileged: false
             runAsUser: 1001
             runAsGroup: 1001
+          resources:
+            limits:
+              ephemeral-storage: 8Gi
+              memory: 2Gi
+            requests:
+              cpu: 100m
+              ephemeral-storage: 8Gi
+              memory: 1Gi
           ports:
             - name: http
               containerPort: 3000
@@ -64,15 +72,6 @@ spec:
             periodSeconds: 30
             timeoutSeconds: 3
             failureThreshold: 5
-          resources:
-            limits:
-              cpu: 2000m
-              ephemeral-storage: 8Gi
-              memory: 4Gi
-            requests:
-              cpu: 500m
-              ephemeral-storage: 8Gi
-              memory: 1Gi
           env:
             - name: NODE_ENV
               value: production

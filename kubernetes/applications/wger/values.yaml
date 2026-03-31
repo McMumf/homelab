@@ -56,11 +56,10 @@ postgres:
     port: 5432
   resources:
     limits:
-      cpu: 500m
-      memory: 512Mi
+      memory: 256Mi
     requests:
       cpu: 100m
-      memory: 128Mi
+      memory: 32Mi
   ## Storage parameters
   storage:
     ##  Set persistentVolumenClaimName to reference an existing PVC
