@@ -1,0 +1,137 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: grampsweb
+  namespace: gramps
+  labels:
+    app.kubernetes.io/name: grampsweb
+    app.kubernetes.io/instance: grampsweb
+spec:
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: "25%"
+      maxUnavailable: "25%"
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: grampsweb
+      app.kubernetes.io/instance: grampsweb
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: grampsweb
+        app.kubernetes.io/instance: grampsweb
+    spec:
+      securityContext:
+        # runAsUser: 1001
+        # runAsGroup: 1001
+        fsGroup: 2000
+        fsGroupChangePolicy: "OnRootMismatch"
+        seccompProfile:
+          type: RuntimeDefault
+      containers:
+        - name: grampsweb
+          image: ghcr.io/gramps-project/grampsweb:26.3.1.1
+          imagePullPolicy: Always
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+          ports:
+            - name: http
+              containerPort: 5000
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path:
+              port: http
+            initialDelaySeconds: 10
+            periodSeconds: 30
+            timeoutSeconds: 3
+            failureThreshold: 5
+          readinessProbe:
+            httpGet:
+              path: /
+              port: http
+            initialDelaySeconds: 10
+            periodSeconds: 30
+            timeoutSeconds: 3
+            failureThreshold: 5
+          resources:
+            limits:
+              ephemeral-storage: 8Gi
+              # memory: 1Gi
+            requests:
+              cpu: 500m
+              ephemeral-storage: 8Gi
+              # memory: 1Gi
+          env:
+            - name: TREE
+              value: "The Fam"
+            - name: SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: grampsweb-secrets
+                  key: secret-key
+            # OIDC
+            # - name: OIDC_ENABLED
+            #   value: "False"
+            # - name: OIDC_ISSUER
+            #   value: ""
+            # - name: OIDC_CLIENT_ID
+            #   valueFrom:
+            #     secretKeyRef:
+            #       name: grampsweb-secrets
+            #       key: oidc-client-id
+            # - name: OIDC_CLIENT_SECRET
+            #   valueFrom:
+            #     secretKeyRef:
+            #       name: grampsweb-secrets
+            #       key: oidc-client-secret
+            # - name: OIDC_NAME
+            #   value: "Authentik"
+            # - name: "OIDC_SCOPES"
+            #   value: "openid email profile"
+
+          # volumeMounts:
+          #   - name: grampsweb-data
+          #     mountPath: /app/users
+          #     subPath: users
+          #   - name: grampsweb-data
+          #     mountPath: /app/indexdir
+          #     subPath: indexdir
+          #   - name: grampsweb-data
+          #     mountPath: /app/thumbnail_cache
+          #     subPath: thumbnail_cache
+          #   - name: grampsweb-data
+          #     mountPath: /app/media
+          #     subPath: media
+          #   - name: grampsweb-data
+          #     mountPath: /app/secret
+          #     subPath: secret
+          #   - name: grampsweb-data
+          #     mountPath: /root/.gramps/grampsdb
+          #     subPath: grampsdb
+      # initContainers:
+      #   - name: wait-for-redis
+      #     image: busybox:1.37
+      #     securityContext:
+      #       allowPrivilegeEscalation: false
+      #       capabilities:
+      #         drop:
+      #           - ALL
+      #       readOnlyRootFilesystem: false
+      #       runAsNonRoot: true
+      #     command:
+      #       - sh
+      #       - -c
+      #       - |
+      #         until nc -z gramps-redis-master 6379; do
+      #           sleep 2
+      #         done
+      # volumes:
+      #   - name: grampsweb-data
+      #     persistentVolumeClaim:
+      #       claimName: grampsweb-data
