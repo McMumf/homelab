@@ -22,6 +22,7 @@ configuration:
     - name: backblaze
       provider: aws
       bucket: mumf-homelab-backups
+      default: true
       credential:
         name: velero-s3-creds
         key: credentials
