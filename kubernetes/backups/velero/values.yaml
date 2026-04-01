@@ -30,7 +30,8 @@ configuration:
         s3ForcePathStyle: "true"
         s3Url: https://s3.us-east-005.backblazeb2.com
   volumeSnapshotLocation:
-    - provider: aws
+    - name: aws-default
+      provider: aws
       bucket: mumf-homelab-backups
       credential:
         name: velero-s3-creds
