@@ -21,7 +21,7 @@ configuration:
   backupStorageLocation:
     - name: backblaze
       provider: aws
-      bucket:
+      bucket: mumf-homelab-backups
       credential:
         name: velero-s3-creds
         key: credentials
