@@ -87,3 +87,23 @@ Shortcut link: [v1.12.2](https://factory.talos.dev/?arch=amd64&cmdline-set=true&
   ...
 
   ```
+
+## Managing Certs
+
+1. Get the Talos API CA to generate `ca.crt` and `ca.key`
+
+    ```sh
+    yq eval .machine.ca.crt controlplane.yaml | base64 -d > ca.crt
+    yq eval .machine.ca.key controlplane.yaml | base64 -d > ca.key
+    ```
+
+2. Generate new cert
+
+    ```sh
+    talosctl gen key --name admin
+    talosctl gen csr --key admin.key --ip 127.0.0.1
+    talosctl gen crt --ca ca --csr admin.csr --name admin
+    ```
+
+3. Put the base64 representations of the above certs into the talosconfig file
+  - May need to update in kubeconfig as well
