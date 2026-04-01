@@ -1,0 +1,78 @@
+deployNodeAgent: true
+snapshotsEnabled: true
+
+credentials:
+  useSecret: false
+
+kubectl:
+  image:
+    tag: "1.35.1"
+
+initContainers:
+  - name: velero-plugin-for-aws
+    image: velero/velero-plugin-for-aws:v1.14.0
+    imagePullPolicy: IfNotPresent
+    volumeMounts:
+      - name: plugins
+        mountPath: /target
+
+configuration:
+  defaultVolumesToFsBackup: true
+  backupStorageLocation:
+    - name: backblaze
+      provider: aws
+      bucket:
+      credential:
+        name: velero-s3-creds
+        key: credentials
+      config:
+        region: us-east-005
+        s3ForcePathStyle: "true"
+        s3Url: https://s3.us-east-005.backblazeb2.com
+  volumeSnapshotLocation:
+    - name: backblaze
+      provider: aws
+      bucket: mumf-homelab-backups
+      credential:
+        name: velero-s3-creds
+        key: credentials
+      config:
+        region: us-east-005
+        profile: "default"
+
+extraObjects:
+  - apiVersion: external-secrets.io/v1
+    kind: ExternalSecret
+    metadata:
+      name: velero-s3-creds
+      namespace: velero
+    spec:
+      refreshInterval: 1h
+      secretStoreRef:
+        name: backups-secret-store
+        kind: ClusterSecretStore
+      target:
+        name: velero-s3-creds
+      data:
+        - secretKey: credentials
+          remoteRef:
+            key: backups/backblaze
+            property: bucket-credentials
+  - apiVersion:
+    kind: ConfigMap
+    metadata:
+      name: anti-nfs-policy
+      namespace: velero
+    data:
+      raw.yaml: |
+        version: v1
+        volumePolicies:
+          - conditions:
+              nfs: {}
+            action:
+              type: skip
+          - conditions:
+              volumeTypes:
+                - hostPath
+            action:
+              type: skip
