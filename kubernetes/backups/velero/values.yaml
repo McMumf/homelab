@@ -1,5 +1,4 @@
 deployNodeAgent: true
-snapshotsEnabled: true
 
 credentials:
   useSecret: false
@@ -62,12 +61,16 @@ extraObjects:
   - apiVersion: v1
     kind: ConfigMap
     metadata:
-      name: anti-nfs-policy
+      name: velero-anti-nfs-policy
       namespace: velero
+      labels:
+        velero.io/plugin-config: "true"
+        velero.io/resource-policy: "true"
     data:
-      velero-policy.yaml: |
+      policy.yaml: |
         version: v1
         volumePolicies:
+          # Don't backup NFS
           - conditions:
               nfs: {}
             action:
@@ -77,3 +80,32 @@ extraObjects:
                 - hostPath
             action:
               type: skip
+        resourcePolicies:
+          # Exclude completed jobs
+          - resource: jobs
+            conditions:
+              namespaces:
+                - production
+              action:
+              type: exclude
+              properties:
+                conditions:
+                  - status.succeeded >= 1
+          # Exclude old replica sets
+          - resource: replicasets
+            conditions:
+              namespaces:
+                - "*"
+              action:
+              type: exclude
+              properties:
+                conditions:
+                  - spec.replicas == 0
+                  - status.replicas == 0
+          # Exclude empty PVCs
+          - resource: persistentvolumeclaims
+            action:
+              type: exclude
+              properties:
+                conditions:
+                  - status.phase == "Pending"
