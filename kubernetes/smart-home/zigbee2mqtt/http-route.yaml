@@ -1,0 +1,27 @@
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: z2m-http-route
+  namespace: smart-home
+  annotations:
+    gethomepage.dev/description: Manage zigbee devices
+    gethomepage.dev/enabled: "true"
+    gethomepage.dev/group: Smart Home
+    gethomepage.dev/icon: https://raw.githubusercontent.com/Koenkk/zigbee2mqtt/refs/heads/master/images/logo.png
+    gethomepage.dev/name: Zigbee2MQTT
+    gethomepage.dev/pod-selector: "app=zigbee2mqtt"
+  labels:
+    app: zigbee2mqtt
+spec:
+  parentRefs:
+    - name: smart-home-gateway
+  hostnames:
+    - "z2m.mcmumf.dev"
+  rules:
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /
+      backendRefs:
+        - name: zigbee2mqtt
+          port: 8080
