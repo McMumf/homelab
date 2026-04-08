@@ -4,6 +4,7 @@ namespace: actualbudget
 
 resources:
   - external-secrets.yaml
+  - http-route.yaml
 
 helmCharts:
   - name: actualbudget

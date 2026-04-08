@@ -5,6 +5,6 @@ namespace: immich
 resources:
   - configmap.yaml
   - external-secrets.yaml
-  - ingress.yaml
   - deployment.yaml
+  - http-route.yaml
   - service.yaml
