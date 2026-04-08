@@ -14,7 +14,8 @@ metadata:
     app: zigbee2mqtt
 spec:
   parentRefs:
-    - name: smart-home-gateway
+    - name: internal-gateway
+      namespace: kube-system
   hostnames:
     - "z2m.mcmumf.dev"
   rules:

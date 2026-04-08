@@ -13,7 +13,8 @@ metadata:
     app: hassio
 spec:
   parentRefs:
-    - name: smart-home-gateway
+    - name: external-gateway
+      namespace: kube-system
   hostnames:
     - "hassio.mcmumf.dev"
   rules:

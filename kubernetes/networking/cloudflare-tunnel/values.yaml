@@ -7,11 +7,11 @@ cloudflare:
   # https://developers.cloudflare.com/cloudflare-one/connections/connect-apps/configuration/configuration-file/ingress
   ingress:
     - hostname: "loc.mcmumf.dev"
-      service: http://cilium-gateway-traccar-gateway.traccar.svc.cluster.local:80
+      service: http://cilium-gateway-external-gateway.kube-system.svc.cluster.local:80
       originRequest:
         originServerName: mcmumf.dev
     - hostname: "hassio.mcmumf.dev"
-      service: http://cilium-gateway-smart-home-gateway.smart-home.svc.cluster.local:80
+      service: http://cilium-gateway-external-gateway.kube-system.svc.cluster.local:80
       originRequest:
         originServerName: mcmumf.dev
     - hostname: "grafana.mcmumf.dev"

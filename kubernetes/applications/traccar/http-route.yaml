@@ -15,7 +15,8 @@ metadata:
     app: traccar
 spec:
   parentRefs:
-    - name: traccar-gateway
+    - name: external-gateway
+      namespace: kube-system
   hostnames:
     - "loc.mcmumf.dev"
   rules:
