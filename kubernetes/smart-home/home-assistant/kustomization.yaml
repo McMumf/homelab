@@ -4,8 +4,8 @@ kind: Kustomization
 namespace: smart-home
 
 resources:
-  - ingress.yaml
-  - ingress-coder.yaml
+  - http-route.yaml
+  - http-route-coder.yaml
   - service.yaml
   - service-coder.yaml
   - statefulset.yaml
