@@ -11,7 +11,7 @@ metadata:
     gethomepage.dev/name: Actual Budget
     gethomepage.dev/pod-selector: "app.kubernetes.io/name=actualbudget"
   labels:
-    app: zigbee2mqtt
+    app: actualbudget
 spec:
   parentRefs:
     - name: internal-gateway
@@ -24,5 +24,5 @@ spec:
             type: PathPrefix
             value: /
       backendRefs:
-        - name: http
+        - name: actualbudget
           port: 5006

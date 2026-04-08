@@ -5,7 +5,7 @@ namespace: outline
 resources:
   - deployment.yaml
   - external-secrets.yaml
-  - ingress.yaml
+  - http-route.yaml
   - pvc.yaml
   - service.yaml
   - serviceaccount.yaml
