@@ -29,19 +29,13 @@ celery:
   enabled: true
 
 ingress:
-  enabled: true
+  enabled: false
   ingressClassName: cilium
   url: fitness.mcmumf.dev
   tls: false
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt-production
-    gethomepage.dev/description: Fitness Tracker
-    gethomepage.dev/enabled: "true"
-    gethomepage.dev/group: Homelab
-    gethomepage.dev/icon: https://raw.githubusercontent.com/wger-project/wger/master/wger/core/static/images/logos/logo.png
-    gethomepage.dev/name: wger
-    gethomepage.dev/pod-selector: "app.kubernetes.io/name=wger-app"
-    gethomepage.dev/href: "https://fitness.mcmumf.dev"
+
 postgres:
   # Note: keep these variables present as the wger chart uses them for the deployment
   # the superuser and user settings will be saved into a secret
