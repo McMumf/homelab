@@ -4,11 +4,13 @@ metadata:
   name: hassio-http-route
   namespace: smart-home
   annotations:
+    gethomepage.dev/description: Smart Home
     gethomepage.dev/enabled: "true"
     gethomepage.dev/group: Smart Home
     gethomepage.dev/icon: https://raw.githubusercontent.com/home-assistant/frontend/refs/heads/dev/public/static/icons/favicon-512x512.png
     gethomepage.dev/name: Home Assistant
     gethomepage.dev/pod-selector: "app=hassio"
+    gethomepage.dev/href: "https://hassio.mcmumf.dev"
   labels:
     app: hassio
 spec:

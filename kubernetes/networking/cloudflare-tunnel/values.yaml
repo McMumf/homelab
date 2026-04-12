@@ -21,9 +21,9 @@ cloudflare:
       originRequest:
         originServerName: mcmumf.dev
     - hostname: "photos.mcmumf.dev"
-      service: http://cilium-ingress.kube-system.svc.cluster.local:80
-    - hostname: "jellystat.mcmumf.dev"
-      service: http://cilium-ingress.kube-system.svc.cluster.local:80
+      service: http://cilium-gateway-external-gateway.kube-system.svc.cluster.local:80
+      originRequest:
+        originServerName: mcmumf.dev
     - hostname: "fitness.mcmumf.dev"
       service: http://cilium-gateway-external-gateway.kube-system.svc.cluster.local:80
       originRequest:
@@ -33,6 +33,14 @@ cloudflare:
       originRequest:
         originServerName: mcmumf.dev
     - hostname: "recipes.mcmumf.dev"
+      service: http://cilium-gateway-external-gateway.kube-system.svc.cluster.local:80
+      originRequest:
+        originServerName: mcmumf.dev
+    - hostname: "rss.mcmumf.dev"
+      service: http://cilium-gateway-external-gateway.kube-system.svc.cluster.local:80
+      originRequest:
+        originServerName: mcmumf.dev
+    - hostname: "jellyfin.mcmumf.dev"
       service: http://cilium-gateway-external-gateway.kube-system.svc.cluster.local:80
       originRequest:
         originServerName: mcmumf.dev

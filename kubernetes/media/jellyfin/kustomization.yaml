@@ -3,6 +3,7 @@ kind: Kustomization
 namespace: media
 
 resources:
-  - ingress.yaml
+  - external-http-route.yaml
+  - internal-http-route.yaml
   - service.yaml
   - statefulset.yaml
