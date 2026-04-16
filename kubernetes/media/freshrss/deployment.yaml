@@ -1,0 +1,160 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: freshrss
+  namespace: media
+spec:
+  selector:
+    matchLabels:
+      app: freshrss-app
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: freshrss-app
+    spec:
+      automountServiceAccountToken: false
+      securityContext:
+        fsGroup: 33
+        seccompProfile:
+          type: RuntimeDefault
+      containers:
+        - name: freshrss
+          image: freshrss/freshrss:1.28.1
+          imagePullPolicy: IfNotPresent
+          securityContext:
+            capabilities:
+              drop:
+                - ALL
+          ports:
+            - containerPort: 80
+              name: freshrss-web
+          resources:
+            limits:
+              ephemeral-storage: 8Gi
+              memory: 512Mi
+            requests:
+              cpu: 100m
+              ephemeral-storage: 8Gi
+              memory: 128Mi
+          livenessProbe:
+            exec:
+              command:
+                - CMD
+                - cli/health.php
+            initialDelaySeconds: 11
+            periodSeconds: 75
+            timeoutSeconds: 10
+            failureThreshold: 3
+          env:
+            - name: "TZ"
+              value: "America/New_York"
+            - name: "TRUSTED_PROXY"
+              value: "10.0.0.0/8 192.168.5.0/24"
+            - name: BASE_URL
+              value: "https://rss.mcmumf.dev"
+            - name: SERVER_DNS
+              value: "rss.mcmumf.dev"
+            - name: CRON_MIN
+              value: "13,43"
+            # DB
+            - name: DB_HOST
+              valueFrom:
+                secretKeyRef:
+                  name: freshrss-cnpg-app
+                  key: host
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: freshrss-cnpg-app
+                  key: password
+            - name: FRESHRSS_DB_USER
+              valueFrom:
+                secretKeyRef:
+                  name: freshrss-cnpg-app
+                  key: user
+            # Admin
+            - name: ADMIN_EMAIL
+              valueFrom:
+                secretKeyRef:
+                  name: freshrss-secrets
+                  key: admin-email
+            - name: ADMIN_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: freshrss-secrets
+                  key: admin-password
+            - name: ADMIN_API_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: freshrss-secrets
+                  key: admin-api-password
+            # OIDC
+            - name: OIDC_ENABLED
+              value: "1"
+            - name: OIDC_PROVIDER_METADATA_URL
+              value: "https://auth.mcmumf.dev/application/o/freshrss/.well-known/openid-configuration"
+            - name: OIDC_CLIENT_ID
+              valueFrom:
+                secretKeyRef:
+                  name: freshrss-secrets
+                  key: oidc-client-id
+            - name: OIDC_CLIENT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: freshrss-secrets
+                  key: oidc-client-secret
+            - name: OIDC_CLIENT_CRYPTO_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: freshrss-secrets
+                  key: oidc-client-crypto-key
+            - name: OIDC_X_FORWARDED_HEADERS
+              value: "X-Forwarded-Proto"
+            - name: OIDC_REMOTE_USER_CLAIM
+              value: "preferred_username"
+            - name: OIDC_SCOPES
+              value: "openid groups email profile"
+            # The actual installation config
+            - name: FRESHRSS_INSTALL
+              value: "--default-user=admin --auth-type=http_auth --base-url=${BASE_URL} --language=en --db-base ${DB_BASE} --db-host ${DB_HOST} --db-password ${DB_PASSWORD} --db-type=pgsql --db-user= ${DB_USER}  --api-enabled"
+            - name: FRESHRSS_USER
+              value: "--api-password=${ADMIN_API_PASSWORD} --email=${ADMIN_EMAIL} --language=en --password=${ADMIN_PASSWORD} --user=admin"
+          volumeMounts:
+            - name: freshrss-data
+              mountPath: /var/www/FreshRSS/data
+              subPath: data
+            - name: freshrss-data
+              mountPath: /var/www/FreshRSS/extensions
+              subPath: extensions
+      volumes:
+        - name: freshrss-data
+          persistentVolumeClaim:
+            claimName: freshrss-pvc
+      initContainers:
+        - name: wait-for-db
+          image: ghcr.io/cloudnative-pg/postgresql:18
+          imagePullPolicy: IfNotPresent
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+            readOnlyRootFilesystem: false
+            runAsNonRoot: true
+          command:
+            - sh
+            - -c
+            - |
+              echo "Checking PostgreSQL connection..."
+              until pg_isready -h freshrss-cnpg-rw -p 5432 -U freshrss; do
+                echo "PostgreSQL not ready - waiting..."
+                sleep 3
+              done
+              echo "PostgreSQL is ready!"
+          env:
+            - name: PGPASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: freshrss-cnpg-app
+                  key: password

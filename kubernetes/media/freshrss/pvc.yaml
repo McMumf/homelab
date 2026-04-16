@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: freshrss-pvc
+  namespace: media
+  labels:
+    app: freshrss-app
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: openebs
+  resources:
+    requests:
+      storage: 8Gi
