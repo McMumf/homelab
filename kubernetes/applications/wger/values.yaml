@@ -26,7 +26,7 @@ app:
       value: '--timeout 240 --workers 2 --worker-class gthread --threads 3 --forwarded-allow-ips * --proxy-protocol True --access-logformat=''%(h)s %(l)s %({client-ip}i)s %(l)s %({x-real-ip}i)s %(l)s %({x-forwarded-for}i)s %(l)s %(t)s "%(r)s" %(s)s %(b)s "%(f)s" "%(a)s"'' --access-logfile - --error-logfile -'
 
 celery:
-  enabled: true
+  enabled: false
 
 ingress:
   enabled: false
