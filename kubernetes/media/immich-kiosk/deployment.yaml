@@ -23,7 +23,7 @@ spec:
         fsGroup: 1000
       containers:
         - name: immich-kiosk
-          image: ghcr.io/damongolding/immich-kiosk:0.36.3
+          image: ghcr.io/damongolding/immich-kiosk:0.37.0
           securityContext:
             runAsNonRoot: true
             allowPrivilegeEscalation: false
