@@ -10,5 +10,5 @@ helmCharts:
     repo: https://charts.bitnami.com/bitnami
     releaseName: outline-redis
     namespace: outline
-    version: 25.3.12
+    version: 25.4.1
     valuesFile: values.yaml
