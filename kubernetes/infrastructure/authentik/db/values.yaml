@@ -4,16 +4,16 @@ mode: standalone
 fullnameOverride: "authentik-cnpg"
 
 version:
-  postgresql: "17"
+  postgresql: "18"
 
 cluster:
   instances: 1
   resources:
     limits:
-      memory: 2Gi
+      memory: 512Mi
     requests:
-      cpu: 1000m
-      memory: 1Gi
+      cpu: 100m
+      memory: 256Mi
   storage:
     size: 8Gi
     storageClass: openebs

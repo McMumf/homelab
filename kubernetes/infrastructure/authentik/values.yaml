@@ -70,6 +70,12 @@ server:
     - name: tls-cert
       mountPath: /certs
       readOnly: true
+  resources:
+    limits:
+      memory: 1Gi
+    requests:
+      cpu: 100m
+      memory: 512Mi
   ingress:
     enabled: true
     ingressClassName: nginx
@@ -89,6 +95,12 @@ server:
         secretName: auth.mcmumf.dev-tls
 
 worker:
+  resources:
+    limits:
+      memory: 512Mi
+    requests:
+      cpu: 100m
+      memory: 512Mi
   volumes:
     - name: tls-cert
       secret:

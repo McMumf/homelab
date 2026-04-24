@@ -1,0 +1,29 @@
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: paperless-internal-http-route
+  namespace: apps
+  annotations:
+    gethomepage.dev/description: Scan, index and archive all your physical documents
+    gethomepage.dev/enabled: "true"
+    gethomepage.dev/group: Media
+    gethomepage.dev/icon: https://raw.githubusercontent.com/paperless-ngx/paperless-ngx/refs/heads/dev/src/paperless/static/paperless/img/favicon.ico
+    gethomepage.dev/name: Paperless
+    gethomepage.dev/pod-selector: "app=paperless-ngx"
+    gethomepage.dev/href: "https://paperless.mcmumf.dev"
+  labels:
+    app: paperless-ngx
+spec:
+  parentRefs:
+    - name: internal-gateway
+      namespace: kube-system
+  hostnames:
+    - "paperless.mcmumf.dev"
+  rules:
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /
+      backendRefs:
+        - name: paperless-ngx
+          port: 8000

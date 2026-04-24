@@ -4,7 +4,6 @@ namespace: traccar
 
 resources:
   - ./db
-  - gateway.yaml
   - http-route.yaml
 
 helmCharts:

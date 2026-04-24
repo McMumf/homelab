@@ -4,16 +4,16 @@ mode: standalone
 fullnameOverride: "jellystat-cnpg"
 
 version:
-  postgresql: "17"
+  postgresql: "18"
 
 cluster:
   instances: 1
   resources:
     limits:
-      memory: 2Gi
-    requests:
-      cpu: 1000m
       memory: 1Gi
+    requests:
+      cpu: 100m
+      memory: 256Mi
 
   storage:
     size: 8Gi

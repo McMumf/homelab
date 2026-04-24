@@ -50,9 +50,9 @@ zigbee2mqtt:
 # for examples.
 ingress:
   # -- When enabled a new Ingress will be created
-  enabled: true
+  enabled: false
   # -- The ingress class name for the ingress
-  ingressClassName: nginx
+  ingressClassName: cilium
   # -- Additional labels for the ingres
   labels: {}
   # -- Ingress implementation specific (potentially) for most use cases Prefix should be ok
@@ -62,7 +62,7 @@ ingress:
     cert-manager.io/cluster-issuer: letsencrypt-production
     gethomepage.dev/description: Manage zigbee devices
     gethomepage.dev/enabled: "true"
-    gethomepage.dev/group: Operations
+    gethomepage.dev/group: Smart Home
     gethomepage.dev/icon: https://raw.githubusercontent.com/Koenkk/zigbee2mqtt/refs/heads/master/images/logo.png
     gethomepage.dev/name: Zigbee2MQTT
     gethomepage.dev/pod-selector: "app=zigbee2mqtt"
@@ -71,9 +71,7 @@ ingress:
     - host: z2m.mcmumf.dev
       paths:
         - path: /
-          pathType: ImplementationSpecific
-        - path: /api
-          pathType: ImplementationSpecific
+          pathType: Prefix
   # -- configuration for tls service (ig any)
   tls:
     - secretName: z2m.mcmumf.dev-tls

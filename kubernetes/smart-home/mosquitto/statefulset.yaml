@@ -15,6 +15,9 @@ spec:
         app: mosquitto
     spec:
       automountServiceAccountToken: false
+      securityContext:
+        seccompProfile:
+          type: RuntimeDefault
       containers:
         - name: mosquitto
           image: eclipse-mosquitto:2.0.22
@@ -30,6 +33,8 @@ spec:
           env:
             - name: TZ
               value: "America/New_York"
+            - name: MOSQUITTO__PERSISTENCE__PERSISTENCE
+
           ports:
             - name: mqtt
               containerPort: 1883

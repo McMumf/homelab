@@ -1,0 +1,208 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: outline
+  namespace: outline
+  labels:
+    app.kubernetes.io/name: outline
+    app.kubernetes.io/instance: outline
+spec:
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: "25%"
+      maxUnavailable: "25%"
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: outline
+      app.kubernetes.io/instance: outline
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: outline
+        app.kubernetes.io/instance: outline
+    spec:
+      securityContext:
+        runAsUser: 1001
+        runAsGroup: 1001
+        fsGroup: 1001
+        fsGroupChangePolicy: "OnRootMismatch"
+        seccompProfile:
+          type: RuntimeDefault
+      serviceAccountName: outline-svc-acct
+      containers:
+        - name: outline
+          image: outlinewiki/outline:1.6.1
+          imagePullPolicy: Always
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+            readOnlyRootFilesystem: false
+            runAsNonRoot: true
+            privileged: false
+            runAsUser: 1001
+            runAsGroup: 1001
+          resources:
+            limits:
+              ephemeral-storage: 8Gi
+              memory: 2Gi
+            requests:
+              cpu: 100m
+              ephemeral-storage: 8Gi
+              memory: 1Gi
+          ports:
+            - name: http
+              containerPort: 3000
+          livenessProbe:
+            httpGet:
+              path: /_health
+              port: http
+            initialDelaySeconds: 10
+            periodSeconds: 30
+            timeoutSeconds: 3
+            failureThreshold: 5
+          readinessProbe:
+            httpGet:
+              path: /_health
+              port: http
+            initialDelaySeconds: 10
+            periodSeconds: 30
+            timeoutSeconds: 3
+            failureThreshold: 5
+          env:
+            - name: NODE_ENV
+              value: production
+            - name: SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: outline-secrets
+                  key: secret-key
+            - name: UTILS_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: outline-secrets
+                  key: utils-secret
+            - name: PORT
+              value: "3000"
+            - name: DEFAULT_LANGUAGE
+              value: "en_US"
+            - name: URL
+              value: "https://notes.mcmumf.dev"
+            - name: TELEMETRY
+              value: "false"
+            - name: FORCE_HTTPS
+              value: "false" # handled elsewhere
+            - name: WEB_CONCURRENCY
+              value: "1"
+            - name: DATABASE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: outline-cnpg-app
+                  key: uri
+            - name: SMTP_HOST
+              valueFrom:
+                secretKeyRef:
+                  name: outline-secrets
+                  key: smtp-server
+            - name: SMTP_PORT
+              value: "587"
+            - name: SMTP_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: outline-secrets
+                  key: smtp-username
+            - name: SMTP_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: outline-secrets
+                  key: smtp-token
+            - name: SMTP_FROM_EMAIL
+              value: "homelab@mcmumf.dev"
+            - name: SMTP_REPLY_EMAIL
+              value: "homelab@mcmumf.dev"
+            - name: SMTP_TLS_CIPHERS
+              value: "TLSv1.3"
+            - name: SMTP_SECURE
+              value: "false"
+            - name: FILE_STORAGE_UPLOAD_MAX_SIZE
+              value: "26214400"
+            - name: FILE_STORAGE
+              value: "local"
+            - name: OIDC_CLIENT_ID
+              valueFrom:
+                secretKeyRef:
+                  name: outline-secrets
+                  key: oidc-client
+            - name: OIDC_CLIENT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: outline-secrets
+                  key: oidc-secret
+            - name: OIDC_AUTH_URI
+              value: "https://auth.mcmumf.dev/application/o/authorize/"
+            - name: OIDC_TOKEN_URI
+              value: "https://auth.mcmumf.dev/application/o/token/"
+            - name: OIDC_USERINFO_URI
+              value: "https://auth.mcmumf.dev/application/o/userinfo/"
+            - name: OIDC_LOGOUT_URI
+              value: "https://auth.mcmumf.dev/application/o/outline/end-session/"
+            - name: OIDC_USERNAME_CLAIM
+              value: "preferred_username"
+            - name: OIDC_DISPLAY_NAME
+              value: "authentik"
+            - name: OIDC_SCOPES
+              value: "openid profile email"
+            - name: REDIS_URL
+              value: "redis://outline-redis-headless:6379"
+          volumeMounts:
+            - name: outline-data
+              mountPath: /var/lib/outline/data
+      initContainers:
+        - name: wait-for-redis
+          image: busybox:1.37
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+            readOnlyRootFilesystem: false
+            runAsNonRoot: true
+          command:
+            - sh
+            - -c
+            - |
+              until nc -z outline-redis-master 6379; do
+                sleep 2
+              done
+        - name: wait-for-db
+          image: ghcr.io/cloudnative-pg/postgresql:18
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+            readOnlyRootFilesystem: false
+            runAsNonRoot: true
+          command:
+            - sh
+            - -c
+            - |
+              echo "Checking PostgreSQL connection..."
+              until pg_isready -h outline-cnpg-rw -p 5432 -U outline; do
+                echo "PostgreSQL not ready - waiting..."
+                sleep 3
+              done
+              echo "PostgreSQL is ready!"
+          env:
+            - name: PGPASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: outline-cnpg-app
+                  key: password
+      volumes:
+        - name: outline-data
+          persistentVolumeClaim:
+            claimName: outline-data

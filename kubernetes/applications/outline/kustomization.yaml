@@ -4,9 +4,5 @@ namespace: outline
 
 resources:
   - ./db
-  - external-secrets.yaml
-  - ingress.yaml
-  - namespace.yaml
+  - ./outline
   - ./redis
-  - statefulset.yaml
-  - service.yaml

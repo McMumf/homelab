@@ -18,15 +18,15 @@ spec:
       containers:
         # Container
         - name: jellystat
-          image: cyfershepard/jellystat:1.1.7
+          image: cyfershepard/jellystat:1.1.10
           # Resources
           resources:
             requests:
-              cpu: 1000m
+              cpu: 50m
               memory: 1Gi
               ephemeral-storage: 8Gi
             limits:
-              cpu: 2000m
+              cpu: 100m
               memory: 1Gi
               ephemeral-storage: 8Gi
           env:

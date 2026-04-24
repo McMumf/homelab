@@ -1,0 +1,29 @@
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: freshrss-http-route
+  namespace: media
+  annotations:
+    gethomepage.dev/name: FreshRSS
+    gethomepage.dev/description: An RSS Reader
+    gethomepage.dev/enabled: "true"
+    gethomepage.dev/group: Media
+    gethomepage.dev/icon: https://raw.githubusercontent.com/FreshRSS/FreshRSS/refs/heads/edge/p/themes/icons/favicon-256.png
+    gethomepage.dev/pod-selector: "app=freshrss-app"
+    gethomepage.dev/href: "https://rss.mcmumf.dev"
+  labels:
+    app: freshrss-app
+spec:
+  parentRefs:
+    - name: external-gateway
+      namespace: kube-system
+  hostnames:
+    - "rss.mcmumf.dev"
+  rules:
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /
+      backendRefs:
+        - name: freshrss-svc
+          port: 80

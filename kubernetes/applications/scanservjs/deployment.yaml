@@ -14,6 +14,9 @@ spec:
         app: scanservjs
     spec:
       automountServiceAccountToken: false
+      securityContext:
+        seccompProfile:
+          type: RuntimeDefault
       containers:
         - name: scanservjs
           image: sbs20/scanservjs:v3.0.4
@@ -23,15 +26,14 @@ spec:
             requests:
               cpu: 250m
               ephemeral-storage: 1Gi
-              memory: 256Mi
+              memory: 32Mi
             limits:
-              cpu: 500m
               ephemeral-storage: 2Gi
-              memory: 1Gi
+              memory: 128Mi
           env:
             - name: SANED_NET_HOSTS
-              value: "192.168.1.242"
+              value: "192.168.2.13"
             - name: PIXMA_HOSTS
-              value: "192.168.1.242"
+              value: "192.168.2.13"
           ports:
             - containerPort: 8080

@@ -10,6 +10,7 @@ gatewayAPI:
 
 ingressController:
   enabled: true
+  enforceHttps: true
   loadbalancerMode: shared
 
 # Supports ingress
@@ -77,3 +78,29 @@ cgroup:
 
 k8sServiceHost: localhost
 k8sServicePort: 7445
+
+resources:
+  limits:
+    cpu: 4000m
+    memory: 4Gi
+  requests:
+    cpu: 100m
+    memory: 256Mi
+
+envoy:
+  resources:
+    limits:
+      cpu: 100m
+      memory: 128Mi
+    requests:
+      cpu: 100m
+      memory: 64Mi
+
+operator:
+  resources:
+    limits:
+      cpu: 200m
+      memory: 256Mi
+    requests:
+      cpu: 50m
+      memory: 128Mi

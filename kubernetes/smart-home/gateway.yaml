@@ -1,0 +1,45 @@
+apiVersion: gateway.networking.k8s.io/v1
+kind: Gateway
+metadata:
+  name: smart-home-gateway
+  namespace: smart-home
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-production
+  labels:
+    app: smart-home
+spec:
+  gatewayClassName: cilium
+  listeners:
+    - allowedRoutes:
+        namespaces:
+          from: All
+      hostname: hassio.mcmumf.dev
+      name: hassio-http
+      port: 80
+      protocol: HTTP
+    - allowedRoutes:
+        namespaces:
+          from: All
+      hostname: hassio-code.mcmumf.dev
+      name: hassio-code-https
+      port: 443
+      protocol: HTTPS
+      tls:
+        certificateRefs:
+          - group: ""
+            kind: Secret
+            name: hassio-code.mcmumf.dev-tls
+        mode: Terminate
+    - allowedRoutes:
+        namespaces:
+          from: All
+      hostname: z2m.mcmumf.dev
+      name: z2m-https
+      port: 443
+      protocol: HTTPS
+      tls:
+        certificateRefs:
+          - group: ""
+            kind: Secret
+            name: z2m.mcmumf.dev-tls2
+        mode: Terminate

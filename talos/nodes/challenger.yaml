@@ -4,4 +4,4 @@ machine:
     hostname: challenger
   install:
     disk: /dev/sdb
-    image: factory.talos.dev/metal-installer-secureboot/72b8d480a52e4864ddf7915064656d75b44474fcc48edbe9bdbbbc6223543695:v1.12.1
+    image: factory.talos.dev/metal-installer-secureboot/72b8d480a52e4864ddf7915064656d75b44474fcc48edbe9bdbbbc6223543695:v1.12.2

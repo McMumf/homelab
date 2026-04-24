@@ -3,5 +3,12 @@ kind: Kustomization
 namespace: outline
 
 resources:
-  - deployment.yaml
-  - service.yaml
+  - external-secrets.yaml
+
+helmCharts:
+  - name: redis
+    repo: https://charts.bitnami.com/bitnami
+    releaseName: outline-redis
+    namespace: outline
+    version: 25.3.12
+    valuesFile: values.yaml

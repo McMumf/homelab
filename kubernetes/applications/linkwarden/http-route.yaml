@@ -1,0 +1,30 @@
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: linkwarden-http-route
+  namespace: linkwarden
+  annotations:
+    gethomepage.dev/description: Collect, read, annotate, and fully preserve what matters, all in one place
+    gethomepage.dev/enabled: "true"
+    gethomepage.dev/group: Homelab
+    gethomepage.dev/icon: https://raw.githubusercontent.com/linkwarden/linkwarden/refs/heads/main/assets/logo.png
+    gethomepage.dev/name: Linkwarden
+    gethomepage.dev/pod-selector: "app.kubernetes.io/name=linkwarden"
+    gethomepage.dev/href: "https://links.mcmumf.dev"
+  labels:
+    app.kubernetes.io/instance: linkwarden
+    app.kubernetes.io/name: linkwarden
+spec:
+  parentRefs:
+    - name: external-gateway
+      namespace: kube-system
+  hostnames:
+    - "links.mcmumf.dev"
+  rules:
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /
+      backendRefs:
+        - name: linkwarden-svc
+          port: 3000

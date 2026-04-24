@@ -3,12 +3,13 @@ kind: Kustomization
 
 resources:
   - ./openebs
+  - external-secrets.yaml
 
 helmCharts:
   - name: kube-prometheus-stack
     repo: https://prometheus-community.github.io/helm-charts
     releaseName: prom-stack
     namespace: monitoring
-    version: 81.2.2
+    version: 83.6.0
     valuesFile: values.yaml
     includeCRDs: true

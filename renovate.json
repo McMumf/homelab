@@ -6,7 +6,7 @@
     "managerFilePatterns": ["/kubernetes/.+\\.yaml$/"]
   },
   "argocd": {
-    "managerFilePatterns": ["/\\app.yaml$/"]
+    "managerFilePatterns": ["/\\argo-app.yaml$/"]
   },
   "packageRules": [
     {
