@@ -13,28 +13,67 @@ spec:
       labels:
         app: bentopdf
     spec:
-      automountServiceAccountToken: false
-      terminationGracePeriodSeconds: 10
+      securityContext:
+        runAsNonRoot: true
+        seccompProfile:
+          type: RuntimeDefault
+        runAsUser: 101
+        runAsGroup: 101
+        fsGroup: 101
       containers:
         - name: bentopdf
-          image: ghcr.io/alam00000/bentopdf-simple:sha-eb60bbe
+          image: ghcr.io/alam00000/bentopdf-simple:2.8.4
           securityContext:
-            runAsNonRoot: true
             allowPrivilegeEscalation: false
-            seccompProfile:
-              type: RuntimeDefault
+            readOnlyRootFilesystem: false
             capabilities:
               drop:
                 - ALL
           resources:
             limits:
-              cpu: 2000m
+              cpu: 1000m
               ephemeral-storage: 8Gi
-              memory: 2Gi
+              memory: 512Mi
             requests:
-              cpu: 500m
+              cpu: 250m
               ephemeral-storage: 8Gi
-              memory: 2Gi
+              memory: 128Mi
           ports:
-            - containerPort: 8080
-              name: tcp
+            - name: http
+              containerPort: 8080
+              protocol: TCP
+          env:
+            - name: LOG_LEVEL
+              value: "INFO"
+            - name: BENTOML_PORT
+              value: "8080"
+          livenessProbe:
+            httpGet:
+              path: /
+              port: http
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 3
+          readinessProbe:
+            httpGet:
+              path: /
+              port: http
+            initialDelaySeconds: 10
+            periodSeconds: 5
+            timeoutSeconds: 3
+            failureThreshold: 3
+          volumeMounts:
+            - name: nginx-tmp
+              mountPath: /etc/nginx/tmp
+            - name: nginx-cache
+              mountPath: /var/cache/nginx
+            - name: nginx-run
+              mountPath: /var/run
+      volumes:
+        - name: nginx-tmp
+          emptyDir: {}
+        - name: nginx-cache
+          emptyDir: {}
+        - name: nginx-run
+          emptyDir: {}

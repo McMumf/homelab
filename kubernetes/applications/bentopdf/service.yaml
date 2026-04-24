@@ -1,14 +1,15 @@
 apiVersion: v1
 kind: Service
 metadata:
-  labels:
-    app: bentopdf
   name: bentopdf-svc
   namespace: apps
+  labels:
+    app: bentopdf
 spec:
   ports:
-    - name: web
+    - name: http
       port: 8080
-      targetPort: 8080
+      targetPort: http
+      protocol: TCP
   selector:
     app: bentopdf
