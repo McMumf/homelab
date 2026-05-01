@@ -5,7 +5,7 @@ metadata:
   namespace: velero
 spec:
   # Run Weekly
-  schedule: "0 2 * * *"
+  schedule: "0 2 * * 0"
   template:
     # Include all namespaces
     includedNamespaces:
@@ -21,6 +21,7 @@ spec:
       kind: configmap
       name: velero-anti-nfs-policy
     # Add labels to track scheduled backups
-    labels:
-      schedule: daily
-      type: full
+    metadata:
+      labels:
+        schedule: weekly
+        type: full
