@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: hortusfox
-          image: ghcr.io/danielbrendel/hortusfox-web:v5.7
+          image: ghcr.io/danielbrendel/hortusfox-web:v5.8
           ports:
             - containerPort: 80
               name: hortusfox-port
