@@ -10,5 +10,5 @@ helmCharts:
     repo: https://charts.zigbee2mqtt.io
     releaseName: zigbee2mqtt
     namespace: smart-home
-    version: 2.9.2
+    version: 2.10.0
     valuesFile: values.yaml
