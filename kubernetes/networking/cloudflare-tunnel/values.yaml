@@ -44,6 +44,10 @@ cloudflare:
       service: http://cilium-gateway-external-gateway.kube-system.svc.cluster.local:80
       originRequest:
         originServerName: mcmumf.dev
+    - hostname: "plants.mcmumf.dev"
+      service: http://cilium-gateway-external-gateway.kube-system.svc.cluster.local:80
+      originRequest:
+        originServerName: mcmumf.dev
     - hostname: "n8n.mcmumf.dev"
       service: http://cilium-ingress.kube-system.svc.cluster.local:80
     - hostname: "*.mcmumf.dev"

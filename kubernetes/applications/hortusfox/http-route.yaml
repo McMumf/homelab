@@ -25,4 +25,4 @@ spec:
             value: /
       backendRefs:
         - name: hortusfox-svc
-          port: 80
+          port: 8080
