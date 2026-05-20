@@ -22,7 +22,7 @@ spec:
         fsGroup: 1000
       containers:
         - name: mealie
-          image: ghcr.io/mealie-recipes/mealie:v3.17.0
+          image: ghcr.io/mealie-recipes/mealie:v3.18.0
           resources:
             requests:
               memory: 256Mi
