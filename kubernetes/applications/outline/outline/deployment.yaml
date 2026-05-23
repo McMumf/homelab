@@ -162,7 +162,7 @@ spec:
               mountPath: /var/lib/outline/data
       initContainers:
         - name: wait-for-redis
-          image: busybox:1.37
+          image: busybox:1.38
           securityContext:
             allowPrivilegeEscalation: false
             capabilities:
