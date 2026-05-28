@@ -1,0 +1,28 @@
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: jellystat-http-route
+  namespace: media
+  annotations:
+    gethomepage.dev/description: Jellyfin Metrics
+    gethomepage.dev/enabled: "true"
+    gethomepage.dev/group: Media
+    gethomepage.dev/icon: https://raw.githubusercontent.com/CyferShepard/Jellystat/refs/heads/main/public/favicon.ico
+    gethomepage.dev/name: Jellystat
+    gethomepage.dev/pod-selector: "app=jellystat"
+  labels:
+    app: jellystat
+spec:
+  parentRefs:
+    - name: internal-gateway
+      namespace: kube-system
+  hostnames:
+    - "jellystat.mcmumf.dev"
+  rules:
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /
+      backendRefs:
+        - name: jellystat
+          port: 3000

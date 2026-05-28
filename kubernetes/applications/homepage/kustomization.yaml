@@ -7,7 +7,7 @@ resources:
   - cluster-role.yaml
   - config-map.yaml
   - deployment.yaml
-  - ingress.yaml
+  - http-route.yaml
   - secret.yaml
   - service-account.yaml
   - service.yaml

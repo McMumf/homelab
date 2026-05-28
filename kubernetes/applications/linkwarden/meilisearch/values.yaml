@@ -1,6 +1,6 @@
 image:
   repository: getmeili/meilisearch
-  tag: v1.41.0
+  tag: v1.44.0
 environment:
   MEILI_NO_ANALYTICS: true
   MEILI_ENV: production
@@ -9,7 +9,7 @@ auth:
 
 resources:
   limits:
-    memory: 128Mi
+    memory: 1Gi
   requests:
     cpu: 100m
-    memory: 128Mi
+    memory: 256Mi

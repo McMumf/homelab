@@ -1,0 +1,28 @@
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: actualbudget-http-route
+  namespace: actualbudget
+  annotations:
+    gethomepage.dev/description: Manage your finances
+    gethomepage.dev/enabled: "true"
+    gethomepage.dev/group: Homelab
+    gethomepage.dev/icon: https://raw.githubusercontent.com/actualbudget/actual/refs/heads/master/packages/docs/static/img/favicon.webp
+    gethomepage.dev/name: Actual Budget
+    gethomepage.dev/pod-selector: "app.kubernetes.io/name=actualbudget"
+  labels:
+    app: actualbudget
+spec:
+  parentRefs:
+    - name: internal-gateway
+      namespace: kube-system
+  hostnames:
+    - "actualbudget.mcmumf.dev"
+  rules:
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /
+      backendRefs:
+        - name: actualbudget
+          port: 5006

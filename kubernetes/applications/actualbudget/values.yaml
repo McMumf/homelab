@@ -19,7 +19,7 @@ login:
       clientSecretKey: client-secret
 
 ingress:
-  enabled: true
+  enabled: false
   className: cilium
   annotations:
     cert-manager.io/cluster-issuer: "letsencrypt-production"

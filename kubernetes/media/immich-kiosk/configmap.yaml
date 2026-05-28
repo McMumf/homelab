@@ -44,6 +44,7 @@ data:
       - "f4ebf943-9826-48f7-af1c-5563ae978cad"
       - "1729919f-0915-4411-b4cb-1c885ab2a73c"
       - "508036df-151a-456d-b344-c76a8f3b6ebb"
+      - "20b2d0f4-27b0-4116-8b77-2f3e5e53d90a"
     album_order: random # random | newest | oldest
     # Album IDs to exclude from being shown. Albums in this list will be filtered from
     # appearing in the frame even if they are included in the 'album' list.

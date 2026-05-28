@@ -2,7 +2,7 @@ app:
   timezone: "America/New_York"
   global:
     image:
-      tag: 2.4
+      tag: 2.5
     securityContext:
       seccompProfile:
         type: RuntimeDefault
@@ -22,26 +22,22 @@ app:
   environment:
     - name: SITE_URL
       value: "https://fitness.mcmumf.dev"
+    - name: CSRF_TRUSTED_ORIGINS
+      value: "https://fitness.mcmumf.dev"
     - name: GUNICORN_CMD_ARGS
       value: '--timeout 240 --workers 2 --worker-class gthread --threads 3 --forwarded-allow-ips * --proxy-protocol True --access-logformat=''%(h)s %(l)s %({client-ip}i)s %(l)s %({x-real-ip}i)s %(l)s %({x-forwarded-for}i)s %(l)s %(t)s "%(r)s" %(s)s %(b)s "%(f)s" "%(a)s"'' --access-logfile - --error-logfile -'
 
 celery:
-  enabled: true
+  enabled: false
 
 ingress:
-  enabled: true
+  enabled: false
   ingressClassName: cilium
   url: fitness.mcmumf.dev
   tls: false
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt-production
-    gethomepage.dev/description: Fitness Tracker
-    gethomepage.dev/enabled: "true"
-    gethomepage.dev/group: Homelab
-    gethomepage.dev/icon: https://raw.githubusercontent.com/wger-project/wger/master/wger/core/static/images/logos/logo.png
-    gethomepage.dev/name: wger
-    gethomepage.dev/pod-selector: "app.kubernetes.io/name=wger-app"
-    gethomepage.dev/href: "https://fitness.mcmumf.dev"
+
 postgres:
   # Note: keep these variables present as the wger chart uses them for the deployment
   # the superuser and user settings will be saved into a secret
@@ -75,17 +71,17 @@ postgres:
 redis:
   enabled: true
   auth:
-    enabled: true
+    enabled: false
   # Additional environment variables (Redis server and Sentinel)
-  env:
-    - name: REDIS_PASSWORD
-      valueFrom:
-        secretKeyRef:
-          name: redis
-          key: redis-password
+  # env:
+  #   - name: REDIS_PASSWORD
+  #     valueFrom:
+  #       secretKeyRef:
+  #         name: redis
+  #         key: redis-password
   # Arguments for the container entrypoint process (Redis server)
-  args:
-    - "--requirepass $(REDIS_PASSWORD)"
+  # args:
+  #   - "--requirepass $(REDIS_PASSWORD)"
   storage:
     className: openebs
   service:

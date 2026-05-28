@@ -1,0 +1,79 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bentopdf
+  namespace: apps
+spec:
+  selector:
+    matchLabels:
+      app: bentopdf
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: bentopdf
+    spec:
+      securityContext:
+        runAsNonRoot: true
+        seccompProfile:
+          type: RuntimeDefault
+        runAsUser: 101
+        runAsGroup: 101
+        fsGroup: 101
+      containers:
+        - name: bentopdf
+          image: ghcr.io/alam00000/bentopdf-simple:2.8.5
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: false
+            capabilities:
+              drop:
+                - ALL
+          resources:
+            limits:
+              cpu: 1000m
+              ephemeral-storage: 8Gi
+              memory: 512Mi
+            requests:
+              cpu: 250m
+              ephemeral-storage: 8Gi
+              memory: 128Mi
+          ports:
+            - name: http
+              containerPort: 8080
+              protocol: TCP
+          env:
+            - name: LOG_LEVEL
+              value: "INFO"
+            - name: BENTOML_PORT
+              value: "8080"
+          livenessProbe:
+            httpGet:
+              path: /
+              port: http
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 3
+          readinessProbe:
+            httpGet:
+              path: /
+              port: http
+            initialDelaySeconds: 10
+            periodSeconds: 5
+            timeoutSeconds: 3
+            failureThreshold: 3
+          volumeMounts:
+            - name: nginx-tmp
+              mountPath: /etc/nginx/tmp
+            - name: nginx-cache
+              mountPath: /var/cache/nginx
+            - name: nginx-run
+              mountPath: /var/run
+      volumes:
+        - name: nginx-tmp
+          emptyDir: {}
+        - name: nginx-cache
+          emptyDir: {}
+        - name: nginx-run
+          emptyDir: {}

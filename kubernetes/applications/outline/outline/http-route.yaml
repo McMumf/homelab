@@ -1,11 +1,9 @@
-apiVersion: networking.k8s.io/v1
-kind: Ingress
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
 metadata:
-  name: outline-ingress
+  name: outline-http-route
   namespace: outline
   annotations:
-    # ingress.cilium.io/tls-passthrough: enabled
-    # cert-manager.io/cluster-issuer: letsencrypt-production
     gethomepage.dev/description: Our own knowledge base
     gethomepage.dev/enabled: "true"
     gethomepage.dev/group: Homelab
@@ -17,19 +15,16 @@ metadata:
     app.kubernetes.io/name: outline
     app.kubernetes.io/instance: outline
 spec:
-  ingressClassName: cilium
+  parentRefs:
+    - name: external-gateway
+      namespace: kube-system
+  hostnames:
+    - "notes.mcmumf.dev"
   rules:
-    - host: notes.mcmumf.dev
-      http:
-        paths:
-          - path: /
-            pathType: Prefix
-            backend:
-              service:
-                name: outline-svc
-                port:
-                  number: 3000
-  # tls:
-  #   - hosts:
-  #       - notes.mcmumf.dev
-  #     secretName: notes.mcmumf.dev-tls
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /
+      backendRefs:
+        - name: outline-svc
+          port: 3000

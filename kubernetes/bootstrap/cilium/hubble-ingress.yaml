@@ -1,24 +1,24 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: immich-kiosk-ingress
-  namespace: immich
+  name: hubble
+  namespace: kube-system
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt-production
 spec:
   ingressClassName: cilium
   tls:
     - hosts:
-        - &host photo-frame.mcmumf.dev
-      secretName: photo-frame.mcmumf.dev-tls
+        - hubble.mcmumf.dev
+      secretName: hubble.mcmumf.dev-tls
   rules:
-    - host: *host
+    - host: hubble.mcmumf.dev
       http:
         paths:
           - path: /
             pathType: Prefix
             backend:
               service:
-                name: immich-kiosk
+                name: hubble-ui
                 port:
-                  number: 3000
+                  number: 80

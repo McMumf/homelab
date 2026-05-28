@@ -4,7 +4,9 @@ namespace: media
 
 resources:
   - ./db
-  # - external-secrets.yaml
-  - ingress.yaml
-  - statefulset.yaml
+  - deployment.yaml
+  - external-secrets.yaml
+  - http-route.yaml
+  - pvc.yaml
+  # - statefulset.yaml
   - service.yaml

@@ -1,0 +1,26 @@
+apiVersion: gateway.networking.k8s.io/v1
+kind: Gateway
+metadata:
+  name: internal-gateway
+  namespace: kube-system
+  labels:
+    cilium.io/gateway: "true"
+spec:
+  gatewayClassName: cilium
+  addresses:
+    - type: IPAddress
+      value: 192.168.5.13
+  listeners:
+    - name: internal-gw
+      protocol: HTTPS
+      port: 443
+      hostname: "*.mcmumf.dev"
+      allowedRoutes:
+        namespaces:
+          from: All
+      tls:
+        mode: Terminate
+        certificateRefs:
+          - name: internal-wildcard-cert
+            kind: Secret
+            group: ""

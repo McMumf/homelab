@@ -7,21 +7,47 @@ cloudflare:
   # https://developers.cloudflare.com/cloudflare-one/connections/connect-apps/configuration/configuration-file/ingress
   ingress:
     - hostname: "loc.mcmumf.dev"
-      service: http://cilium-gateway-traccar-gateway.traccar.svc.cluster.local:80
+      service: http://cilium-gateway-external-gateway.kube-system.svc.cluster.local:80
+      originRequest:
+        originServerName: mcmumf.dev
+    - hostname: "hassio.mcmumf.dev"
+      service: http://cilium-gateway-external-gateway.kube-system.svc.cluster.local:80
       originRequest:
         originServerName: mcmumf.dev
     - hostname: "grafana.mcmumf.dev"
       service: http://cilium-ingress.kube-system.svc.cluster.local:80
     - hostname: "links.mcmumf.dev"
-      service: http://cilium-ingress.kube-system.svc.cluster.local:80
+      service: http://cilium-gateway-external-gateway.kube-system.svc.cluster.local:80
+      originRequest:
+        originServerName: mcmumf.dev
     - hostname: "photos.mcmumf.dev"
-      service: http://cilium-ingress.kube-system.svc.cluster.local:80
-    - hostname: "jellystat.mcmumf.dev"
-      service: http://cilium-ingress.kube-system.svc.cluster.local:80
+      service: http://cilium-gateway-external-gateway.kube-system.svc.cluster.local:80
+      originRequest:
+        originServerName: mcmumf.dev
     - hostname: "fitness.mcmumf.dev"
-      service: http://cilium-ingress.kube-system.svc.cluster.local:80
+      service: http://cilium-gateway-external-gateway.kube-system.svc.cluster.local:80
+      originRequest:
+        originServerName: mcmumf.dev
     - hostname: "notes.mcmumf.dev"
-      service: http://cilium-ingress.kube-system.svc.cluster.local:80
+      service: http://cilium-gateway-external-gateway.kube-system.svc.cluster.local:80
+      originRequest:
+        originServerName: mcmumf.dev
+    - hostname: "recipes.mcmumf.dev"
+      service: http://cilium-gateway-external-gateway.kube-system.svc.cluster.local:80
+      originRequest:
+        originServerName: mcmumf.dev
+    - hostname: "rss.mcmumf.dev"
+      service: http://cilium-gateway-external-gateway.kube-system.svc.cluster.local:80
+      originRequest:
+        originServerName: mcmumf.dev
+    - hostname: "jellyfin.mcmumf.dev"
+      service: http://cilium-gateway-external-gateway.kube-system.svc.cluster.local:80
+      originRequest:
+        originServerName: mcmumf.dev
+    - hostname: "plants.mcmumf.dev"
+      service: http://cilium-gateway-external-gateway.kube-system.svc.cluster.local:80
+      originRequest:
+        originServerName: mcmumf.dev
     - hostname: "n8n.mcmumf.dev"
       service: http://cilium-ingress.kube-system.svc.cluster.local:80
     - hostname: "*.mcmumf.dev"
@@ -30,4 +56,4 @@ cloudflare:
         originServerName: mcmumf.dev
 
 image:
-  tag: "2026.3.0"
+  tag: "2026.5.2"

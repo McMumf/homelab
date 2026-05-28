@@ -33,7 +33,7 @@ spec:
       serviceAccountName: outline-svc-acct
       containers:
         - name: outline
-          image: outlinewiki/outline:1.6.1
+          image: outlinewiki/outline:1.7.1
           imagePullPolicy: Always
           securityContext:
             allowPrivilegeEscalation: false
@@ -162,7 +162,7 @@ spec:
               mountPath: /var/lib/outline/data
       initContainers:
         - name: wait-for-redis
-          image: busybox:1.37
+          image: busybox:1.38
           securityContext:
             allowPrivilegeEscalation: false
             capabilities:
