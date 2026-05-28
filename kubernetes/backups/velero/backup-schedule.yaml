@@ -1,0 +1,27 @@
+apiVersion: velero.io/v1
+kind: Schedule
+metadata:
+  name: daily-backup
+  namespace: velero
+spec:
+  # Run Weekly
+  schedule: "0 2 * * 0"
+  template:
+    # Include all namespaces
+    includedNamespaces:
+      - "*"
+    # Exclude velero namespace
+    excludedNamespaces:
+      - velero
+      - openebs
+    # Include persistent volumes
+    defaultVolumesToFsBackup: true
+    snapshotVolumes: true
+    resourcePolicy:
+      kind: configmap
+      name: velero-anti-nfs-policy
+    # Add labels to track scheduled backups
+    metadata:
+      labels:
+        schedule: weekly
+        type: full
