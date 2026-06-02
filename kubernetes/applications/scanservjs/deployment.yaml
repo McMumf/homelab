@@ -19,7 +19,7 @@ spec:
           type: RuntimeDefault
       containers:
         - name: scanservjs
-          image: sbs20/scanservjs:v3.0.4
+          image: sbs20/scanservjs:3.1.0
           securityContext:
             privileged: false
           resources:

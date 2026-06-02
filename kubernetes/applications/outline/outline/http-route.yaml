@@ -25,6 +25,13 @@ spec:
         - path:
             type: PathPrefix
             value: /
+      # Pass along the header so we can avoid "Error: Cannot send secure cookie over unencrypted connection"
+      filters:
+        - type: RequestHeaderModifier
+          requestHeaderModifier:
+            set:
+              - name: X-Forwarded-Proto
+                value: https
       backendRefs:
         - name: outline-svc
           port: 3000
