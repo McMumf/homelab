@@ -102,7 +102,7 @@ Shortcut link: [v1.13.0](https://factory.talos.dev/?arch=amd64&cmdline-set=true&
     ```sh
     talosctl gen key --name admin
     talosctl gen csr --key admin.key --ip 127.0.0.1
-    talosctl gen crt --ca ca --csr admin.csr --name admin
+    talosctl gen crt --ca ca --csr admin.csr --name admin --hours 8670
     ```
 
 3. Put the base64 representations of the above certs into the talosconfig file
