@@ -109,7 +109,7 @@ spec:
         name: pocket-id-data
       spec:
         accessModes: ["ReadWriteOnce"]
-        storageClassName: "openebs"
+        storageClassName: "democratic-iscsi"
         resources:
           requests:
             storage: 4Gi

@@ -17,10 +17,10 @@ cluster:
 
   storage:
     size: 8Gi
-    storageClass: openebs
+    storageClass: democratic-iscsi
 
   walStorage:
-    storageClass: openebs
+    storageClass: democratic-iscsi
     size: 8Gi
 
   postgresql:
@@ -47,4 +47,4 @@ cluster:
 
 backup:
   volumeSnapshot:
-    className: csi-openebs-snapshotclass
+    className: democratic-iscsi-snapshots
