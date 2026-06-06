@@ -1,0 +1,22 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: democratic-csi
+  namespace: argocd
+spec:
+  project: default
+  sources:
+    # Kustomization
+    - repoURL: "https://github.com/clbx/JuiceCloud"
+      targetRevision: "main"
+      path: kubernetes/storage/democratic-csi
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: democratic-csi
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+      - ServerSideApply=true

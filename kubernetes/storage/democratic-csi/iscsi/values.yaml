@@ -1,0 +1,38 @@
+controller:
+  driver:
+    image:
+      tag: next
+
+csiDriver:
+  name: iscsi
+
+driver:
+  config:
+    driver: freenas-api-iscsi
+  existingConfigSecret: truenas-iscsi-driver-config
+
+node:
+  hostPID: true
+  driver:
+    extraEnv:
+      - name: ISCSIADM_HOST_STRATEGY
+        value: nsenter
+      - name: ISCSIADM_HOST_PATH
+        value: /usr/local/sbin/iscsiadm
+    iscsiDirHostPath: /var/iscsi
+    iscsiDirHostPathType: ""
+
+storageClasses:
+  - allowVolumeExpansion: true
+    defaultClass: true
+    name: democratic-iscsi
+    parameters:
+      detachedVolumesFromSnapshots: "false"
+      fsType: ext4
+    reclaimPolicy: Delete
+    volumeBindingMode: WaitForFirstConsumer
+
+volumeSnapshotClasses:
+  - name: iscsi
+    parameters:
+      detachedSnapshots: "true"

@@ -1,0 +1,31 @@
+controller:
+  driver:
+    image:
+      tag: next
+
+csiDriver:
+  name: nfs
+
+driver:
+  config:
+    driver: freenas-api-nfs
+  existingConfigSecret: truenas-nfs-driver-config
+
+storageClasses:
+  - allowVolumeExpansion: true
+    defaultClass: false
+    mountOptions:
+      - noatime
+      - nfsvers=3
+      - nolock
+    name: democratic-nfs
+    parameters:
+      detachedVolumesFromSnapshots: "false"
+      fsType: nfs
+    reclaimPolicy: Delete
+    volumeBindingMode: WaitForFirstConsumer
+
+volumeSnapshotClasses:
+  - name: nfs
+    parameters:
+      detachedSnapshots: "true"
