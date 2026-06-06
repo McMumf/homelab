@@ -33,7 +33,7 @@ spec:
       serviceAccountName: outline-svc-acct
       containers:
         - name: outline
-          image: outlinewiki/outline:1.8.0
+          image: outlinewiki/outline:1.8.1
           imagePullPolicy: Always
           securityContext:
             allowPrivilegeEscalation: false
