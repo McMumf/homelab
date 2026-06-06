@@ -26,6 +26,6 @@ storageClasses:
     volumeBindingMode: WaitForFirstConsumer
 
 volumeSnapshotClasses:
-  - name: nfs
+  - name: democratic-nfs-snapshotclass
     parameters:
       detachedSnapshots: "true"

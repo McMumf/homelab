@@ -33,6 +33,6 @@ storageClasses:
     volumeBindingMode: WaitForFirstConsumer
 
 volumeSnapshotClasses:
-  - name: iscsi
+  - name: democratic-iscsi-snapshotclass
     parameters:
       detachedSnapshots: "true"
