@@ -22,7 +22,7 @@ storageClasses:
     parameters:
       detachedVolumesFromSnapshots: "false"
       fsType: nfs
-    reclaimPolicy: Delete
+    reclaimPolicy: Retain
     volumeBindingMode: WaitForFirstConsumer
 
 volumeSnapshotClasses:
