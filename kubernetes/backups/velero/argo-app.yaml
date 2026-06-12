@@ -8,7 +8,7 @@ spec:
   sources:
     # Ingress
     - repoURL: "https://vmware-tanzu.github.io/helm-charts"
-      targetRevision: "12.0.0"
+      targetRevision: "12.0.2"
       chart: velero
       helm:
         releaseName: velero
