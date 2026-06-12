@@ -1,4 +1,14 @@
 deployNodeAgent: true
+nodeAgent:
+  podVolumePath: /var/lib/kubelet/pods
+  privileged: true
+  resources:
+    requests:
+      cpu: 500m
+      memory: 512Mi
+    limits:
+      cpu: 1000m
+      memory: 1Gi
 
 credentials:
   useSecret: false
@@ -14,9 +24,15 @@ initContainers:
     volumeMounts:
       - name: plugins
         mountPath: /target
+  - name: velero-plugin-for-csi
+    image: velero/velero-plugin-for-csi:v0.6.0
+    volumeMounts:
+      - name: plugins
+        mountPath: /target
 
 configuration:
   defaultVolumesToFsBackup: true
+  defaultVolumeSnapshotLocations: aws:default-vsl
   backupStorageLocation:
     - name: backblaze
       provider: aws
@@ -30,7 +46,7 @@ configuration:
         s3ForcePathStyle: "true"
         s3Url: https://s3.us-east-005.backblazeb2.com
   volumeSnapshotLocation:
-    - name: aws-default
+    - name: default-vsl
       provider: velero.io/aws
       bucket: mumf-homelab-backups
       credential:
@@ -39,6 +55,11 @@ configuration:
       config:
         region: us-east-005
         incremental: "true"
+  # Feature flags
+  features: EnableCSI
+
+  # Garbage collection
+  garbageCollectionFrequency: 1h
 
 extraObjects:
   - apiVersion: external-secrets.io/v1
@@ -80,3 +101,12 @@ extraObjects:
                 - hostPath
             action:
               type: skip
+
+# Velero server resources
+resources:
+  requests:
+    cpu: 500m
+    memory: 128Mi
+  limits:
+    cpu: 1000m
+    memory: 512Mi
