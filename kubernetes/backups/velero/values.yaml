@@ -1,7 +1,18 @@
+snapshotsEnabled: false
+
 deployNodeAgent: true
+nodeAgent:
+  resources:
+    requests:
+      cpu: 500m
+      memory: 512Mi
+    limits:
+      cpu: 1000m
+      memory: 1Gi
 
 credentials:
-  useSecret: false
+  useSecret: true
+  existingSecret: velero-s3-creds
 
 kubectl:
   image:
@@ -9,7 +20,7 @@ kubectl:
 
 initContainers:
   - name: velero-plugin-for-aws
-    image: velero/velero-plugin-for-aws:v1.14.1
+    image: velero/velero-plugin-for-aws:v1.13.0
     imagePullPolicy: IfNotPresent
     volumeMounts:
       - name: plugins
@@ -17,28 +28,17 @@ initContainers:
 
 configuration:
   defaultVolumesToFsBackup: true
+  defaultBackupStorageLocation: backblaze
   backupStorageLocation:
     - name: backblaze
       provider: aws
       bucket: mumf-homelab-backups
       default: true
-      credential:
-        name: velero-s3-creds
-        key: credentials
       config:
         region: us-east-005
         s3ForcePathStyle: "true"
         s3Url: https://s3.us-east-005.backblazeb2.com
-  volumeSnapshotLocation:
-    - name: aws-default
-      provider: aws
-      bucket: mumf-homelab-backups
-      credential:
-        name: velero-s3-creds
-        key: credentials
-      config:
-        region: us-east-005
-        profile: "default"
+  volumeSnapshotLocation: []
 
 extraObjects:
   - apiVersion: external-secrets.io/v1
@@ -54,7 +54,7 @@ extraObjects:
       target:
         name: velero-s3-creds
       data:
-        - secretKey: credentials
+        - secretKey: cloud
           remoteRef:
             key: backups/backblaze
             property: bucket-credentials
@@ -80,3 +80,12 @@ extraObjects:
                 - hostPath
             action:
               type: skip
+
+# Velero server resources
+resources:
+  requests:
+    cpu: 500m
+    memory: 128Mi
+  limits:
+    cpu: 1000m
+    memory: 512Mi
