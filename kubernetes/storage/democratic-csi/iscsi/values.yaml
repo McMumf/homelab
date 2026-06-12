@@ -35,5 +35,8 @@ storageClasses:
 
 volumeSnapshotClasses:
   - name: democratic-iscsi-snapshotclass
+    labels:
+      # Set as the defacto velero snapshot class
+      velero.io/csi-volumesnapshot-class: true
     parameters:
       detachedSnapshots: "true"
