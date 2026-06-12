@@ -4,11 +4,11 @@ metadata:
   name: daily-backup
   namespace: velero
 spec:
-  # Keep for 21 days
-  ttl: 504h
   # Run Weekly
   schedule: "0 2 * * 0"
   template:
+    # Keep for 21 days
+    ttl: 504h
     # Include all namespaces
     includedNamespaces:
       - "*"
