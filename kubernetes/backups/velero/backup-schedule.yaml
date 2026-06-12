@@ -17,6 +17,7 @@ spec:
       - velero
       - openebs
       - kube-system
+      - monitoring
     includeClusterResources: true
     storageLocation: backblaze
     volumeSnapshotLocations:
