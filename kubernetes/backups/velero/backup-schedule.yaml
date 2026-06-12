@@ -4,6 +4,8 @@ metadata:
   name: daily-backup
   namespace: velero
 spec:
+  # Keep for 21 days
+  ttl: 504
   # Run Weekly
   schedule: "0 2 * * 0"
   template:
@@ -16,12 +18,12 @@ spec:
       - openebs
     # Include persistent volumes
     defaultVolumesToFsBackup: true
-    snapshotVolumes: true
+    snapshotVolumes: false
     resourcePolicy:
       kind: configmap
       name: velero-anti-nfs-policy
     # Add labels to track scheduled backups
     metadata:
       labels:
-        schedule: weekly
+        schedule: daily
         type: full
