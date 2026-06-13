@@ -26,14 +26,15 @@ spec:
       containers:
         - name: minio
           image: cgr.dev/chainguard/minio:latest
-          args: ["server", "/data", "--console-address", ":9001"]
+          args: ["server", "/data", "--address", ":9000"]
           securityContext:
+            runAsNonRoot: true
             allowPrivilegeEscalation: false
             capabilities:
               drop:
                 - ALL
           ports:
-            - name: http
+            - name: api
               containerPort: 9000
               protocol: TCP
             - name: console
@@ -41,30 +42,29 @@ spec:
               protocol: TCP
           imagePullPolicy: Always
           env:
-            - name: MINIO_BROWSER_REDIRECT_URL
-              value: "https://s3.mcmumf.dev/"
+            - name: MINIO_SERVER_URL
+              value: "https://s3.mcmumf.dev"
             - name: MINIO_ROOT_USER
               value: "minioadmin"
             - name: MINIO_ROOT_PASSWORD
               value: "minioadmin123"
-            - name: MINIO_DEFAULT_BUCKETS
-              value: "images"
           livenessProbe:
             httpGet:
               path: /minio/health/live
-              port: http
-            initialDelaySeconds: 10
-            periodSeconds: 30
-            timeoutSeconds: 10
-            failureThreshold: 3
+              port: api
+            periodSeconds: 10
           readinessProbe:
             httpGet:
+              path: /minio/health/ready
+              port: api
+            periodSeconds: 10
+          startupProbe:
+            httpGet:
               path: /minio/health/live
-              port: http
-            initialDelaySeconds: 10
-            periodSeconds: 30
+              port: api
+            periodSeconds: 10
             timeoutSeconds: 10
-            failureThreshold: 3
+            failureThreshold: 30
           volumeMounts:
             - name: minio-storage
               mountPath: "/data"

@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: minio-browser
+  namespace: minio
+  labels:
+    app: minio-browser
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: minio-browser
+  template:
+    metadata:
+      labels:
+        app: minio-browser
+    spec:
+      automountServiceAccountToken: false
+      terminationGracePeriodSeconds: 10
+      securityContext:
+        seccompProfile:
+          type: RuntimeDefault
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+      containers:
+        - name: minio-browser
+          image: ghcr.io/astrateam-net/minio-browser:1.7.6
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+          ports:
+            - name: http
+              containerPort: 9090
+              protocol: TCP
+          imagePullPolicy: Always
+          env:
+            - name: CONSOLE_MINIO_SERVER
+              value: "http://minio-service.minio.svc.cluster.local:9000"
+            - name: MINIO_ROOT_USER
+              value: "minioadmin"
+            - name: MINIO_ROOT_PASSWORD
+              value: "minioadmin123"
