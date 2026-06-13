@@ -11,5 +11,5 @@ helmCharts:
     repo: https://traccar.github.io/traccar-helm/
     releaseName: traccar
     namespace: traccar
-    version: 1.9.0
+    version: 1.10.0
     valuesFile: values.yaml
